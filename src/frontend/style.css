@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; 
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.brand, .sign-in {
+    font-size: 18px;
+    color: rgb(110, 109, 109);
+    cursor: pointer;
+}
+
+.sign-in {
+    background: none;
+    border: none;
+}
+
+.welcome-container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+h1 {
+    color: rgb(110, 109, 109);
+}
+
+.create-account {
+    padding: 10px 15px;
+    border: 2px solid darkgray; 
+    background-color: white;
+    color: rgb(110, 109, 109);
+    font-size: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    width: 200px;
+    margin: 20px auto;
+}
+
+.create-account:hover {
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
