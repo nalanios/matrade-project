@@ -47,7 +47,18 @@ h1 {
     color: rgb(110, 109, 109);
 }
 
-.create-account {
+label {
+    font-size: 16px;
+    color: rgb(0, 0, 0);
+}
+
+input{
+    font-size: 16px;
+    padding: 8px;
+    
+}
+
+.create-account, .restaurant-user, .customer-user, .profile, .login {
     padding: 10px 15px;
     border: 2px solid darkgray; 
     background-color: white;
@@ -61,6 +72,26 @@ h1 {
 }
 
 .create-account:hover {
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
+
+.restaurant-user:hover{
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
+
+.customer-user:hover{
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
+
+.profile:hover{
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
+
+.login:hover{
     background-color: rgb(110, 109, 109);
     color: white;
 }

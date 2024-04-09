@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Creation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header">
+        <span class="brand">Maître d'</span>
+        <button id ="signIn" button class="sign-in">Sign In</button>
+    </div>
+    <!-- This container includes the Account Registration details -->
+    <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
+        <div class="account-creation">
+            <h1>Account Creation</h1>
+            <p>Are you a Restaurant or a Customer?</p>
+            <button id="restaurant" class="restaurant-user">Restaurant</button>
+            <button id="customer" class="customer-user">Customer</button><br><br> 
+            <!--Please note that I referenced W3Schools. (2024). HTML Input Types. W3Schools. https://www.w3schools.com/html/html_form_input_types.asp for the following section -->
+            <label for="firstname">First name:</label><br>
+            <input type="text" id="firstname" name="firstname"><br>
+            <label for="lastname">Last name:</label><br>
+            <input type="text" id="lastname" name="lastname"><br>
+            <label for="emailaddress">Email Address:</label><br>
+            <input type="email" id="emailaddress" name="emailaddress"><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <button id="completeregistration" class="profile">Complete Registration</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
