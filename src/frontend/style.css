@@ -26,13 +26,18 @@ body {
     box-sizing: border-box;
 }
 
-.brand, .sign-in {
+.brand, .sign-in, .user-profile {
     font-size: 18px;
     color: rgb(110, 109, 109);
     cursor: pointer;
 }
 
 .sign-in {
+    background: none;
+    border: none;
+}
+
+.user-profile {
     background: none;
     border: none;
 }
@@ -45,6 +50,11 @@ body {
 
 h1 {
     color: rgb(110, 109, 109);
+}
+
+h2 {
+    color: rgb(110, 109, 109);
+    font-weight: bold;
 }
 
 label {
