@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot Application</title>
+</head>
+<body>
+    <h1>Spring Boot Application</h1>
+    
+    <!-- Form to enter data -->
+    <form id="dataForm">
+        <label for="username">Enter Username:</label>
+        <input type="text" id="username" name="username">
+        <label for="email">Enter Email:</label>
+        <input type="text" id="email" name="email">
+        <label for="inputData">Enter Password:</label>
+        <input type="text" id="password" name="password">
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Output area for displaying server response -->
+    <div id="output"></div>
+
+    <script>
+        // Function to send data to the server
+        function sendData(data) {
+            fetch('/auth/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data }),
+            })
+            .then(response => response.json())
+            .then(responseData => {
+                // Display server response in the output area
+                document.getElementById('output').innerText = responseData.message;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        // Event listener for form submission
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Get user-entered data from the form
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const formData = {
+                username: username,
+                email: email,
+                password: password
+            };
+
+            // Send data to the server
+            sendData(formData);
+        });
+    </script>
+</body>
+</html>
