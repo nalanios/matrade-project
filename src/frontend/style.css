@@ -57,6 +57,13 @@ h2 {
     font-weight: bold;
 }
 
+h3 {
+    color: rgb(110, 109, 109);
+    font-weight: bold;
+    font-size: 24px;
+    text-decoration: underline;
+}
+
 label {
     font-size: 16px;
     color: rgb(0, 0, 0);
