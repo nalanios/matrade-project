@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot Application</title>
+</head>
+<body>
+    <h1>Spring Boot Application</h1>
+    
+    <!-- Form to enter data -->
+    <form id="dataForm">
+        <label for="username">Enter Username:</label>
+        <input type="text" id="username" name="username">
+<!--         <label for="email">Enter Email:</label> -->
+<!--         <input type="text" id="email" name="email"> -->
+        <label for="password">Enter Password:</label>
+        <input type="text" id="password" name="password">
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Output area for displaying server response -->
+    <div id="output"></div>
+
+    <script>
+        // Function to send data to the server
+     
+        async function sendData(username, password) {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            if(response.status == 200){
+				const token = await response.text()
+				var jwt = JSON.parse(token);
+				localStorage.setItem('user', JSON.stringify(username));
+			    localStorage.setItem('jwt', JSON.stringify(jwt.jwt));
+			    redirect();
+	
+				//window.location.replace("http://localhost:8080/customer/home");
+            }
+
+        }
+        
+       
+		async function redirect(){
+			const token = localStorage.getItem("jwt");
+			const response = await fetch('http://localhost:8080/customer/home', {
+                method: 'GET',
+                headers: {
+                   Authorization: "Bearer " +  JSON.parse(token),
+                },
+                
+            })
+			if(response.status == 200){
+				console.log("success");
+				//window.location.replace("http://localhost:8080/customer/home");
+			}
+			if(response.status == 401){
+			console.log("fail");
+			}
+		}
+
+        // Event listener for form submission
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Get user-entered data from the form
+            const username = document.getElementById('username').value;
+          //  const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+			
+            const formData = {
+                username: username,
+                //email: email,
+                password: password
+            };
+
+            // Send data to the server
+            sendData(username, password);
+        });
+    </script>
+</body>
+</html>

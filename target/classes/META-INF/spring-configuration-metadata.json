@@ -1,0 +1,22 @@
+{
+  "groups": [
+    {
+      "name": "rsa",
+      "type": "com.Team3.MaitreD.utils.RSAKeyProperties",
+      "sourceType": "com.Team3.MaitreD.utils.RSAKeyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "rsa.private-key",
+      "type": "java.security.interfaces.RSAPrivateKey",
+      "sourceType": "com.Team3.MaitreD.utils.RSAKeyProperties"
+    },
+    {
+      "name": "rsa.public-key",
+      "type": "java.security.interfaces.RSAPublicKey",
+      "sourceType": "com.Team3.MaitreD.utils.RSAKeyProperties"
+    }
+  ],
+  "hints": []
+}
