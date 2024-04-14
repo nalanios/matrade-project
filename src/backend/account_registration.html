@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <script src="passwordValidator.js"></script> <!-- Make sure to implement the JS validation -->
+    <style>
+        /* Add your CSS styling here */
+        #passwordGuidelines {
+            font-size: 0.9em;
+            color: #666;
+        }
+        #welcomeMessage {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        /* Additional styles here */
+    </style>
+</head>
+<body>
+
+<div id="welcomeMessage">
+    Welcome to MaitreD! Please create an account to get started.
+</div>
+
+<form id="createAccountForm">
+    <!-- ... other form fields ... -->
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" onkeyup="checkPasswordStrength();" required 
+        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+        title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+    <br>
+    <div id="passwordStrength">Password Strength: <span id="strengthValue">None</span></div>
+    <div id="passwordGuidelines">
+        Your password should be at least 8 characters long and include a mix of upper and lower case letters, numbers, and special characters like !@#$%^&*.
+    </div>
+    <br>
+
+    <label for="confirmpassword">Confirm Password:</label><br>
+    <input type="password" id="confirmpassword" name="confirmpassword" required><br><br>
+    
+    <button id="completeregistration" class="profile">Complete Registration</button>
+</form>
+
+<!-- ... rest of your page ... -->
+
+<script>
+// JavaScript to validate password strength and match here
+</script>
+
+</body>
+</html>
