@@ -27,7 +27,7 @@ public class RegistrationDTO {
     }
     
     public String getEmail(){
-        return this.username;
+        return this.email;
     }
 
     public void setEmail(String email){
