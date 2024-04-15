@@ -57,6 +57,13 @@ h2 {
     font-weight: bold;
 }
 
+h3 {
+    color: rgb(110, 109, 109);
+    font-weight: bold;
+    font-size: 24px;
+    text-decoration: underline;
+}
+
 label {
     font-size: 16px;
     color: rgb(0, 0, 0);
@@ -104,4 +111,68 @@ input{
 .login:hover{
     background-color: rgb(110, 109, 109);
     color: white;
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    width: 150px;  
+}
+
+.sign-out {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: rgb(110, 109, 109);
+    cursor: pointer;
+}
+
+.sign-out:hover {
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
+
+/* styles for selecting and rating in searchfood webpage */
+select {
+    font-size: 16px;
+    padding: 8px;
+    width: auto; 
+    color: #333; 
+    background-color: white; 
+}
+
+option {
+    font-family: Arial, sans-serif; 
+    color: black; 
+}
+
+/* search results output*/
+.results-container {
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.result-item {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+button.result-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    transition: background-color 0.2s;
+}
+
+button.result-button:hover {
+    background-color: #e0e0e0;
 }

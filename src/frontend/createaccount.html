@@ -26,9 +26,17 @@
             <label for="emailaddress">Email Address:</label><br>
             <input type="email" id="emailaddress" name="emailaddress"><br>
             <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password"><br><br>
-            <button id="completeregistration" class="profile">Complete Registration</button>
-        </div>
+            <input type="password" id="password" name="password" onkeyup="checkPasswordStrength();" required 
+                pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"><br>
+    <div id="passwordStrength">Password Strength: <span id="strengthValue">None</span></div>
+    <div id="passwordGuidelines">
+        Your password should be at least 8 characters long and include a mix of upper and lower case letters, numbers, and special characters like !@#$%^&*.
+    </div>
+    <br>
+    <label for="confirmpassword">Confirm Password:</label><br>
+    <input type="password" id="confirmpassword" name="confirmpassword" required><br><br>
+    <button id="completeregistration" class="profile">Complete Registration</button>
     </div>
     <script src="script.js"></script>
 </body>
