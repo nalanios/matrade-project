@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Food</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"> <!-- for star ratings -->
+</head>
+<body>
+    <div class="header">
+        <span class="brand">Maître d'</span>
+        <div>
+            <button id="myProfile" class="user-profile">My Profile</button>
+            <button id="signOut" class="sign-out">Sign Out</button>
+        </div>
+    </div>
+    <div class="centered-container">
+        <div class="welcome-container">
+            <h2>Let's Find Some Food</h2>
+            <div class="search-box">
+                <label for="restaurant">Restaurant Search:</label>
+                <input type="text" id="restaurant" name="restaurant">
+                <label for="cuisine">Cuisine:</label>
+                <select id="cuisine" name="cuisine">
+                    <option value="">Select Cuisine</option>
+                    <option value="american">American</option>
+                    <option value="chinese">Chinese</option>
+                    <option value="french">French</option>
+                    <option value="italian">Italian</option>
+                    <option value="japanese">Japanese</option>
+                    <option value="mexican">Mexican</option>
+                    <option value="thai">Thai</option>
+                    <option value="indian">Indian</option>
+                    <option value="korean">Korean</option>
+                    <option value="mediterranean">Mediterranean</option>
+                </select>
+                <label for="price">Price:</label>
+                <select id="price" name="price">
+                    <option value="">Select Price</option>
+                    <option value="$">$</option>
+                    <option value="$$">$$</option>
+                    <option value="$$$">$$$</option>
+                    <option value="$$$$">$$$$</option>
+                </select>
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating">
+                    <option value="">Select Rating</option>
+                    <option value="1">★☆☆☆☆ - 1 Star</option>
+                    <option value="2">★★☆☆☆ - 2 Stars</option>
+                    <option value="3">★★★☆☆ - 3 Stars</option>
+                    <option value="4">★★★★☆ - 4 Stars</option>
+                    <option value="5">★★★★★ - 5 Stars</option>
+                </select>
+            </div>
+            <button id="searchButton" class="login">Search</button>
+            <!-- Results will be displayed below -->
+            <div id="searchResults" class="results-container"></div>
+        </div>        
+    </div>
+    <script src="../static/js/script.js"></script>
+</body>
+</html>

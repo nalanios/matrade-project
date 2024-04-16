@@ -3,28 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spring Boot Application</title>
+    <title>Sign In</title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
-    <h1>Spring Boot Application</h1>
-    
-    <!-- Form to enter data -->
-    <form id="dataForm">
-        <label for="username">Enter Username:</label>
-        <input type="text" id="username" name="username">
-<!--         <label for="email">Enter Email:</label> -->
-<!--         <input type="text" id="email" name="email"> -->
-        <label for="password">Enter Password:</label>
-        <input type="text" id="password" name="password">
-        <button type="submit">Submit</button>
-    </form>
+<body>    
+    <div class="header">
+        <span class="brand">Maître d'</span>
+        <button id ="signIn" button class="sign-in">Sign In</button>
+    </div>
+    <!-- This container includes instructions for the user to sign into the Maitre d application -->
+    <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
+        <div class="welcome-container">
+            <h1>Sign Into Your Account</h1>
+            <!-- Form to enter data -->
+            <form id="dataForm">
+                <label for="username">Enter Username:</label>
+                <input type="text" id="username" name="username">
+        <!--         <label for="email">Enter Email:</label> -->
+        <!--         <input type="text" id="email" name="email"> -->
+                <label for="password">Enter Password:</label>
+                <input type="text" id="password" name="password">
+                <button type="submit" id="login">Submit</button>
+            </form>
+        </div>
+    </div>
 
-    <!-- Output area for displaying server response -->
+    <!-- Output area for displaying server response CURRENTLY UNUSED -->
     <div id="output"></div>
 
     <script>
         // Function to send data to the server
-     
         async function sendData(username, password) {
             const response = await fetch('http://localhost:8080/login', {
                 method: 'POST',
@@ -34,10 +42,14 @@
                 body: JSON.stringify({ username, password }),
             })
             if(response.status == 200){
-				const token = await response.text()
-				var jwt = JSON.parse(token);
+                const responseData = await response.json();
+                const token = responseData.jwt;
+				//const token = await response.text()
+                console.log(token);
+				//var jwt = JSON.parse(token);
 				localStorage.setItem('user', JSON.stringify(username));
-			    localStorage.setItem('jwt', JSON.stringify(jwt.jwt));
+			    //localStorage.setItem('jwt', JSON.stringify(jwt.jwt));
+                localStorage.setItem('jwt', JSON.stringify(token));
 			    redirect();
 	
 				//window.location.replace("http://localhost:8080/customer/home");
@@ -48,16 +60,18 @@
        
 		async function redirect(){
 			const token = localStorage.getItem("jwt");
-			const response = await fetch('http://localhost:8080/customer/home', {
+			const response = await fetch('http://localhost:8080/customer/profile', {
                 method: 'GET',
                 headers: {
-                   Authorization: "Bearer " +  JSON.parse(token),
-                },
-                
-            })
+                   Authorization: "Bearer " +  JSON.parse(token)
+                } 
+            });
+
 			if(response.status == 200){
 				console.log("success");
 				//window.location.replace("http://localhost:8080/customer/home");
+                const redirectUrl = "http://localhost:8080/customer/profile"; //?token="//+JSON.parse(token);
+                window.location.href = redirectUrl;
 			}
 			if(response.status == 401){
 			console.log("fail");
@@ -83,5 +97,8 @@
             sendData(username, password);
         });
     </script>
+
+    <!-- Scripts -->
+    <script src="/js/script.js"></script>
 </body>
 </html>
