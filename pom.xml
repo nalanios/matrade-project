@@ -14,7 +14,8 @@
 	<name>Maitre-D</name>
 	<description>Restaurant reservation system project</description>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>19</java.version>
+		<start-class>com.Team3.MaitreD.MaitreDApplication</start-class>
 	</properties>
 	
 	<dependencies>
