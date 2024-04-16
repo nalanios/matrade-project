@@ -69,6 +69,7 @@ public class SecurityConfiguration{
 					//auth.requestMatchers("/auth/**").permitAll();
 //					auth.requestMatchers("/admin/**").hasRole("ADMIN");
 					auth.requestMatchers("/customer/home").hasRole("CUSTOMER");
+                    auth.requestMatchers("/customer/profile").permitAll();
 					auth.requestMatchers("/restaurant/home").hasRole("RESTAURANT");
 					auth.anyRequest().authenticated();
 					
