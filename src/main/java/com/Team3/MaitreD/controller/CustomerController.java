@@ -21,6 +21,6 @@ public class CustomerController {
 	
 	@GetMapping("/profile")
 	public String customerProfile(Customer customer) {
-		return "profile";
+		return "customerprofile";
 	}
 }

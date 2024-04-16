@@ -4,7 +4,7 @@
 
 document.getElementById('createAccount').addEventListener('click', function() {
     console.log('Create Account button clicked');
-    window.location.href = "createaccount.html"; //directs user to the account creation page
+    window.location.href = "http://localhost:8080/register"; //directs user to the account creation page
 });
 
 document.getElementById('signIn').addEventListener('click', function() {
