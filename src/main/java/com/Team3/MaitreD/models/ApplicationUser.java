@@ -76,6 +76,7 @@ public class ApplicationUser implements UserDetails{
 	}
 	
 	public boolean hasRole(String role) {
+		System.out.println("checking roles");
 		List<SimpleGrantedAuthority> roles = new ArrayList<>();
 		for (Role authority: this.authorities) {
 			roles.add(new SimpleGrantedAuthority(authority.getAuthority()));
