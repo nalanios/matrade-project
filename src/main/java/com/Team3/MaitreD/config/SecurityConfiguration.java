@@ -68,8 +68,8 @@ public class SecurityConfiguration{
 					auth.requestMatchers("/login", "/register", "/h2-console/**").permitAll();
 					//auth.requestMatchers("/auth/**").permitAll();
 //					auth.requestMatchers("/admin/**").hasRole("ADMIN");
-                    auth.requestMatchers("/customer/profile").permitAll(); //temporary for redirect. TODO: implement CUSTOMER ROLE only access
-                    auth.requestMatchers("/customer/home").permitAll(); //temporary for redirect. TODO: implement CUSTOMER ROLE only access
+            auth.requestMatchers("/customer/profile").permitAll(); //temporary for redirect. TODO: implement CUSTOMER ROLE only access
+            auth.requestMatchers("/customer/home").permitAll(); //temporary for redirect. TODO: implement CUSTOMER ROLE only access
 //					auth.requestMatchers("/customer/home").hasRole("CUSTOMER");
 					auth.requestMatchers("/restaurant/home").hasRole("RESTAURANT");
 					//auth.anyRequest().authenticated();
