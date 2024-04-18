@@ -26,7 +26,7 @@ public class TokenService {
 	}
 
 	public String generateJwt(Authentication auth){
-
+		System.out.println("generate jwt");
 	      Instant now = Instant.now();
 
 	      String scope = auth.getAuthorities().stream()

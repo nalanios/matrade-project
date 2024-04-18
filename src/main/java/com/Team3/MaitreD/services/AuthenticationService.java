@@ -84,6 +84,7 @@ public class AuthenticationService {
 	            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
 
 	        } catch(AuthenticationException e){
+				System.out.println("Error: auth exception on login. "+e.getMessage());
 	            return new LoginResponseDTO(null, "");
 	        }
 	    }
