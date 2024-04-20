@@ -1,0 +1,56 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Creation</title>
+    <link rel="stylesheet" href="/css/style.css"> <!--DO NOT CHANGE: run the springboot aplication to see css-->
+</head>
+<body>
+
+    <div class="header">
+        <span class="brand">Maître d'</span>
+        <button id ="signIn" button class="sign-in">Sign In</button>
+    </div>
+    <!-- This container includes the Account Registration details -->
+    <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
+        <div class="account-creation">
+            <h1>Customer Information</h1>
+            <form id="registerForm" action="/register" method="post" onsubmit="registerUser(event)">
+                <div>
+                    <label for="firstname">First name:</label><br>
+                    <input type="text" id="firstname" name="firstname"><br>
+                </div>
+                <div>
+                    <label for="lastname">Last name:</label><br>
+                    <input type="text" id="lastname" name="lastname"><br>
+                </div>
+                <div>
+                <button type="submit" button id="completeregistration" class="profile">Register</button>
+            </form>
+
+    <script>
+        async function registerUser(event) {
+            event.preventDefault();
+            const form = document.getElementById('registerForm');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    console.log('Registration successful');
+                    window.location.href = 'http://localhost:8080/login';
+                } else {
+                    console.error('Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
