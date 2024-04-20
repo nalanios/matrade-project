@@ -22,7 +22,7 @@
         <!--         <label for="email">Enter Email:</label> -->
         <!--         <input type="text" id="email" name="email"> -->
                 <label for="password">Enter Password:</label>
-                <input type="text" id="password" name="password">
+                <input type="password" id="password" name="password">
                 <button type="submit" id="login">Submit</button>
             </form>
         </div>
@@ -56,11 +56,36 @@
             }
 
         }
-        
-       
-		async function redirect(){
+
+		async function redirect() {
 			const token = localStorage.getItem("jwt");
-			const response = await fetch('http://localhost:8080/customer/profile', {
+            fetch("http://localhost:8080/check-roles?token="+JSON.parse(token))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch roles");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Roles:", data);
+                    data.forEach(role => {
+                        console.log("Role:", role);
+                    });
+                    if (data.includes("CUSTOMER")) {
+                        performRedirect("/customer/profile", token);
+                    } else if (data.includes("RESTAURANT")) {
+                        performRedirect("/restaurant/profile", token);
+                    } else {
+                        console.log("No valid route found");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        async function performRedirect(route, token) {
+			const response = await fetch('http://localhost:8080'+route, {
                 method: 'GET',
                 headers: {
                    Authorization: "Bearer " +  JSON.parse(token)
@@ -70,7 +95,7 @@
 			if(response.status == 200){
 				console.log("success");
 				//window.location.replace("http://localhost:8080/customer/home");
-                const redirectUrl = "http://localhost:8080/customer/profile"; //?token="//+JSON.parse(token);
+                const redirectUrl = "http://localhost:8080"+route; //?token="//+JSON.parse(token);
                 window.location.href = redirectUrl;
 			}
 			if(response.status == 401){
