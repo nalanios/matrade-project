@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>    
+    <div class="header">
+        <span class="brand">Maître d'</span>
+        <button id ="signIn" button class="sign-in">Sign In</button>
+    </div>
+    <!-- This container includes instructions for the user to sign into the Maitre d application -->
+    <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
+        <div class="welcome-container">
+            <h1>Sign Into Your Account</h1>
+            <!-- Form to enter data -->
+            <form id="dataForm">
+                <label for="username">Enter Username:</label>
+                <input type="text" id="username" name="username">
+        <!--         <label for="email">Enter Email:</label> -->
+        <!--         <input type="text" id="email" name="email"> -->
+                <label for="password">Enter Password:</label>
+                <input type="password" id="password" name="password">
+                <button type="submit" id="login">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Output area for displaying server response CURRENTLY UNUSED -->
+    <div id="output"></div>
+
+    <script>
+        // Function to send data to the server
+        async function sendData(username, password) {
+            const response = await fetch('http://localhost:8080/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            if(response.status == 200){
+                const responseData = await response.json();
+                const token = responseData.jwt;
+                const role = responseData.user.userType;
+				console.log(role);
+				localStorage.setItem('user', JSON.stringify(username));
+                localStorage.setItem('jwt', JSON.stringify(token));
+			    
+                if(role == 'Customer'){
+                	window.location.replace("http://localhost:8080/customer/profile")
+                }
+                else if(role == 'Restaurant'){
+                	window.location.replace("http://localhost:8080/restaurant/profile")
+                }                
+            	}
+
+        }
+        
+//         logout() {
+//             this.user = '';
+//             this.token = '';
+//             localStorage.removeItem('user');
+//             localStorage.removeItem('token');
+//             router.push('/login');
+//           }
+
+
+        // Event listener for form submission
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            // Get user-entered data from the form
+            const username = document.getElementById('username').value;
+          //  const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Send data to the server
+            sendData(username, password);
+        });
+    </script>
+
+    <!-- Scripts -->
+    <script src="/js/script.js"></script>
+</body>
+</html>
