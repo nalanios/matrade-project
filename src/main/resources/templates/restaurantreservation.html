@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation - Restaurant 1</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="header-wrapper">
+        <header id="header" class="container">
+            <div id="logo">
+                <h1><a href="CustomerHome.html">Maitre-D</a></h1>
+                <span>by Team 3</span>
+            </div>
+            <nav id="nav">
+                <ul>
+                    <li><a href="CustomerHome.html">Welcome</a></li>
+                    <li><a href="@{/MyProfile}">Profile</a></li>
+                    <li><a href="@{/MyReservations}">Reservations</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <div class="centered-container">
+        <div class="welcome-container">
+            <h1>Restaurant A</h1> <!--  placeholder title here, will need to add logic to get restaurant name from whatever restaurant the customer chooses -->
+            <form id="reservationForm" class="reservation-form">
+                <label for="date">Preferred Date:</label>
+                <input type="date" id="date" name="date" required><br>
+
+                <label for="time">Preferred Time:</label>
+                <input type="time" id="time" name="time" required><br>
+
+                <label for="guests">Party Size:</label>
+                <input type="number" id="guests" name="guests" min="1" required><br>
+
+                <div class="available-tables">           
+                    <h2>Available Tables</h2>
+                    <div class="table">
+                        <span>Table 1 | Booth | Seats 6</span>
+                        <button class="reserve-button">Reserve</button>
+                    </div>
+                    <div class="table">
+                        <span>Table 2 | Indoor | Seats 2</span>
+                        <button class="reserve-button">Reserve</button>
+                    </div>
+                    <div class="table">
+                        <span>Table 3 | Outdoor | Seats 4</span>
+                        <button class="reserve-button">Reserve</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="/js/main.js"></script>
+</body>
+</html>
