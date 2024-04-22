@@ -33,7 +33,7 @@ public class TemplateController {
 		return "uploadForm";
 	}
 	
-	@GetMapping("/restaurant/registration")
+	@GetMapping("/restaurant/information")
 	public String registerRestaurant() {
 		return "restaurantinformation";
 	}
@@ -48,7 +48,7 @@ public class TemplateController {
 		return "customerprofile";
 	}
 	
-	@GetMapping("/customer/registration")
+	@GetMapping("/customer/information")
 	public String registerCustomer() {
 		return "customerinformation";
 	}

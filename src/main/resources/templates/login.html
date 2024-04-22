@@ -48,16 +48,88 @@
 				console.log(role);
 				localStorage.setItem('user', JSON.stringify(username));
                 localStorage.setItem('jwt', JSON.stringify(token));
-			    
-                if(role == 'Customer'){
+			    redirect();
+                /*if(role == 'Customer'){
                 	window.location.replace("http://localhost:8080/customer/profile")
                 }
                 else if(role == 'Restaurant'){
                 	window.location.replace("http://localhost:8080/restaurant/profile")
-                }                
-            	}
+                }*/                
+            }
 
         }
+
+        async function redirect() {
+			const token = localStorage.getItem("jwt");
+            fetch("http://localhost:8080/check-roles?token="+JSON.parse(token))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to fetch roles");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Roles:", data);
+                    data.forEach(role => {
+                        console.log("Role:", role);
+                    });
+                    if (data.includes("CUSTOMER")) {
+                        checkIfAccountExists("customer")
+                            .then(customerExists => {
+                                if (customerExists) {
+                                    performRedirect("/customer/profile", token);
+                                } else {
+                                    performRedirect("/customer/information", token);
+                                }
+                            })
+                            .catch(error => error => {
+                                console.error("Error:", error);
+                            });
+                        
+                    } else if (data.includes("RESTAURANT")) {
+                        performRedirect("/restaurant/profile", token);
+                    } else {
+                        console.log("No valid route found");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+        async function checkIfAccountExists(accountType) {
+            const response = await fetch('http://localhost:8080/'+accountType+'/check-exists?username='+JSON.parse(localStorage.getItem('user')), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data)
+                return data;
+            } else {
+                throw new Error('Failed to check if '+accountType+' account exists.');
+            }
+        }
+
+        async function performRedirect(route, token) {
+			const response = await fetch('http://localhost:8080'+route, {
+                method: 'GET',
+                headers: {
+                   Authorization: "Bearer " +  JSON.parse(token)
+                } 
+            });
+
+			if(response.status == 200){
+				console.log("success");
+                const redirectUrl = "http://localhost:8080"+route;
+                window.location.href = redirectUrl;
+			}
+			if(response.status == 401){
+			console.log("fail");
+			}
+		}
         
 //         logout() {
 //             this.user = '';
