@@ -59,6 +59,7 @@ public class SecurityConfiguration {
 				.authorizeHttpRequests(auth -> {
 					auth.requestMatchers( "/", "/css/**", "/js/**", "/imgs/**").permitAll();
 					auth.requestMatchers("/login", "/register", "/customer/**", "/restaurant/**", "/h2-console/**").permitAll();
+					auth.requestMatchers("/profile/{username}/information").hasRole("RESTAURANT");
 					auth.anyRequest().authenticated();
 					
 				});

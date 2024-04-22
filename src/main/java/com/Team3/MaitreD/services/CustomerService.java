@@ -19,15 +19,21 @@ public class CustomerService {
 	private CustomerRepository customerRepository;
 	
 	public void registerCustomer(String currentUsername, String firstName, String lastName, String phoneNumber) {
-		Optional<ApplicationUser> user = userRepository.findByUsername(currentUsername);
-		ApplicationUser currentUser = user.get();
-		Integer customer_id = currentUser.getAccount_id();
-		Optional<Customer> customer = customerRepository.findById(customer_id);
-		Customer currentCustomer = customer.get();
+		Customer currentCustomer = getCurrentCustomer(currentUsername);
 		
 		currentCustomer.setFirstName(firstName);
 		currentCustomer.setLastName(lastName);
 		currentCustomer.setPhoneNumber(phoneNumber);
 		customerRepository.save(currentCustomer);
+	}
+	
+	public Customer getCurrentCustomer(String username) {
+		Optional<ApplicationUser> user = userRepository.findByUsername(username);
+		ApplicationUser currentUser = user.get();
+		Integer customer_id = currentUser.getAccount_id();
+		Optional<Customer> customer = customerRepository.findById(customer_id);
+		Customer currentCustomer = customer.get();
+		
+		return currentCustomer;
 	}
 }

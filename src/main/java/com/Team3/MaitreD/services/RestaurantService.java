@@ -21,11 +21,7 @@ public class RestaurantService {
 	
 	public void registerRestaurant(String currentUsername, String restaurantName, String address, String phoneNumber, String cuisine, 
 								   String openingTime, String closingTime) {
-		Optional<ApplicationUser> user = userRepository.findByUsername(currentUsername);
-		ApplicationUser currentUser = user.get();
-		Integer restaurant_id = currentUser.getAccount_id();
-		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurant_id);
-		Restaurant currentRestaurant = restaurant.get();
+		Restaurant currentRestaurant = getCurrentRestaurant(currentUsername);
 		
 		currentRestaurant.setRestaurantName(restaurantName);
 		currentRestaurant.setAddress(address);
@@ -34,6 +30,15 @@ public class RestaurantService {
 		currentRestaurant.setOpeningTime(openingTime);
 		currentRestaurant.setClosingTime(closingTime);
 		restaurantRepository.save(currentRestaurant);
+	}
+	
+	public Restaurant getCurrentRestaurant(String username) {
+		Optional<ApplicationUser> user = userRepository.findByUsername(username);
+		ApplicationUser currentUser = user.get();
+		Integer restaurant_id = currentUser.getAccount_id();
+		Optional<Restaurant> restaurant = restaurantRepository.findById(restaurant_id);
+		Restaurant currentRestaurant = restaurant.get();
 		
+		return currentRestaurant;
 	}
 }

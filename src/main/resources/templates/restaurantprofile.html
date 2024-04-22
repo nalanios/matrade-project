@@ -30,7 +30,8 @@
     <script>
     async function loadPictures(username){
     	const response = await fetch(`http://localhost:8080/restaurant/${username}`, {
-             method: 'GET'
+             method: 'GET',
+            
          })
     	const responseData = await response.text();    	
 		console.log(responseData);
@@ -38,9 +39,22 @@
     	image.src = 'data:image/jpeg;base64,' + responseData;
     	document.body.appendChild(image);
     }
+   
+    async function getInformation(username){
+		const response = await fetch(`http://localhost:8080/profile/${username}/information`, {
+            method: 'GET',
+            headers: {
+                	Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+                }
+        })
+		const responseData = await response.json();
+		console.log(responseData);
+    }
+    
+    
     const username = localStorage.getItem('user');
    
-    loadPictures(username);
+    getInformation(username);
     </script>
     <script src="../static/js/script.js"></script>
 </body>
