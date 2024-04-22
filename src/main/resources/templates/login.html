@@ -85,9 +85,18 @@
                             .catch(error => error => {
                                 console.error("Error:", error);
                             });
-                        
                     } else if (data.includes("RESTAURANT")) {
-                        performRedirect("/restaurant/profile", token);
+                        checkIfAccountExists("restaurant")
+                            .then(restaurantExists => {
+                                if (restaurantExists) {
+                                    performRedirect("/restaurant/profile", token);
+                                } else {
+                                    performRedirect("/restaurant/information", token);
+                                }
+                            })
+                            .catch(error => error => {
+                                console.error("Error:", error);
+                            });
                     } else {
                         console.log("No valid route found");
                     }

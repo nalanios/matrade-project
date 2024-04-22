@@ -43,6 +43,7 @@ public class AuthenticationController {
     public LoginResponseDTO loginUser(@RequestBody RegistrationDTO body){
         return authenticationService.loginUser(body.getUsername(), body.getPassword());
     }
+    /* commented out since it kept giving errors, sorry
     // Testing for image upload
     @GetMapping("/restaurant/{username}")
     public String getImage (@PathVariable String username) {
@@ -52,7 +53,7 @@ public class AuthenticationController {
     	byte[] photo = currentUser.getPhoto();
     	String image = Base64.encodeBase64String(photo);
     	return image;
-    }
+    }*/
     	
     @GetMapping("/check-roles")
     public ResponseEntity<List<String>> getMethodName(@RequestParam String token) {
