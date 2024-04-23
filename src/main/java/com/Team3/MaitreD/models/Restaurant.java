@@ -21,7 +21,7 @@ public class Restaurant {
 	@Column(unique=true)
 	private String restaurantName;
 	private String address;
-	@Column(unique=true)
+	//@Column(unique=true)
 	private String phoneNumber;
 	private String cuisine;
 	private String openingTime;

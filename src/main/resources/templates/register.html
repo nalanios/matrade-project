@@ -49,7 +49,7 @@
             </form>
 
     <script>
-        async function registerUser(event) {
+        /*async function registerUser(event) {
             event.preventDefault();
             const form = document.getElementById('registerForm');
             const formData = new FormData(form);
@@ -70,6 +70,27 @@
                     	window.location.href = 'http://localhost:8080/restaurant/registration';
                     }
                     
+                } else {
+                    console.error('Registration failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }*/
+        async function registerUser(event) {
+            event.preventDefault();
+            const form = document.getElementById('registerForm');
+            const formData = new FormData(form);
+
+            try {
+                const response = await fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    console.log('Registration successful');
+                    window.location.href = 'http://localhost:8080/login';
                 } else {
                     console.error('Registration failed');
                 }

@@ -16,7 +16,7 @@
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
         <div class="account-creation">
             <h1>Restaurant Information</h1>
-            <form id="registerForm" method="post" onsubmit="registerUser(event)">
+            <form id="restaurantForm" action="/restaurant/update-information" method="post" onsubmit="updateRestaurantInformation(event)">
                 <div>
                     <label for="restaurantname">Restaurant Name:</label><br>
                     <input type="text" id="restaurantname" name="restaurantname"><br>
@@ -46,7 +46,7 @@
             </form>
 
     <script>
-        function registerUser(event) {
+        function updateRestaurantInformation(event) {
             event.preventDefault();
 //             const form = document.getElementById('registerForm');
 //             const formData = new FormData(form);
@@ -64,7 +64,7 @@
         	console.log(restaurantName, address, phoneNumber, cuisine, openingTime, closingTime);
         	const username = localStorage.getItem('user');
             try {
-                const response = await fetch(`http://localhost:8080/restaurant/registration/${username}`, {
+                const response = await fetch(`http://localhost:8080/restaurant/update-information/${username}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -73,10 +73,10 @@
                 });
 				
                 if (response.ok) {
-                    console.log('Registration successful');
-                    window.location.href = 'http://localhost:8080/login';
+                    console.log('Information update successful');
+                    window.location.href = 'http://localhost:8080/restaurant/profile';
                 } else {
-                    console.error('Registration failed');
+                    console.error('Information update failed');
                     
                 }
             } catch (error) {
