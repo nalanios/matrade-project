@@ -1,3 +1,4 @@
+// Entity that creates 'roles' table in database to store the apps different roles
 package com.Team3.MaitreD.models;
 
 import org.springframework.security.core.GrantedAuthority;

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,8 @@
         <div class="welcome-container">
             <!--Need to pull data from DB the name of the restaurant-->
             <h1>Restaurant's Profile</h1>
-            <p><u>Edit Restaurant Profile</u></p><br> <!--Need to hyperlink with which html page this is going to-->
+            <p><a href="/restaurant/information"><u>Edit Account Details</u></a></p>
+            <a class="nav-link active" th:href="@{/restaurant/upload-photos}">Upload Photos</a>
             <h2>Tables:</h2>
             <!--Pull data from DB-->
             <h3>Edit Available Tables</h3><br> <!--Need to hyperlink which html page this is going to-->
@@ -26,6 +27,35 @@
             <h3>Contact Customer</h3>
         </div>
     </div>
+    <script>
+    async function loadPictures(username){
+    	const response = await fetch(`http://localhost:8080/restaurant/${username}`, {
+             method: 'GET',
+            
+         })
+    	const responseData = await response.text();    	
+		console.log(responseData);
+    var image = new Image();
+    	image.src = 'data:image/jpeg;base64,' + responseData;
+    	document.body.appendChild(image);
+    }
+   
+    async function getInformation(username){
+		const response = await fetch(`http://localhost:8080/profile/${username}/information`, {
+            method: 'GET',
+            headers: {
+                	Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+                }
+        })
+		const responseData = await response.json();
+		console.log(responseData);
+    }
+    
+    
+    const username = localStorage.getItem('user');
+   
+    getInformation(username);
+    </script>
     <script src="/js/script.js"></script>
 </body>
 </html>

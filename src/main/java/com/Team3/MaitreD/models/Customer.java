@@ -1,89 +1,82 @@
+// Creates Customer table in database
 package com.Team3.MaitreD.models;
 
-import java.util.Collection;
-import java.util.Set;
-
-import org.springframework.security.core.GrantedAuthority;
-
-import org.springframework.security.core.userdetails.UserDetails;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.id.IncrementGenerator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 @Entity
 @Table(name="customers")
 public class Customer {
 	
-	private static final long serialVersionUID = 1L; //I dont know what this is but Spring says I need it
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO, generator = "seq")
+	@GenericGenerator(name = "seq", type=IncrementGenerator.class)
 	private Integer customer_id;
+	private String firstName;
+	private String lastName;
 	@Column(unique=true)
-	private String username;
-	private String password;
-	@Column(unique=true)
-	private String email;
+	private String phoneNumber;
 	
 	
-//	@ManyToMany(fetch=FetchType.EAGER)
-//	@JoinTable(
-//	        name="user_role_junction",
-//	        joinColumns = {@JoinColumn(name="customer_id")},
-//	        inverseJoinColumns = {@JoinColumn(name="role_id")}
-//	    )
-	//private Set<Role> authorities;
-	
+
 	public Customer() {
-		
-//		super();
-//		this.customer_id = user_id;
-//		this.username = username;
-//		this.password = password;
-//		this.email = email;
-		//this.authorities = authorities;
+		super();
 	}
 
-//	@Override
-//	public Collection<? extends GrantedAuthority> getAuthorities() {
-//		// TODO Auto-generated method stub
-//		return this.authorities;
-//	}
 
-	public void setUsername(String username) {
-		this.username = username;
+
+	public Integer getCustomer_id() {
+		return customer_id;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+
+
+	public void setCustomer_id(Integer customer_id) {
+		this.customer_id = customer_id;
 	}
 
-//	@Override
-//	public String getPassword() {
-//		
-//		return this.password;
-//	}
-//
-//	@Override
-//	public String getUsername() {
-//		
-//		return this.username;
-//	}
-	
-	public String getEmail() {
-		return email;
+
+
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
+
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
 
 
 

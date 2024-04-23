@@ -1,3 +1,4 @@
+//Data transfer object for registering new users and sending user account info to client side
 package com.Team3.MaitreD.models;
 
 public class RegistrationDTO {

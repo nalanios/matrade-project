@@ -1,26 +1,56 @@
+// Controller for Customer related pages
 package com.Team3.MaitreD.controller;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Team3.MaitreD.models.Customer;
+import com.Team3.MaitreD.models.CustomerDTO;
+import com.Team3.MaitreD.services.CustomerService;
 
-@Controller
+
+
+@RestController
 @RequestMapping("/customer")
 @CrossOrigin("*")
 public class CustomerController {
-	@GetMapping("/home")
-	public String customerView() {
-	//	@RequestHeader (name="Authorization") String token
-		return "CustomerHome";
-	}
 	
-	@GetMapping("/profile")
-	public String customerProfile(Customer customer) {
-		return "customerprofile";
+	@Autowired
+	CustomerService customerService;
+	
+	/*@PostMapping("/registration/{username}")
+	public void registerRestaurant(@RequestBody CustomerDTO body, @PathVariable String username) {
+		
+		username = username.replace("\"", "");
+	
+		customerService.updateCustomer(username, body.getFirstName(), body.getLastName(), 
+				body.getPhoneNumber());
+		
+	}*/
+	
+	@GetMapping("/{username}/information")
+	public Customer getInformation(@PathVariable String username) {
+		username = username.replace("\"", "");
+		return customerService.getCurrentCustomer(username);
 	}
+
+	@PostMapping("/update-information/{username}")
+    public Customer updateInformation(@RequestBody CustomerDTO body, @PathVariable String username) {
+		username = username.replace("\"", "");
+        return customerService.updateCustomer(username, body.getFirstName(), body.getLastName(), body.getPhoneNumber());
+    }
+
+	@GetMapping("/check-exists")
+	@ResponseBody
+    public boolean checkIfCustomerExists(@RequestParam String username) {
+		return customerService.checkIfCustomerExistsByUsername(username);
+    }
 }

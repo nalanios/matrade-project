@@ -1,3 +1,4 @@
+//Service class to register new users, customers, and restaurants, and authenticate login attempts 
 package com.Team3.MaitreD.services;
 
 import java.util.HashSet;
@@ -13,19 +14,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.Team3.MaitreD.models.ApplicationUser;
-
+import com.Team3.MaitreD.models.Customer;
 import com.Team3.MaitreD.models.LoginResponseDTO;
+import com.Team3.MaitreD.models.Restaurant;
 import com.Team3.MaitreD.models.Role;
-
+import com.Team3.MaitreD.repository.CustomerRepository;
+import com.Team3.MaitreD.repository.RestaurantRepository;
 import com.Team3.MaitreD.repository.RoleRepository;
 import com.Team3.MaitreD.repository.UserRepository;
 
 @Service
 @Transactional
 public class AuthenticationService {
-	 @Autowired
+		@Autowired
 	    private UserRepository userRepository;
-	 
+	 	
+		@Autowired
+		private RestaurantRepository restaurantRepository;
+		
+		@Autowired
+		private CustomerRepository customerRepository;
+		
 	    @Autowired
 	    private RoleRepository roleRepository;
 
@@ -41,39 +50,29 @@ public class AuthenticationService {
 	    public ApplicationUser registerUser(String username, String email, String password, String accountType){
 	    	
 	        String encodedPassword = passwordEncoder.encode(password);
-	       // Role userRole = roleRepository.findByAuthority("USER").get();
-	        
 	        Set<Role> authorities = new HashSet<>();
-	        //authorities.add(userRole);
-	     
+	      
+	        Integer accountId = 0;
 	        if(accountType.equals("Customer")) {
-	        	System.out.println(accountType);
 	        	Role userType = roleRepository.findByAuthority("CUSTOMER").get();
 	        	authorities.add(userType);
+	        	Customer customer = new Customer();
+	        	customerRepository.save(customer);
+	        	accountId = customer.getCustomer_id();
 	        }else if (accountType.equals("Restaurant")) {
 	        	Role userType = roleRepository.findByAuthority("RESTAURANT").get();
 	        	authorities.add(userType);
+	        	Restaurant restaurant = new Restaurant();
+	        	restaurantRepository.save(restaurant);
+	        	accountId = restaurant.getRestaurant_id();
 	        }
 	        
 	        
-	        return userRepository.save(new ApplicationUser(0, username, email, encodedPassword, accountType, authorities));
+	        return userRepository.save(new ApplicationUser(0, username, email, encodedPassword, accountType, authorities, accountId));
 	    }
-	    
-//	    public Customer registerCustomer(String username, String email, String password, String accountType){
-//
-//	        String encodedPassword = passwordEncoder.encode(password);
-//	        Role customerRole = roleRepository.findByAuthority("CUSTOMER").get();
-//
-//	        Set<Role> authorities = new HashSet<>();
-//
-//	        authorities.add(customerRole);
-//
-//	        return customerRepository.save(new Customer(0, username, email, encodedPassword, authorities));
-//	    }
-	    
 
 	    public LoginResponseDTO loginUser(String username, String password){
-	    	System.out.println("login user");
+	    	
 	        try{
 	            Authentication auth = authenticationManager.authenticate(
 	                new UsernamePasswordAuthenticationToken(username, password)
@@ -84,7 +83,6 @@ public class AuthenticationService {
 	            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
 
 	        } catch(AuthenticationException e){
-				System.out.println("Error: auth exception on login. "+e.getMessage());
 	            return new LoginResponseDTO(null, "");
 	        }
 	    }

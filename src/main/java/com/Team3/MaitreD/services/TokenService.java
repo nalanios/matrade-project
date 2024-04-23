@@ -1,3 +1,4 @@
+// Generates jwt tokens
 package com.Team3.MaitreD.services;
 
 import java.time.Instant;
@@ -28,13 +29,12 @@ public class TokenService {
 	}
 
 	public String generateJwt(Authentication auth){
-		System.out.println("generate jwt");
+
 	      Instant now = Instant.now();
 
 	      String scope = auth.getAuthorities().stream()
 	          .map(GrantedAuthority::getAuthority)
 	          .collect(Collectors.joining(" "));
-	      System.out.println("hi " + scope);
 	      JwtClaimsSet claims = JwtClaimsSet.builder()
 	          .issuer("self")
 	          .issuedAt(now)

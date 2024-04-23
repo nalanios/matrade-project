@@ -1,3 +1,4 @@
+// Save and retrive Restaurants from restaurants table of database
 package com.Team3.MaitreD.repository;
 
 import java.util.Optional;
@@ -9,5 +10,5 @@ import com.Team3.MaitreD.models.Restaurant;
 
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>{
-	Optional<Restaurant> findByUsername(String username);
+	Optional<Restaurant> findById(Integer id);
 }

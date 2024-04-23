@@ -1,3 +1,4 @@
+// Save and retrive Role from roles table of database
 package com.Team3.MaitreD.repository;
 
 import java.util.Optional;

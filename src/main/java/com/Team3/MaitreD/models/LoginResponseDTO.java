@@ -1,3 +1,4 @@
+//Data transfer object for handling logins.  Stores user info and jwt
 package com.Team3.MaitreD.models;
 
 public class LoginResponseDTO {

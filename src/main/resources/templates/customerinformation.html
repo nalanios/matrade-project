@@ -16,41 +16,60 @@
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
         <div class="account-creation">
             <h1>Customer Information</h1>
-            <form id="registerForm" action="/register" method="post" onsubmit="registerUser(event)">
+            <form id="customerForm" action="/customer/update-information" method="post" onsubmit="updateCustomerInformation(event)">
                 <div>
-                    <label for="firstname">First name:</label><br>
-                    <input type="text" id="firstname" name="firstname"><br>
+                    <label for="firstName">First name:</label><br>
+                    <input type="text" id="firstName" name="firstName"><br>
                 </div>
                 <div>
-                    <label for="lastname">Last name:</label><br>
-                    <input type="text" id="lastname" name="lastname"><br>
+                    <label for="lastName">Last name:</label><br>
+                    <input type="text" id="lastName" name="lastName"><br>
+                </div>
+                    <div>
+                    <label for="phonenum">Phone Number:</label>
+                    <input type="tel" id="phonenum" name="phonenum" placeholder="1-123-456-7891" 
+                    pattern="[1]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}"><br>
                 </div>
                 <div>
                 <button type="submit" button id="completeregistration" class="profile">Register</button>
             </form>
 
     <script>
-        async function registerUser(event) {
-            event.preventDefault();
-            const form = document.getElementById('registerForm');
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch('/register', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                if (response.ok) {
-                    console.log('Registration successful');
-                    window.location.href = 'http://localhost:8080/login';
-                } else {
-                    console.error('Registration failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
+    function updateCustomerInformation(event) {
+        event.preventDefault();
+//         const form = document.getElementById('registerForm');
+//         const formData = new FormData(form);
+		const firstName = document.getElementById('firstName').value;
+		const lastName = document.getElementById('lastName').value;
+		const phoneNumber = document.getElementById('phonenum').value;
+		
+		sendData(firstName, lastName, phoneNumber);
+    }
+    
+    async function sendData(firstName, lastName, phoneNumber){
+    	console.log(firstName, lastName, phoneNumber);
+    	const username = localStorage.getItem('user');
+        try {
+            const response = await fetch(`http://localhost:8080/customer/update-information/${username}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({firstName, lastName, phoneNumber}),
+            });
+			
+            if (response.ok) {
+                console.log('Information update successful');
+                window.location.href = 'http://localhost:8080/customer/profile';
+            } else {
+                console.error('Information update failed');
+                
             }
+        } catch (error) {
+            console.error('Error:', error);
         }
+    
+    }
     </script>
 </body>
 </html>

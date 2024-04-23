@@ -1,18 +1,17 @@
+//Class for using RSA keys generated from 'KeyGeneratorUtility' class
 package com.Team3.MaitreD.utils;
 
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RSAKeyProperties {
 	private RSAPublicKey publicKey;
     private RSAPrivateKey privateKey;
-
+    //create and set public and private RSA keys
     public RSAKeyProperties(){
         KeyPair pair = KeyGeneratorUtility.generateRsaKey();
         this.publicKey = (RSAPublicKey) pair.getPublic();

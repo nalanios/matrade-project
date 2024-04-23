@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="/css/style.css"> <!--DO NOT CHANGE: run the springboot aplication to see css-->
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>    
     <div class="header">
@@ -44,20 +44,22 @@
             if(response.status == 200){
                 const responseData = await response.json();
                 const token = responseData.jwt;
-				//const token = await response.text()
-                console.log(token);
-				//var jwt = JSON.parse(token);
+                const role = responseData.user.userType;
+				console.log(role);
 				localStorage.setItem('user', JSON.stringify(username));
-			    //localStorage.setItem('jwt', JSON.stringify(jwt.jwt));
                 localStorage.setItem('jwt', JSON.stringify(token));
 			    redirect();
-	
-				//window.location.replace("http://localhost:8080/customer/home");
+                /*if(role == 'Customer'){
+                	window.location.replace("http://localhost:8080/customer/profile")
+                }
+                else if(role == 'Restaurant'){
+                	window.location.replace("http://localhost:8080/restaurant/profile")
+                }*/                
             }
 
         }
 
-		async function redirect() {
+        async function redirect() {
 			const token = localStorage.getItem("jwt");
             fetch("http://localhost:8080/check-roles?token="+JSON.parse(token))
                 .then(response => {
@@ -72,9 +74,29 @@
                         console.log("Role:", role);
                     });
                     if (data.includes("CUSTOMER")) {
-                        performRedirect("/customer/profile", token);
+                        checkIfAccountExists("customer")
+                            .then(customerExists => {
+                                if (customerExists) {
+                                    performRedirect("/customer/profile", token);
+                                } else {
+                                    performRedirect("/customer/information", token);
+                                }
+                            })
+                            .catch(error => error => {
+                                console.error("Error:", error);
+                            });
                     } else if (data.includes("RESTAURANT")) {
-                        performRedirect("/restaurant/profile", token);
+                        checkIfAccountExists("restaurant")
+                            .then(restaurantExists => {
+                                if (restaurantExists) {
+                                    performRedirect("/restaurant/profile", token);
+                                } else {
+                                    performRedirect("/restaurant/information", token);
+                                }
+                            })
+                            .catch(error => error => {
+                                console.error("Error:", error);
+                            });
                     } else {
                         console.log("No valid route found");
                     }
@@ -82,6 +104,22 @@
                 .catch(error => {
                     console.error("Error:", error);
                 });
+        }
+
+        async function checkIfAccountExists(accountType) {
+            const response = await fetch('http://localhost:8080/'+accountType+'/check-exists?username='+JSON.parse(localStorage.getItem('user')), {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data)
+                return data;
+            } else {
+                throw new Error('Failed to check if '+accountType+' account exists.');
+            }
         }
 
         async function performRedirect(route, token) {
@@ -94,14 +132,22 @@
 
 			if(response.status == 200){
 				console.log("success");
-				//window.location.replace("http://localhost:8080/customer/home");
-                const redirectUrl = "http://localhost:8080"+route; //?token="//+JSON.parse(token);
+                const redirectUrl = "http://localhost:8080"+route;
                 window.location.href = redirectUrl;
 			}
 			if(response.status == 401){
 			console.log("fail");
 			}
 		}
+        
+//         logout() {
+//             this.user = '';
+//             this.token = '';
+//             localStorage.removeItem('user');
+//             localStorage.removeItem('token');
+//             router.push('/login');
+//           }
+
 
         // Event listener for form submission
         document.getElementById('dataForm').addEventListener('submit', function(event) {
@@ -111,12 +157,6 @@
             const username = document.getElementById('username').value;
           //  const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-			
-            const formData = {
-                username: username,
-                //email: email,
-                password: password
-            };
 
             // Send data to the server
             sendData(username, password);
