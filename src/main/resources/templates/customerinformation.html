@@ -19,16 +19,16 @@
             <form id="customerForm" action="/customer/update-information" method="post" onsubmit="updateCustomerInformation(event)">
                 <div>
                     <label for="firstName">First name:</label><br>
-                    <input type="text" id="firstName" name="firstName"><br>
+                    <input type="text" id="firstName" name="firstName" required><br>
                 </div>
                 <div>
                     <label for="lastName">Last name:</label><br>
-                    <input type="text" id="lastName" name="lastName"><br>
+                    <input type="text" id="lastName" name="lastName" required><br>
                 </div>
                     <div>
                     <label for="phonenum">Phone Number:</label>
                     <input type="tel" id="phonenum" name="phonenum" placeholder="1-123-456-7891" 
-                    pattern="[1]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}"><br>
+                    pattern="[1]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
                 </div>
                 <div>
                 <button type="submit" button id="completeregistration" class="profile">Register</button>

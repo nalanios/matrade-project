@@ -28,23 +28,13 @@ public class CustomerService {
 	} */
 	
 	public Customer updateCustomer(String username, String firstName, String lastName, String phoneNumber){
-		Optional<ApplicationUser> user = userRepository.findByUsername(username);
-		ApplicationUser currentUser = user.get();
-		Integer customer_id = currentUser.getAccount_id();
-	    Optional<Customer> existingCustomer = customerRepository.findById(customer_id);
-		if (existingCustomer.isPresent()) {
-			Customer updatedCustomer = existingCustomer.get();
+		
+			Customer updatedCustomer = getCurrentCustomer(username);
 			updatedCustomer.setFirstName(firstName);
 			updatedCustomer.setLastName(lastName);
 			updatedCustomer.setPhoneNumber(phoneNumber);
 			return customerRepository.save(updatedCustomer);
-		} else {
-			Customer customer = new Customer();
-			customer.setFirstName(firstName);
-			customer.setLastName(lastName);
-			customer.setPhoneNumber(phoneNumber);
-			return customerRepository.save(customer);
-		}
+	
 	}
 
 	public Customer getCurrentCustomer(String username) {
@@ -58,13 +48,8 @@ public class CustomerService {
 	}
 
 	public boolean checkIfCustomerExistsByUsername(String username) {
-		//TODO repeated 3 lines, can make into seperate function later
 		//TODO check when customer object should be created - refactor this
-		Optional<ApplicationUser> user = userRepository.findByUsername(username);
-		ApplicationUser currentUser = user.get();
-		Integer customer_id = currentUser.getAccount_id();
-		Optional<Customer> customer = customerRepository.findById(customer_id);
-		System.out.println(customer.get().getFirstName());
-		return customer.get().getFirstName() != null;
+		Customer currentCustomer = getCurrentCustomer(username);
+		return currentCustomer.getFirstName() != null;
 	}
 }

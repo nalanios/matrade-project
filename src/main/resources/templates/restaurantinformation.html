@@ -19,28 +19,28 @@
             <form id="restaurantForm" action="/restaurant/update-information" method="post" onsubmit="updateRestaurantInformation(event)">
                 <div>
                     <label for="restaurantname">Restaurant Name:</label><br>
-                    <input type="text" id="restaurantname" name="restaurantname"><br>
+                    <input type="text" id="restaurantname" name="restaurantname" required><br>
                 </div>
                 <div>
                     <label for="cuisine">Cuisine:</label><br>
-                    <input type="text" id="cuisine" name="cuisine"><br>
+                    <input type="text" id="cuisine" name="cuisine" required><br>
                 </div>
                 <div>
                     <label for="openhours">Opening Hours:</label>
-                    <input type="time" id="openhours" name="openhours"><br>
+                    <input type="time" id="openhours" name="openhours" required><br>
                 </div>
                 <div>
                     <label for="closehours">Closing Hours:</label>
-                    <input type="time" id="closinghours" name="closinghours"><br>
+                    <input type="time" id="closinghours" name="closinghours" required><br>
                 </div>
                 <div>
                     <label for="phonenum">Phone Number:</label>
                     <input type="tel" id="phonenum" name="phonenum" placeholder="1-123-456-7891" 
-                    pattern="[1]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}"><br>
+                    pattern="[1]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
                 </div>
                 <div>
                     <label for="address">Address:</label>
-                    <input type="address" id="address" name="address"><br>
+                    <input type="address" id="address" name="address" required><br>
                 </div>
                 <button type="submit" button id="completeregistration" class="profile">Register</button>
             </form>
