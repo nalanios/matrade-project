@@ -16,7 +16,7 @@
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
         <div class="welcome-container">
             <!--Need to pull data from DB the name of the restaurant-->
-            <h1>Restaurant's Profile</h1>
+            <h1 id="restaurantName">Restaurant's Profile</h1>
             <p><a href="/restaurant/information"><u>Edit Account Details</u></a></p>
             <a class="nav-link active" th:href="@{/restaurant/upload-photos}">Upload Photos</a>
             <h2>Tables:</h2>
@@ -49,16 +49,10 @@
         })
 		const responseData = await response.json();
 		console.log(responseData);
+        document.getElementById('restaurantName').textContent = responseData.restaurantName+'\'s Restaurant Profile';
     }
     
-//  logout() {
-//  localStorage.removeItem('user');
-//  localStorage.removeItem('token');
-//  window.location.href = 'http://localhost:8080/';
-//}
-    
     const username = localStorage.getItem('user');
-   
     getInformation(username);
     </script>
     <script src="/js/script.js"></script>
