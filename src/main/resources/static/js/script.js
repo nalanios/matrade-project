@@ -1,6 +1,18 @@
 // for now, the button doesn't execute any complex JavaScript. 
 // currently it shows how it could interact with JavaScript, by logging a message to the console when clicked
 
+const brandButton = document.getElementById('brand');
+if (brandButton) {
+    brandButton.addEventListener('click', function() {
+        if (localStorage.getItem('user') != null) {
+            window.location.href = "http://localhost:8080/search";
+        } else {
+            window.location.href = "http://localhost:8080/";
+        }
+        
+    });
+}
+
 const createAccountButton = document.getElementById('createAccount');
 if (createAccountButton) {
     createAccountButton.addEventListener('click', function() {
@@ -60,6 +72,13 @@ if (myProfileButton) {
             window.location.href = "http://localhost:8080/login";
         }
     });
+}
+
+const searchForRestaurantsButton = document.getElementById('searchForRestaurants');
+if (searchForRestaurantsButton) {
+    searchForRestaurantsButton.addEventListener('click', function() {
+        window.location.href = "http://localhost:8080/search";
+    })
 }
 
 /*search for food button*/
