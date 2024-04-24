@@ -15,7 +15,7 @@
     <!-- This container includes both the welcome message and the Create Account button -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
         <div class="welcome-container">
-            <h1>Customer's Profile</h1>
+            <h1 id="customerName">Customer's Profile</h1>
             <p><a href="/customer/information"><u>Edit Account Details</u></a></p>
             <h2>Upcoming Reservations:</h2>
             <!--Pull data from DB-->
@@ -27,6 +27,15 @@
         </div>
     </div>
     <script>
+        fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information')
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                document.getElementById('customerName').textContent = data.firstName+'\'s Customer Profile';
+            })
+            .catch(error => console.log(error));
 //  logout() {
 //  localStorage.removeItem('user');
 //  localStorage.removeItem('token');
