@@ -3,7 +3,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Account Creation</title>
+    <title>Account Details</title>
     <link rel="stylesheet" href="/css/style.css"> <!--DO NOT CHANGE: run the springboot aplication to see css-->
 </head>
 <body>
@@ -70,6 +70,27 @@
         }
     
     }
+
+    async function getInformation(username){
+            const response = await fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information', {
+                method: 'GET',
+                headers: {
+                        Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+                    }
+            })
+            const responseData = await response.json();
+            console.log(responseData);
+            // if user has already set their information, display those values
+            if (responseData.firstName != null) {
+                console.log('exists');
+                document.getElementById('firstName').value = responseData.firstName;
+                document.getElementById('lastName').value = responseData.lastName;
+                document.getElementById('phonenum').value = responseData.phoneNumber;
+            }
+        }
+        
+        const username = localStorage.getItem('user');
+        getInformation(username);
     </script>
 </body>
 </html>
