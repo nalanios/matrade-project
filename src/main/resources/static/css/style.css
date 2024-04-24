@@ -103,7 +103,7 @@ input{
     color: white;
 }
 
-.profile:hover{
+.user-profile:hover{
     background-color: rgb(110, 109, 109);
     color: white;
 }
@@ -132,7 +132,7 @@ input[type="text"] {
     cursor: pointer;
 }
 
-.sign-out:hover {
+.sign-in:hover {
     background-color: rgb(110, 109, 109);
     color: white;
 }
