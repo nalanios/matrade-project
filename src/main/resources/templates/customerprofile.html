@@ -27,21 +27,26 @@
         </div>
     </div>
     <script>
-        fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information')
-            .then(response => {
-                return response.json();
+        async function getInformation(username){
+            const response = await fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information', {
+                method: 'GET',
+                headers: {
+                        Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+                    }
             })
-            .then(data => {
-                console.log(data);
-                document.getElementById('customerName').textContent = data.firstName+'\'s Customer Profile';
-            })
-            .catch(error => console.log(error));
+            const responseData = await response.json();
+            console.log(responseData);
+            document.getElementById('customerName').textContent = responseData.firstName+'\'s Customer Profile';
+        }
+        
+        const username = localStorage.getItem('user');
+        getInformation(username);
 //  logout() {
 //  localStorage.removeItem('user');
 //  localStorage.removeItem('token');
 //  window.location.href = 'http://localhost:8080/';
 //}
     </script>
-    <script src="../static/js/script.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
