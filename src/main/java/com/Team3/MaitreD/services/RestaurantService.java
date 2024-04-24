@@ -53,14 +53,12 @@ public class RestaurantService {
 			currentRestaurant.setOpeningTime(openingTime);
 			currentRestaurant.setClosingTime(closingTime);
 			return restaurantRepository.save(currentRestaurant);
-	
 	}
 
 	public boolean checkIfRestaurantExistsByUsername(String username) {
 		//TODO check when customer object should be created - refactor this
 		// instead of checking if the object exists, checks if the name is null
 		// because of the restaurant object creation at initial registration.
-		
 		Restaurant currentRestaurant = getCurrentRestaurant(username);
 		return currentRestaurant.getRestaurantName() != null;
 	}

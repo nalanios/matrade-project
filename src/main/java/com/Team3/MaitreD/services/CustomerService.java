@@ -34,7 +34,6 @@ public class CustomerService {
 			updatedCustomer.setLastName(lastName);
 			updatedCustomer.setPhoneNumber(phoneNumber);
 			return customerRepository.save(updatedCustomer);
-	
 	}
 
 	public Customer getCurrentCustomer(String username) {
