@@ -23,7 +23,7 @@
                 </div>
                   <div>
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div>
                     <label for="password">Password:</label>
@@ -49,34 +49,7 @@
             </form>
 
     <script>
-        /*async function registerUser(event) {
-            event.preventDefault();
-            const form = document.getElementById('registerForm');
-            const formData = new FormData(form);
 
-            try {
-                const response = await fetch('/register', {
-                    method: 'POST',
-                    body: formData
-                });
-				localStorage.setItem('user', JSON.stringify(document.getElementById('username').value))
-                const type = document.getElementById('accountType').value;
-                if (response.ok) {
-                    console.log('Registration successful');
-                    if(type == 'Customer'){
-                    	window.location.href = 'http://localhost:8080/customer/registration';
-					}
-                    else{
-                    	window.location.href = 'http://localhost:8080/restaurant/registration';
-                    }
-                    
-                } else {
-                    console.error('Registration failed');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }*/
         async function registerUser(event) {
             event.preventDefault();
             const form = document.getElementById('registerForm');

@@ -54,25 +54,26 @@ public class SecurityConfiguration {
     // Spring Security settings
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-		http
+		//Sets security requirements for access to routes/endpoints
+    	http
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> {
 					auth.requestMatchers( "/", "/css/**", "/js/**", "/imgs/**").permitAll();
-					auth.requestMatchers("/login", "/register", "/check-roles", "/customer/**", "/restaurant/**", "/h2-console/**").permitAll();
+					auth.requestMatchers("/login", "/register", "/check-roles", "/search", "/customer/**", "/restaurant/**", "/h2-console/**").permitAll();
 					auth.requestMatchers("/profile/{username}/information").hasRole("RESTAURANT");
 					auth.anyRequest().authenticated();
 					
 				});
-		
+		//Need this to see h2 database at localhost:8080/h2-console
 		http.headers((headers) ->
         headers
         .frameOptions((frameOptions) -> frameOptions.disable()));
-				
+		//Incorporate OAuth2 to authenticate jwts		
 		http
 				.oauth2ResourceServer((oauth2ResourceServer) -> oauth2ResourceServer
 				.jwt((jwt) -> jwt.decoder(jwtDecoder())
 				.jwtAuthenticationConverter(jwtAuthenticationConverter())));
-					
+		//Make app stateless, using jwt instead of sessions
 		http
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		

@@ -49,12 +49,12 @@
 				localStorage.setItem('user', JSON.stringify(username));
                 localStorage.setItem('jwt', JSON.stringify(token));
 			    redirect();
-                /*if(role == 'Customer'){
-                	window.location.replace("http://localhost:8080/customer/profile")
-                }
-                else if(role == 'Restaurant'){
-                	window.location.replace("http://localhost:8080/restaurant/profile")
-                }*/                
+//                 if(role == 'Customer'){
+//                 	window.location.replace("http://localhost:8080/customer/profile")
+//                 }
+//                 else if(role == 'Restaurant'){
+//                 	window.location.replace("http://localhost:8080/restaurant/profile")
+//                 }               
             }
 
         }
@@ -139,15 +139,6 @@
 			console.log("fail");
 			}
 		}
-        
-//         logout() {
-//             this.user = '';
-//             this.token = '';
-//             localStorage.removeItem('user');
-//             localStorage.removeItem('token');
-//             router.push('/login');
-//           }
-
 
         // Event listener for form submission
         document.getElementById('dataForm').addEventListener('submit', function(event) {

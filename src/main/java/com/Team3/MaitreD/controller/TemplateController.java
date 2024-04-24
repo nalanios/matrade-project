@@ -52,4 +52,9 @@ public class TemplateController {
 	public String registerCustomer() {
 		return "customerinformation";
 	}
+	
+	@GetMapping("/search")
+	public String searchFood() {
+		return "searchfood";
+	}
 }
