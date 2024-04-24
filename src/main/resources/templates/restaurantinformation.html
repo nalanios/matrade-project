@@ -9,8 +9,8 @@
 <body>
 
     <div class="header">
-        <span class="brand">Maître d'</span>
-        <button id ="signIn" button class="sign-in">Sign In</button>
+        <span id="brand" class="brand">Maître d'</span>
+        <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes the Account Registration details -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
@@ -82,8 +82,31 @@
             } catch (error) {
                 console.error('Error:', error);
             }
-        
         }
+
+        async function getInformation(username){
+            const response = await fetch('http://localhost:8080/profile/'+JSON.parse(localStorage.getItem('user'))+'/information', {
+                method: 'GET',
+                headers: {
+                        Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+                    }
+            })
+            const responseData = await response.json();
+            console.log(responseData);
+            // if user has already set their information, display those values
+            if (responseData.restaurantName != null) {
+                document.getElementById('restaurantname').value = responseData.restaurantName;
+                document.getElementById('cuisine').value = responseData.cuisine;
+                document.getElementById('openhours').value = responseData.openingTime;
+                document.getElementById('closinghours').value = responseData.closingTime;
+                document.getElementById('phonenum').value = responseData.phoneNumber;
+                document.getElementById('address').value = responseData.address;
+            }
+        }
+
+        const username = localStorage.getItem('user');
+        getInformation(username);
     </script>
+    <script src="/js/script.js"></script>
 </body>
 </html>
