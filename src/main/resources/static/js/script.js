@@ -40,19 +40,42 @@ if (signInSignOutButton) {
 
 const myProfileButton = document.getElementById('myProfile');
 if (myProfileButton) {
-    myProfileButton.addEventListener('click', function() {
-        const token = localStorage.getItem("jwt");
-        console.log(token);
-        if (token != null) {
-            fetch("http://localhost:8080/check-roles?token="+JSON.parse(token))
-            .then(response => {
-                if (!response.ok) {
-                    console.log("Failed to fetch roles");
-                }
-                return response.json();
-            })
+    const token = localStorage.getItem("jwt");
+    if (token != null) {
+        const username = localStorage.getItem("user");
+        checkRoles(token)
             .then(data => {
-                console.log("Roles:", data);
+                data.forEach(role => {
+                    console.log("Role:", role);
+                });
+                if (data.includes("CUSTOMER")) {
+                    getCustomerInformation(username)
+                    .then(responseData => {
+                        console.log(responseData);
+                        myProfileButton.textContent = responseData.firstName+"\'s Profile";
+                    })
+                    .catch(error => {
+                        console.error("Error fetching data:", error);
+                    });
+                } else if (data.includes("RESTAURANT")) {
+                    getRestaurantInformation(username)
+                        .then(responseData => {
+                            console.log(responseData);
+                            myProfileButton.textContent = responseData.restaurantName+"\'s Profile";
+                        })
+                        .catch(error => {
+                            console.error("Error fetching data:", error);
+                        });
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+    myProfileButton.addEventListener('click', function() {
+        if (token != null) {
+            checkRoles(token)
+            .then(data => {
                 data.forEach(role => {
                     console.log("Role:", role);
                 });
@@ -62,7 +85,6 @@ if (myProfileButton) {
                     window.location.href = "http://localhost:8080/restaurant/profile";
                 } else {
                     window.location.href = "http://localhost:8080/login";
-                    console.log("No valid route found");
                 }
             })
             .catch(error => {
@@ -135,4 +157,70 @@ if (searchButton) {
     });
 }
 
+// helper functions
+async function checkIfAccountExists(accountType) {
+    const response = await fetch('http://localhost:8080/'+accountType+'/check-exists?username='+JSON.parse(localStorage.getItem('user')), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (response.ok) {
+        const data = await response.json();
+        console.log(data)
+        return data;
+    } else {
+        throw new Error('Failed to check if '+accountType+' account exists.');
+    }
+}
 
+async function checkRoles(token) {
+    const response = await fetch("http://localhost:8080/check-roles?token="+JSON.parse(token), {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
+async function getCustomerInformation(username){
+    const response = await fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information', {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    })
+    const responseData = await response.json();
+    return responseData;
+}
+
+async function getRestaurantInformation(username) {
+    const response = await fetch('http://localhost:8080/profile/'+username+'/information', {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
+async function performRedirect(route, token) {
+    const response = await fetch('http://localhost:8080'+route, {
+        method: 'GET',
+        headers: {
+           Authorization: "Bearer " +  JSON.parse(token)
+        } 
+    });
+
+    if(response.status == 200){
+        console.log("success");
+        const redirectUrl = "http://localhost:8080"+route;
+        window.location.href = redirectUrl;
+    }
+    if(response.status == 401){
+    console.log("fail");
+    }
+}

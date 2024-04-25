@@ -106,40 +106,6 @@
                 });
         }
 
-        async function checkIfAccountExists(accountType) {
-            const response = await fetch('http://localhost:8080/'+accountType+'/check-exists?username='+JSON.parse(localStorage.getItem('user')), {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data)
-                return data;
-            } else {
-                throw new Error('Failed to check if '+accountType+' account exists.');
-            }
-        }
-
-        async function performRedirect(route, token) {
-			const response = await fetch('http://localhost:8080'+route, {
-                method: 'GET',
-                headers: {
-                   Authorization: "Bearer " +  JSON.parse(token)
-                } 
-            });
-
-			if(response.status == 200){
-				console.log("success");
-                const redirectUrl = "http://localhost:8080"+route;
-                window.location.href = redirectUrl;
-			}
-			if(response.status == 401){
-			console.log("fail");
-			}
-		}
-
         // Event listener for form submission
         document.getElementById('dataForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent default form submission
