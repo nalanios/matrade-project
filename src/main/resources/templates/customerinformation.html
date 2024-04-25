@@ -10,6 +10,7 @@
 
     <div class="header">
         <span id="brand" class="brand">Maître d'</span>
+        <button id ="myProfile" button class = "user-profile">My Profile</button>
         <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes the Account Registration details -->
@@ -31,9 +32,10 @@
                     pattern="[1]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
                 </div>
                 <div>
-                <button type="submit" button id="completeregistration" class="profile">Register</button>
+                <button type="submit" button id="completeregistration" class="profile">Continue</button>
             </form>
 
+    <script src="/js/script.js"></script>
     <script>
     function updateCustomerInformation(event) {
         event.preventDefault();
@@ -70,28 +72,24 @@
         }
     
     }
-
-    async function getInformation(username){
-            const response = await fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information', {
-                method: 'GET',
-                headers: {
-                        Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
-                    }
-            })
-            const responseData = await response.json();
-            console.log(responseData);
-            // if user has already set their information, display those values
-            if (responseData.firstName != null) {
-                console.log('exists');
-                document.getElementById('firstName').value = responseData.firstName;
-                document.getElementById('lastName').value = responseData.lastName;
-                document.getElementById('phonenum').value = responseData.phoneNumber;
-            }
-        }
         
+        //const username = localStorage.getItem('user');
+        //getInformation(username);
         const username = localStorage.getItem('user');
-        getInformation(username);
+        getCustomerInformation(username)
+            .then(responseData => {
+                console.log(responseData);
+                // if user has already set their information, display those values
+                if (responseData.firstName != null) {
+                    console.log('exists');
+                    document.getElementById('firstName').value = responseData.firstName;
+                    document.getElementById('lastName').value = responseData.lastName;
+                    document.getElementById('phonenum').value = responseData.phoneNumber;
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+            });
     </script>
-    <script src="/js/script.js"></script>
 </body>
 </html>

@@ -10,6 +10,7 @@
 
     <div class="header">
         <span id="brand" class="brand">Maître d'</span>
+        <button id ="myProfile" button class = "user-profile">My Profile</button>
         <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes the Account Registration details -->
@@ -42,9 +43,10 @@
                     <label for="address">Address:</label>
                     <input type="address" id="address" name="address" required><br>
                 </div>
-                <button type="submit" button id="completeregistration" class="profile">Register</button>
+                <button type="submit" button id="completeregistration" class="profile">Continue</button>
             </form>
 
+    <script src="/js/script.js"></script>
     <script>
         function updateRestaurantInformation(event) {
             event.preventDefault();
@@ -84,29 +86,23 @@
             }
         }
 
-        async function getInformation(username){
-            const response = await fetch('http://localhost:8080/profile/'+JSON.parse(localStorage.getItem('user'))+'/information', {
-                method: 'GET',
-                headers: {
-                        Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
-                    }
-            })
-            const responseData = await response.json();
-            console.log(responseData);
-            // if user has already set their information, display those values
-            if (responseData.restaurantName != null) {
-                document.getElementById('restaurantname').value = responseData.restaurantName;
-                document.getElementById('cuisine').value = responseData.cuisine;
-                document.getElementById('openhours').value = responseData.openingTime;
-                document.getElementById('closinghours').value = responseData.closingTime;
-                document.getElementById('phonenum').value = responseData.phoneNumber;
-                document.getElementById('address').value = responseData.address;
-            }
-        }
-
         const username = localStorage.getItem('user');
-        getInformation(username);
+        getRestaurantInformation(username)
+            .then(responseData => {
+                console.log(responseData);
+                // if user has already set their information, display those values
+                if (responseData.restaurantName != null) {
+                    document.getElementById('restaurantname').value = responseData.restaurantName;
+                    document.getElementById('cuisine').value = responseData.cuisine;
+                    document.getElementById('openhours').value = responseData.openingTime;
+                    document.getElementById('closinghours').value = responseData.closingTime;
+                    document.getElementById('phonenum').value = responseData.phoneNumber;
+                    document.getElementById('address').value = responseData.address;
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+            });
     </script>
-    <script src="/js/script.js"></script>
 </body>
 </html>
