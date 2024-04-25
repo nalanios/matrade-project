@@ -8,8 +8,8 @@
 </head>
 <body>    
     <div class="header">
-        <span class="brand">Maître d'</span>
-        <button id ="signIn" button class="sign-in">Sign In</button>
+        <span id="brand" class="brand">Maître d'</span>
+        <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes instructions for the user to sign into the Maitre d application -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
@@ -105,41 +105,6 @@
                     console.error("Error:", error);
                 });
         }
-
-        async function checkIfAccountExists(accountType) {
-            const response = await fetch('http://localhost:8080/'+accountType+'/check-exists?username='+JSON.parse(localStorage.getItem('user')), {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            if (response.ok) {
-                const data = await response.json();
-                console.log(data)
-                return data;
-            } else {
-                throw new Error('Failed to check if '+accountType+' account exists.');
-            }
-        }
-
-        async function performRedirect(route, token) {
-			const response = await fetch('http://localhost:8080'+route, {
-                method: 'GET',
-                headers: {
-                   Authorization: "Bearer " +  JSON.parse(token)
-                } 
-            });
-
-			if(response.status == 200){
-				console.log("success");
-                const redirectUrl = "http://localhost:8080"+route;
-                window.location.href = redirectUrl;
-			}
-			if(response.status == 401){
-			console.log("fail");
-			}
-		}
-
 
         // Event listener for form submission
         document.getElementById('dataForm').addEventListener('submit', function(event) {
