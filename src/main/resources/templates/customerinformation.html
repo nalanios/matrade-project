@@ -3,14 +3,15 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Account Creation</title>
+    <title>Account Details</title>
     <link rel="stylesheet" href="/css/style.css"> <!--DO NOT CHANGE: run the springboot aplication to see css-->
 </head>
 <body>
 
     <div class="header">
-        <span class="brand">Maître d'</span>
-        <button id ="signIn" button class="sign-in">Sign In</button>
+        <span id="brand" class="brand">Maître d'</span>
+        <button id ="myProfile" button class = "user-profile">My Profile</button>
+        <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes the Account Registration details -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
@@ -31,9 +32,10 @@
                     pattern="[1]{1}-[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
                 </div>
                 <div>
-                <button type="submit" button id="completeregistration" class="profile">Register</button>
+                <button type="submit" button id="completeregistration" class="profile">Continue</button>
             </form>
 
+    <script src="/js/script.js"></script>
     <script>
     function updateCustomerInformation(event) {
         event.preventDefault();
@@ -70,6 +72,24 @@
         }
     
     }
+        
+        //const username = localStorage.getItem('user');
+        //getInformation(username);
+        const username = localStorage.getItem('user');
+        getCustomerInformation(username)
+            .then(responseData => {
+                console.log(responseData);
+                // if user has already set their information, display those values
+                if (responseData.firstName != null) {
+                    console.log('exists');
+                    document.getElementById('firstName').value = responseData.firstName;
+                    document.getElementById('lastName').value = responseData.lastName;
+                    document.getElementById('phonenum').value = responseData.phoneNumber;
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+            });
     </script>
 </body>
 </html>
