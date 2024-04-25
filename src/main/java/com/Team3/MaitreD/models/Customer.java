@@ -17,7 +17,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO, generator = "seq")
 	@GenericGenerator(name = "seq", type=IncrementGenerator.class)
-	private Integer customer_id;
+	private Integer customerID;
 	private String firstName;
 	private String lastName;
 	@Column(unique=true)
@@ -31,14 +31,14 @@ public class Customer {
 
 
 
-	public Integer getCustomer_id() {
-		return customer_id;
+	public Integer getCustomerID() {
+		return customerID;
 	}
 
 
 
-	public void setCustomer_id(Integer customer_id) {
-		this.customer_id = customer_id;
+	public void setCustomerID(Integer customerID) {
+		this.customerID = customerID;
 	}
 
 

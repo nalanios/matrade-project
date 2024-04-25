@@ -34,13 +34,14 @@ public class CustomerService {
 			updatedCustomer.setLastName(lastName);
 			updatedCustomer.setPhoneNumber(phoneNumber);
 			return customerRepository.save(updatedCustomer);
+	
 	}
 
 	public Customer getCurrentCustomer(String username) {
 		Optional<ApplicationUser> user = userRepository.findByUsername(username);
 		ApplicationUser currentUser = user.get();
-		Integer customer_id = currentUser.getAccount_id();
-		Optional<Customer> customer = customerRepository.findById(customer_id);
+		Integer customerID = currentUser.getcustomerOrRestaurantID();
+		Optional<Customer> customer = customerRepository.findById(customerID);
 		Customer currentCustomer = customer.get();
 		
 		return currentCustomer;
