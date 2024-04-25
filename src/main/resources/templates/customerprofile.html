@@ -8,14 +8,14 @@
 </head>
 <body>
     <div class="header">
-        <span class="brand">Maître d'</span>
-        <button id ="myprofile" button class = "user-profile">My Profile</button>
-        <button id ="signIn" button class="sign-in">Sign In</button>
+        <span id="brand" class="brand">Maître d'</span>
+        <button id ="myProfile" button class = "user-profile">My Profile</button>
+        <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes both the welcome message and the Create Account button -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
         <div class="welcome-container">
-            <h1>Customer's Profile</h1>
+            <h1 id="customerName">Customer's Profile</h1>
             <p><a href="/customer/information"><u>Edit Account Details</u></a></p>
             <h2>Upcoming Reservations:</h2>
             <!--Pull data from DB-->
@@ -26,13 +26,17 @@
             <h3>Review</h3> <!--Need to hyperlink to the review html page-->
         </div>
     </div>
+    <script src="/js/script.js"></script>
     <script>
-//  logout() {
-//  localStorage.removeItem('user');
-//  localStorage.removeItem('token');
-//  window.location.href = 'http://localhost:8080/';
-//}
+        const username = localStorage.getItem('user');
+        getCustomerInformation(username)
+            .then(responseData => {
+                console.log(responseData);
+                document.getElementById('customerName').textContent = responseData.firstName+'\'s Customer Profile';
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+            });
     </script>
-    <script src="../static/js/script.js"></script>
 </body>
 </html>
