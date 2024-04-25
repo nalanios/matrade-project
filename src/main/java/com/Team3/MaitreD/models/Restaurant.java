@@ -9,6 +9,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 @Entity
 @Table(name="restaurants")
@@ -17,7 +18,7 @@ public class Restaurant {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO, generator = "seq")
 	@GenericGenerator(name = "seq", type=IncrementGenerator.class)
-	private Integer restaurant_id;
+	private Integer restaurantID;
 	@Column(unique=true)
 	private String restaurantName;
 	private String address;
@@ -26,18 +27,31 @@ public class Restaurant {
 	private String cuisine;
 	private String openingTime;
 	private String closingTime;
-	private String photo;
+	@Lob
+	private byte[] photo;
 
 	public Restaurant() {
 		super();
 	}
-
-	public Integer getRestaurant_id() {
-		return restaurant_id;
+	
+	public Restaurant(String restaurantName, String address, String phoneNumber, String cuisine,
+			String openingTime, String closingTime, byte[] photo) {
+		super();
+		this.restaurantName = restaurantName;
+		this.address = address;
+		this.phoneNumber = phoneNumber;
+		this.cuisine = cuisine;
+		this.openingTime = openingTime;
+		this.closingTime = closingTime;
+		this.photo = photo;
 	}
 
-	public void setRestaurant_id(Integer restaurant_id) {
-		this.restaurant_id = restaurant_id;
+	public Integer getRestaurantID() {
+		return restaurantID;
+	}
+
+	public void setRestaurantID(Integer restaurantID) {
+		this.restaurantID = restaurantID;
 	}
 
 	public String getRestaurantName() {
@@ -63,11 +77,11 @@ public class Restaurant {
 		this.address = address;
 	}
 
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 

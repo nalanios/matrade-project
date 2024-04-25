@@ -9,8 +9,8 @@
 <body>
 
     <div class="header">
-        <span id="brand" class="brand">Maître d'</span>
-        <button id ="signInSignOut" button class="sign-in">Sign In</button>
+        <span class="brand">Maître d'</span>
+        <button id ="signIn" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes the Account Registration details -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
@@ -49,7 +49,7 @@
             </form>
 
     <script>
-
+      
         async function registerUser(event) {
             event.preventDefault();
             const form = document.getElementById('registerForm');
@@ -72,6 +72,5 @@
             }
         }
     </script>
-    <script src="/js/script.js"></script>
 </body>
 </html>

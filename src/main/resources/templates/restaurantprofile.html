@@ -8,15 +8,15 @@
 </head>
 <body>
     <div class="header">
-        <span id="brand" class="brand">Maître d'</span>
-        <button id ="myProfile" button class = "user-profile">My Profile</button>
-        <button id ="signInSignOut" button class="sign-in">Sign In</button>
+        <span class="brand">Maître d'</span>
+        <button id ="myprofile" button class = "user-profile">My Profile</button>
+        <button id ="signIn" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes both the welcome message and the Create Account button -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
         <div class="welcome-container">
             <!--Need to pull data from DB the name of the restaurant-->
-            <h1 id="restaurantName">Restaurant's Profile</h1>
+            <h1>Restaurant's Profile</h1>
             <p><a href="/restaurant/information"><u>Edit Account Details</u></a></p>
             <a class="nav-link active" th:href="@{/restaurant/upload-photos}">Upload Photos</a>
             <h2>Tables:</h2>
@@ -27,10 +27,9 @@
             <h3>Contact Customer</h3>
         </div>
     </div>
-    <script src="/js/script.js"></script>
     <script>
     async function loadPictures(username){
-    	const response = await fetch(`http://localhost:8080/restaurant/${username}`, {
+    	const response = await fetch(`http://localhost:8080/get-image/${username}`, {
              method: 'GET',
             
          })
@@ -40,16 +39,24 @@
     	image.src = 'data:image/jpeg;base64,' + responseData;
     	document.body.appendChild(image);
     }
-    
-    const username = localStorage.getItem('user');
-    getRestaurantInformation(username)
-        .then(responseData => {
-            console.log(responseData);
-            document.getElementById('restaurantName').textContent = responseData.restaurantName+'\'s Restaurant Profile';
+   
+    async function getInformation(username){
+		const response = await fetch(`http://localhost:8080/profile/${username}/information`, {
+            method: 'GET',
+            headers: {
+                	Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+                }
         })
-        .catch(error => {
-            console.error("Error fetching data:", error);
-        });
+		const responseData = await response.json();
+		console.log(responseData);
+    }
+    
+
+    const username = localStorage.getItem('user');
+   
+    getInformation(username);
+    loadPictures(username);
     </script>
+    <script src="/js/script.js"></script>
 </body>
 </html>

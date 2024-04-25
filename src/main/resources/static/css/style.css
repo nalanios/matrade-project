@@ -26,15 +26,10 @@ body {
     box-sizing: border-box;
 }
 
-.brand, .sign-in, .user-profile, .search-for-restaurants {
+.brand, .sign-in, .user-profile {
     font-size: 18px;
     color: rgb(110, 109, 109);
     cursor: pointer;
-}
-
-.search-for-restaurants {
-    background: none;
-    border: none;
 }
 
 .sign-in {
@@ -93,11 +88,6 @@ input{
     margin: 20px auto;
 }
 
-.brand:hover {
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
 .create-account:hover {
     background-color: rgb(110, 109, 109);
     color: white;
@@ -113,12 +103,7 @@ input{
     color: white;
 }
 
-.search-for-restaurants:hover {
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
-.user-profile:hover{
+.profile:hover{
     background-color: rgb(110, 109, 109);
     color: white;
 }
@@ -147,7 +132,7 @@ input[type="text"] {
     cursor: pointer;
 }
 
-.sign-in:hover {
+.sign-out:hover {
     background-color: rgb(110, 109, 109);
     color: white;
 }

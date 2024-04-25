@@ -1,6 +1,10 @@
 // Controller for Restaurant pages
 package com.Team3.MaitreD.controller;
 
+import java.io.IOException;
+import java.io.InputStream;
+
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.Team3.MaitreD.models.Restaurant;
 import com.Team3.MaitreD.models.RestaurantDTO;
@@ -51,5 +57,37 @@ public class RestaurantController {
     public boolean checkIfRestaurantExists(@RequestParam String username) {
 		System.out.println(restaurantService.checkIfRestaurantExistsByUsername(username));
 		return restaurantService.checkIfRestaurantExistsByUsername(username);
+    }
+	
+	@PostMapping("restaurant/upload-photos")
+	public void uploadPhoto(@RequestParam("file") MultipartFile file, 
+			RedirectAttributes redirectAttributes) {
+		System.out.println("haha");
+		byte[] filecontent = null;
+		//String image = "";
+		try {
+			InputStream inputStream = file.getInputStream();
+			filecontent = inputStream.readAllBytes();
+			//image =  Base64.encodeBase64String(filecontent);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 restaurantService.addPicture("photo", filecontent);
+		
+		redirectAttributes.addFlashAttribute("message",
+				"You successfully uploaded " + file.getOriginalFilename() + "!");
+		
+	}
+	
+    // Testing for image upload
+    @GetMapping("/get-image/{username}")
+    public String getImage (@PathVariable String username) {
+    	username = username.replace("\"", "");
+    	Restaurant restaurant = restaurantService.getCurrentRestaurant(username);
+    	byte[] photo = restaurant.getPhoto();
+    	String image = Base64.encodeBase64String(photo);
+    	return image;
     }
 }

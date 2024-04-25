@@ -60,7 +60,7 @@ public class AuthenticationService {
 	        	//Create new Customer, insert in database, and connect with User
 	        	Customer customer = new Customer();
 	        	customerRepository.save(customer);
-	        	accountId = customer.getCustomer_id();
+	        	accountId = customer.getCustomerID();
 	        }else if (accountType.equals("Restaurant")) {
 	        	//Get Restaurant role and add to HashSet
 	        	Role userType = roleRepository.findByAuthority("RESTAURANT").get();
@@ -68,11 +68,11 @@ public class AuthenticationService {
 	        	//Create new Restaurant, insert in database, and connect with User
 	        	Restaurant restaurant = new Restaurant();
 	        	restaurantRepository.save(restaurant);
-	        	accountId = restaurant.getRestaurant_id();
+	        	accountId = restaurant.getRestaurantID();
 	        }
 	        
 	        //Save new User in users table
-	        return userRepository.save(new ApplicationUser(0, username, email, encodedPassword, accountType, authorities, accountId));
+	        return userRepository.save(new ApplicationUser(null, username, email, encodedPassword, authorities, accountId));
 	    }
 
 	    public LoginResponseDTO loginUser(String username, String password){

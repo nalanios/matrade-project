@@ -29,15 +29,6 @@ public class UserService implements UserDetailsService {
 	
         return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("user is not valid"));
 	}
-	// adding pictures method, works but still testing
-	public ApplicationUser addPicture(String username, byte[] photo) {
-		Optional<ApplicationUser> user = userRepository.findByUsername(username);
-		ApplicationUser currentUser = user.get();
-		if(user.isPresent()) {
-			currentUser.setPhoto(photo);
-			return userRepository.save(currentUser);
-		}
-		return null;
-	}
+	
 
 }

@@ -11,12 +11,33 @@
 	</head>
 
 	<body>
-		<div class="header">
-			<span id="brand" class="brand">Maître d'</span>
-			<button id="searchForRestaurants" button class="search-for-restaurants">Search For Restaurants</button>
-			<button id ="signInSignOut" button class="sign-in">Sign In</button>
-		</div>
 		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div class="header">
+					<span class="brand">Maître d'</span>
+					<a class="nav-link active" th:href="@{/login}">Login</a>
+					<a class="nav-link active" th:href="@{/register}">Create Account</a>
+					<a class="nav-link active" th:href="@{/search}">Search For Restaurants</a>
+				</div>
+				<!--TEMPLATE CODE <header id="header" class="container">-->
+					<!-- Logo 
+						<div id="logo">
+							<h1><a th:href="@{/}">Maitre-D</a></h1>
+							<span>by Team 3</span>
+						</div> -->
+
+					<!-- Nav 
+						<nav id="nav">
+							<ul>
+								<li><a class="current" th:href="@{/}">Welcome</a></li>
+								<li><a class="nav-link active" th:href="@{/login}">Login</a></li>
+								<li><a class="nav-link active" th:href="@{/register}">Create Account</a></li>
+							</ul>
+						</nav> -->
+				<!--</header>-->
+
+
 			<!-- This container includes both the welcome message and the Create Account button -->
 			<div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
 				<img src="./imgs/home_picture.jpg" alt="Image of Restaurant. 
