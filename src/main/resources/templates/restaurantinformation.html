@@ -9,8 +9,9 @@
 <body>
 
     <div class="header">
-        <span class="brand">Maître d'</span>
-        <button id ="signIn" button class="sign-in">Sign In</button>
+        <span id="brand" class="brand">Maître d'</span>
+        <button id ="myProfile" button class = "user-profile">My Profile</button>
+        <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     <!-- This container includes the Account Registration details -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
@@ -42,9 +43,10 @@
                     <label for="address">Address:</label>
                     <input type="address" id="address" name="address" required><br>
                 </div>
-                <button type="submit" button id="completeregistration" class="profile">Register</button>
+                <button type="submit" button id="completeregistration" class="profile">Continue</button>
             </form>
 
+    <script src="/js/script.js"></script>
     <script>
         function updateRestaurantInformation(event) {
             event.preventDefault();
@@ -82,8 +84,25 @@
             } catch (error) {
                 console.error('Error:', error);
             }
-        
         }
+
+        const username = localStorage.getItem('user');
+        getRestaurantInformation(username)
+            .then(responseData => {
+                console.log(responseData);
+                // if user has already set their information, display those values
+                if (responseData.restaurantName != null) {
+                    document.getElementById('restaurantname').value = responseData.restaurantName;
+                    document.getElementById('cuisine').value = responseData.cuisine;
+                    document.getElementById('openhours').value = responseData.openingTime;
+                    document.getElementById('closinghours').value = responseData.closingTime;
+                    document.getElementById('phonenum').value = responseData.phoneNumber;
+                    document.getElementById('address').value = responseData.address;
+                }
+            })
+            .catch(error => {
+                console.error("Error fetching data:", error);
+            });
     </script>
 </body>
 </html>
