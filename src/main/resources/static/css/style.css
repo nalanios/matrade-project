@@ -115,7 +115,7 @@ input{
     
 }
 
-.create-account, .restaurant-user, .customer-user, .profile, .login {
+.create-account, .submit, .restaurant-user, .customer-user, .profile, .login {
     padding: 10px 15px;
     border: 2px solid darkgray; 
     background-color: white;
@@ -134,6 +134,11 @@ input{
 }
 
 .create-account:hover {
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
+
+.submit:hover {
     background-color: rgb(110, 109, 109);
     color: white;
 }
