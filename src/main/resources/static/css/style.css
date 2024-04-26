@@ -20,16 +20,9 @@ body {
 }
 
 .footer-container{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    justify-content: center;
-    align-items: center;
-    font-family: "Playfair Display";
-    font-size: 20px;
     background-color: rgb(255, 255, 255);
-    box-sizing: border-box;
+	padding: 5px;
+	text-align: center;
 }
 
 /*INSERT RESOURCE USED HERE FOR NAVIGATION BAR (.header and .header a)*/
