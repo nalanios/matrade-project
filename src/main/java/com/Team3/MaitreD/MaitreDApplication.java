@@ -2,9 +2,7 @@
 
 package com.Team3.MaitreD;
 
-import java.io.File;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,7 +52,7 @@ public class MaitreDApplication {
 				Resource resource = resourceLoader.getResource("classpath:static/imgs/marty.jpg");
 				InputStream pic1 = resource.getInputStream();
 				byte[] martys = pic1.readAllBytes();
-				restaurantRepository.save(new Restaurant("Marty's Pizza", "717 Liberty Ave., Columbia, MD, 21075", "1-805-717-4226", "Italian", "0900", "2100", martys));
+				restaurantRepository.save(new Restaurant("Marty's Pizza", "717 Liberty Ave., Columbia, MD, 21075", "1-805-717-4226", "Italian", "09:00", "21:00", martys));
 			}
 
 		};

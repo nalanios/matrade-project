@@ -35,7 +35,6 @@
             
          })
     	const responseData = await response.text();    	
-		console.log(responseData);
     var image = new Image();
     	image.src = 'data:image/jpeg;base64,' + responseData;
     	document.body.appendChild(image);
@@ -44,7 +43,6 @@
     const username = localStorage.getItem('user');
     getRestaurantInformation(username)
         .then(responseData => {
-            console.log(responseData);
             document.getElementById('restaurantName').textContent = responseData.restaurantName+'\'s Restaurant Profile';
         })
         .catch(error => {
