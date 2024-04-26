@@ -44,17 +44,11 @@
             if(response.status == 200){
                 const responseData = await response.json();
                 const token = responseData.jwt;
-                const role = responseData.user.userType;
-				console.log(role);
+               
 				localStorage.setItem('user', JSON.stringify(username));
                 localStorage.setItem('jwt', JSON.stringify(token));
 			    redirect();
-//                 if(role == 'Customer'){
-//                 	window.location.replace("http://localhost:8080/customer/profile")
-//                 }
-//                 else if(role == 'Restaurant'){
-//                 	window.location.replace("http://localhost:8080/restaurant/profile")
-//                 }               
+           
             }
 
         }

@@ -3,6 +3,7 @@ package com.Team3.MaitreD.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,21 +29,17 @@ public class RestaurantController {
 	
 	@Autowired
 	RestaurantService restaurantService;
-
-	/*@PostMapping("/restaurant/registration/{username}")
-	public void registerRestaurant(@RequestBody RestaurantDTO body, @PathVariable String username) {
-		
-		username = username.replace("\"", "");
-		System.out.println(username);
-		restaurantService.registerRestaurant(username, body.getRestaurantName(), body.getAddress(), 
-				body.getPhoneNumber(), body.getCuisine(), body.getOpeningTime(), body.getClosingTime());
-		
-	}*/
 	
 	@GetMapping("/profile/{username}/information")
 	public Restaurant getInformation(@PathVariable String username) {
 		username = username.replace("\"", "");
 		return restaurantService.getCurrentRestaurant(username);
+	}
+	
+	@GetMapping("/restaurant/{name}/information")
+	public Restaurant getRestaurantByName(@PathVariable String name) {
+		name = name.replace("\"", "");
+		return restaurantService.getRestaurantByName(name);
 	}
 
 	@PostMapping("restaurant/update-information/{username}")
@@ -55,21 +51,16 @@ public class RestaurantController {
 	@GetMapping("restaurant/check-exists")
 	@ResponseBody
     public boolean checkIfRestaurantExists(@RequestParam String username) {
-		System.out.println(restaurantService.checkIfRestaurantExistsByUsername(username));
 		return restaurantService.checkIfRestaurantExistsByUsername(username);
     }
 	
 	@PostMapping("restaurant/upload-photos")
 	public void uploadPhoto(@RequestParam("file") MultipartFile file, 
 			RedirectAttributes redirectAttributes) {
-		System.out.println("haha");
 		byte[] filecontent = null;
-		//String image = "";
 		try {
 			InputStream inputStream = file.getInputStream();
 			filecontent = inputStream.readAllBytes();
-			//image =  Base64.encodeBase64String(filecontent);
-			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -81,7 +72,6 @@ public class RestaurantController {
 		
 	}
 	
-    // Testing for image upload
     @GetMapping("/get-image/{username}")
     public String getImage (@PathVariable String username) {
     	username = username.replace("\"", "");
@@ -89,5 +79,10 @@ public class RestaurantController {
     	byte[] photo = restaurant.getPhoto();
     	String image = Base64.encodeBase64String(photo);
     	return image;
+    }
+    
+    @GetMapping("/restaurant/get-all")
+    public List<Restaurant> getAllRestaurants () {
+    	return restaurantService.getAllRestaurants();
     }
 }

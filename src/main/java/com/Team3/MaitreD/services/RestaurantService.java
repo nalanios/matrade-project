@@ -1,6 +1,7 @@
 // Service to submit new restaurant data to database
 package com.Team3.MaitreD.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +20,6 @@ public class RestaurantService {
 	@Autowired
 	private RestaurantRepository restaurantRepository;
 	
-	/*public void registerRestaurant(String currentUsername, String restaurantName, String address, String phoneNumber, String cuisine, 
-								   String openingTime, String closingTime) {
-		Restaurant currentRestaurant = getCurrentRestaurant(currentUsername);
-		
-		currentRestaurant.setRestaurantName(restaurantName);
-		currentRestaurant.setAddress(address);
-		currentRestaurant.setPhoneNumber(phoneNumber);
-		currentRestaurant.setCuisine(cuisine);
-		currentRestaurant.setOpeningTime(openingTime);
-		currentRestaurant.setClosingTime(closingTime);
-		restaurantRepository.save(currentRestaurant);
-	}*/
-	
 	public Restaurant getCurrentRestaurant(String username) {
 		Optional<ApplicationUser> user = userRepository.findByUsername(username);
 		ApplicationUser currentUser = user.get();
@@ -41,7 +29,10 @@ public class RestaurantService {
 		
 		return currentRestaurant;
 	}
-
+	
+	public Restaurant getRestaurantByName(String restaurantName) {
+		return restaurantRepository.findByRestaurantName(restaurantName).get();
+	}
 	//TODO: check restaurant/customer inital object creation logic, could refactor later
 	public Restaurant updateRestaurant(String currentUsername, String restaurantName, String address, String phoneNumber, String cuisine, 
 									String openingTime, String closingTime){
@@ -72,5 +63,9 @@ public class RestaurantService {
 			currentRestaurant.setPhoto(photo);
 			restaurantRepository.save(currentRestaurant);
 			
+		}
+		
+		public List<Restaurant> getAllRestaurants() {
+			return restaurantRepository.findAll();
 		}
 }

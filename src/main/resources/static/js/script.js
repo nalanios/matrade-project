@@ -157,6 +157,8 @@ if (searchButton) {
     });
 }
 
+
+	
 // helper functions
 async function checkIfAccountExists(accountType) {
     const response = await fetch('http://localhost:8080/'+accountType+'/check-exists?username='+JSON.parse(localStorage.getItem('user')), {
@@ -181,6 +183,11 @@ async function checkRoles(token) {
                 Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
             }
     });
+    if(response.status == 401){
+		 localStorage.removeItem('user');
+         localStorage.removeItem('jwt');
+         window.location.href = 'http://localhost:8080/login';
+	}
     const responseData = await response.json();
     return responseData;
 }
@@ -207,6 +214,17 @@ async function getRestaurantInformation(username) {
     return responseData;
 }
 
+async function getRestaurantByName(name) {
+    const response = await fetch('http://localhost:8080/restaurant/'+name+'/information', {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
 async function performRedirect(route, token) {
     const response = await fetch('http://localhost:8080'+route, {
         method: 'GET',
@@ -223,4 +241,34 @@ async function performRedirect(route, token) {
     if(response.status == 401){
     console.log("fail");
     }
+}
+
+async function makeReservation(partySize, reservationTime, restaurantName){
+	
+	var customerID = await getCustomerInformation(localStorage.getItem("user"))
+	.then(function(responseData) {
+                        return responseData.customerID;
+                    })
+                    .catch(error => {
+                        console.error("Error fetching data:", error);
+                    });
+    
+    
+    var restaurantID = await getRestaurantByName(JSON.stringify(restaurantName))
+    .then(function(responseData) {
+                        return responseData.restaurantID;
+                    })
+                 
+                    .catch(error => {
+                        console.error("Error fetching data:", error);
+                    });                    
+	
+	const response = await fetch('http://localhost:8080/reserve', {
+        method: 'POST',
+        headers: {
+		   'Content-Type': 'application/json',          
+           Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+        }, 
+        body: JSON.stringify({customerID, restaurantID, partySize, reservationTime})
+    });
 }
