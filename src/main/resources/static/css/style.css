@@ -175,9 +175,19 @@ input{
     margin-top: 20px;
 }
 
+/*ADD TUTORIALS POINT REFERENCE HERE*/
 input[type="text"] {
-    width: 300px;  
-    white-space: 20px;
+    width: 200px;  
+    box-sizing: border-box;
+    padding: 15px 20px;
+    margin: 7px 0;
+}
+
+input[type="password"]{
+    width: 200px;  
+    box-sizing: border-box;
+    padding: 15px 20px;
+    margin: 7px 0; 
 }
 
 .sign-out {
