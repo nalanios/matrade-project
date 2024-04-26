@@ -23,12 +23,11 @@ body {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 5px;
     justify-content: center;
     align-items: center;
     font-family: "Playfair Display";
     font-size: 20px;
-    overflow: hidden;
     background-color: rgb(255, 255, 255);
     box-sizing: border-box;
 }
@@ -83,7 +82,7 @@ body {
 
 p{
     font-family: Times New Roman;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 h1 {
