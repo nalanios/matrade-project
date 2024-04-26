@@ -177,6 +177,7 @@ input{
 
 input[type="text"] {
     width: 300px;  
+    white-space: 20px;
 }
 
 .sign-out {
