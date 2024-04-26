@@ -21,14 +21,11 @@ body {
 
 .footer-container{
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
     font-family: "Playfair Display";
     font-size: 20px;
     background-color: rgb(255, 255, 255);
+    padding-top: 30px;
+    padding-bottom:30px;
 }
 
 /*INSERT RESOURCE USED HERE FOR NAVIGATION BAR (.header and .header a)*/
