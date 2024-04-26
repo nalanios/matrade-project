@@ -177,17 +177,17 @@ input{
 
 /*ADD TUTORIALS POINT REFERENCE HERE*/
 input[type="text"] {
-    width: 200px;  
+    width: 250px;  
     box-sizing: border-box;
-    padding: 15px 20px;
-    margin: 7px 0;
+    padding: 10px 15px;
+    margin: 5px 0;
 }
 
 input[type="password"]{
-    width: 200px;  
+    width: 250px;  
     box-sizing: border-box;
-    padding: 15px 20px;
-    margin: 7px 0; 
+    padding: 10px 15px;
+    margin: 5px 0; 
 }
 
 .sign-out {
