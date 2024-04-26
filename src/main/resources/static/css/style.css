@@ -40,11 +40,15 @@ body {
   font-size: 20px;
 }
 
+/*INSERT FOOTER REFERENCE*/
 .footer-container{
+    position: fixed;
+    left: 0;
+    bottom: 0;
     width: 100%;
-    display: flex;
     font-family: "Playfair Display";
     font-size: 20px;
+    text-align: center;
     background-color: rgb(255, 255, 255);
     padding: 20px;
 }
