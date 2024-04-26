@@ -183,6 +183,20 @@ input[type="text"] {
     margin: 5px 0;
 }
 
+input[type="username"] {
+    width: 250px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0;
+}
+
+input[type="email"] {
+    width: 250px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0;
+}
+
 input[type="password"]{
     width: 250px;  
     box-sizing: border-box;
