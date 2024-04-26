@@ -16,6 +16,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%; 
+    padding: 10px;
 }
 
 /*INSERT RESOURCE USED HERE FOR NAVIGATION BAR (.header and .header a)*/
