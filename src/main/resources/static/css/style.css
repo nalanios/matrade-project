@@ -19,15 +19,6 @@ body {
     padding: 10px;
 }
 
-.footer-container{
-    width: 100%;
-    font-family: "Playfair Display";
-    font-size: 20px;
-    background-color: rgb(255, 255, 255);
-    padding-top: 30px;
-    padding-bottom:30px;
-}
-
 /*INSERT RESOURCE USED HERE FOR NAVIGATION BAR (.header and .header a)*/
 .header {
     width: 100%;
@@ -47,6 +38,15 @@ body {
   padding: 16px 18px;
   font-family: Georgia;
   font-size: 20px;
+}
+
+.footer-container{
+    width: 100%;
+    display: flex;
+    font-family: "Playfair Display";
+    font-size: 20px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
 }
 
 .brand, .sign-in, .user-profile, .search-for-restaurants {
