@@ -30,7 +30,7 @@
                     <input type="password" id="password" name="password" onkeyup="checkPasswordStrength();" required 
                     pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                     title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"><br>
-                    <div id="passwordStrength">Password Strength: <span id="strengthValue">None</span></div>
+                    <div id="passwordStrength"><p>Password Strength:</p> <span id="strengthValue">None</span></div>
                     <div id="passwordGuidelines">
                         <p>Your password should be at least 8 characters long and include a mix of upper and lower case letters, numbers, and special characters like !@#$%^&*.</p>
                     </div>
@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <label for="type">Type:</label>
-                    <select id="accountType" name="accountType" required>
+                    <select id="accountType" class="accounttype" name="accountType" required>
                         <option value="Customer">Customer</option>
                         <option value="Restaurant">Restaurant</option>
                     </select>

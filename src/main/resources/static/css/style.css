@@ -204,6 +204,13 @@ input[type="password"]{
     margin: 5px 0; 
 }
 
+.account-type{
+    width: 50px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0;  
+}
+
 .sign-out {
     background: none;
     border: none;
