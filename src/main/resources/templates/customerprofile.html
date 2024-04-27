@@ -37,7 +37,7 @@
             .catch(error => {
                 console.error("Error fetching data:", error);
             });
-        
+
         async function displayReservations() {
             const response = await fetch(`http://localhost:8080/reservation/${username}/get-all`, {
                 method: 'GET',
