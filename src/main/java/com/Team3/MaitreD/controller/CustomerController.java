@@ -43,7 +43,7 @@ public class CustomerController {
 	}
 
 	@GetMapping("/{customerID}/details")
-	public Customer getRestaurantByID(@PathVariable String customerID) {
+	public Customer getCustomerByID(@PathVariable String customerID) {
 		customerID = customerID.replace("\"", "");
 		return customerService.getCustomerByID(Integer.parseInt(customerID));
 	}
