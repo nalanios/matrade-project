@@ -131,45 +131,15 @@ input, select {
     margin: 20px auto;
 }
 
-.brand:hover {
-    background-color: rgb(110, 109, 109);
-    color: white;
+/* hover effect for all buttons */
+.brand:hover, .sign-in:hover, .user-profile:hover, .search-for-restaurants:hover, 
+.create-account:hover, .submit:hover, .restaurant-user:hover, .customer-user:hover, 
+.profile:hover, .login:hover {
+    background-color: #ff0000; 
+    color: #ffffff;
+    padding: 12px 22px;
 }
 
-.create-account:hover {
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
-.submit:hover {
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
-.restaurant-user:hover{
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
-.customer-user:hover{
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
-.search-for-restaurants:hover {
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
-.user-profile:hover{
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
-
-.login:hover{
-    background-color: rgb(110, 109, 109);
-    color: white;
-}
 
 .search-box {
     display: flex;
@@ -180,34 +150,17 @@ input, select {
     width: 100%; 
 }
 
-/*ADD TUTORIALS POINT REFERENCE HERE*/
-input[type="text"] {
+/* input styles */
+input[type="text"], input[type="username"], input[type="email"], input[type="password"], input, select {
     width: 250px;  
-    box-sizing: border-box;
-    padding: 10px 15px;
+    padding: 10px;
     margin: 5px 0;
+    border: 2px solid #e7e5e5;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; 
 }
 
-input[type="username"] {
-    width: 250px;  
-    box-sizing: border-box;
-    padding: 10px 15px;
-    margin: 5px 0;
-}
-
-input[type="email"] {
-    width: 250px;  
-    box-sizing: border-box;
-    padding: 10px 15px;
-    margin: 5px 0;
-}
-
-input[type="password"]{
-    width: 250px;  
-    box-sizing: border-box;
-    padding: 10px 15px;
-    margin: 5px 0; 
-}
 
 .account-type{
     width: 50px;  
@@ -268,5 +221,22 @@ button.result-button {
 button.result-button:hover {
     background-color: #ff0000;  
     color: #ffffff;             
+}
+
+/* hover effect for all buttons*/
+.brand:hover, .sign-in:hover, .user-profile:hover, .search-for-restaurants:hover, 
+.create-account:hover, .submit:hover, .restaurant-user:hover, .customer-user:hover, 
+.profile:hover, .login:hover {
+    background-color: #ff0000; 
+    color: #ffffff;             
+    transition: background-color 0.2s, color 0.2s;
+    padding: 12px 22px;
+}
+
+/* more styling for buttons */
+.brand, .search-for-restaurants, .sign-in {
+    border-radius: 10px; 
+    padding: 10px 20px; 
+    transition: background-color 0.2s, color 0.2s, padding 0.2s; 
 }
 
