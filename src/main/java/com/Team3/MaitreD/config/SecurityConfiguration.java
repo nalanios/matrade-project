@@ -61,7 +61,7 @@ public class SecurityConfiguration {
 					auth.requestMatchers( "/", "/css/**", "/js/**", "/imgs/**", "/favicon.ico").permitAll();
 					auth.requestMatchers("/login", "/register", "/check-roles", "/search", "/customer/**", "/restaurant/**", "/h2-console/**", "/get-image/**").permitAll();
 					auth.requestMatchers("/profile/{username}/information").hasRole("RESTAURANT");
-					auth.requestMatchers("/customer/{username}/information", "/reserve").hasRole("CUSTOMER");
+					auth.requestMatchers("/customer/{username}/information", "/reserve", "/reservation/**").hasRole("CUSTOMER");
 					auth.anyRequest().authenticated();
 					
 				});

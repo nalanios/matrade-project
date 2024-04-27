@@ -214,6 +214,17 @@ async function getRestaurantInformation(username) {
     return responseData;
 }
 
+async function getRestaurantByID(restaurantID) {
+    const response = await fetch('http://localhost:8080/restaurant/'+restaurantID+'/details', {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
 async function getRestaurantByName(name) {
     const response = await fetch('http://localhost:8080/restaurant/'+name+'/information', {
         method: 'GET',
@@ -271,4 +282,9 @@ async function makeReservation(partySize, reservationTime, restaurantName){
         }, 
         body: JSON.stringify({customerID, restaurantID, partySize, reservationTime})
     });
+    if (response.status == 200) {
+        window.location.href = "http://localhost:8080/customer/profile";
+    } else {
+        console.log("Failed to create reservation");
+    }
 }

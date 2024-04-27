@@ -42,6 +42,12 @@ public class RestaurantController {
 		return restaurantService.getRestaurantByName(name);
 	}
 
+	@GetMapping("/restaurant/{restaurantID}/details")
+	public Restaurant getRestaurantByID(@PathVariable String restaurantID) {
+		restaurantID = restaurantID.replace("\"", "");
+		return restaurantService.getRestaurantByID(Integer.parseInt(restaurantID));
+	}
+
 	@PostMapping("restaurant/update-information/{username}")
     public Restaurant updateInformation(@RequestBody RestaurantDTO body, @PathVariable String username) {
 		username = username.replace("\"", "");
