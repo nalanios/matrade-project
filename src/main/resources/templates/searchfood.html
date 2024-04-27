@@ -48,8 +48,39 @@
             <div id="searchResults" class="results-container"></div>
         </div>        
     </div>
-  
      <script>
+        // listener for restaurant name search field
+        const inputField = document.getElementById("restaurant");
+        inputField.addEventListener("input", function() {
+            if (inputField.value == "") {
+                displayRestaurants();
+            } else {
+                filterRestaurants(inputField.value);
+            }
+        });
+
+        // method to display restaurants based on the name search field
+        async function filterRestaurants(searchInput) {
+                const response = await fetch('http://localhost:8080/restaurant/filter/'+searchInput, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    const resultsContainer = document.getElementById('searchResults');
+                    resultsContainer.innerHTML = '';                    
+                    const data = await response.json();
+                    data.forEach(restaurant => {
+                        displayRestaurant(restaurant, resultsContainer);
+                    });
+                } else {
+                    throw new Error('Failed to get restaurants');
+                }
+        } 
+
+        // displays all restaurants and sets cuisine selector
+        // called on initial visit, and when the restaurant name input field is blank
         async function displayRestaurants() {
             const response = await fetch('http://localhost:8080/restaurant/get-all', {
                 method: 'GET',
@@ -65,74 +96,82 @@
                 const data = await response.json();
                 console.log(data)
                 data.forEach(restaurant => {
-                	const name = restaurant.restaurantName;
-                	var formattedName = name.replace(/(?<!\\)'/g, "\\'");
-                	
-                	const address = restaurant.address;
-                	const phoneNumber = restaurant.phoneNumber;
-                	const cuisine = restaurant.cuisine;
-                	const openingTime = restaurant.openingTime;
-                	const closingTime = restaurant.closingTime;
                     
+                    // adds cuisine to search filters
                     //TODO: add handling for uppercase/lowercase/irregular strings
+                    const cuisine = restaurant.cuisine;
                     if (!cuisineOptions.includes(cuisine)) {
                         document.getElementById("cuisine").insertAdjacentHTML("beforeend", `<option value="${cuisine}">${cuisine}</option>`);
                         cuisineOptions.push(cuisine);
                     }
-                    
-                	
-                	const image = new Image();
-              		image.src = 'data:image/jpeg;base64,' + restaurant.photo;
-              		image.width = "200"
-              		image.height = "200"
-              		
-                	const listing = document.createElement('div');
-                    listing.className = 'listing';
-                    const token = localStorage.getItem("jwt");
-                    if (token != null) {
-                        checkRoles(token)
-                            .then(data => {
-                                data.forEach(role => {
-                                    console.log("Role:", role);
-                                });
-                                if (data.includes("CUSTOMER")) {
-                                    listing.innerHTML = `
-                                        <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                                        <div>
-                                        <label for="reservation">Make a Reservation:</label>
-                                        <input type="time" id="reservation" name="reservation" required>
-                                        <label for="party">Party Size:</label>
-                                        <input type="number" id="party" name="party" min="1" max="10" required>
-                                        <button  id="reserve-button" class="reserve-buttons" onclick="makeReservation(document.getElementById('party').value, \
-                                                                                                    document.getElementById('reservation').value,'${formattedName}')">Reserve</button>
-                                        </div>
-                                        <button class="menu-button">Menu</button>
-                                    `;
-                                    resultsContainer.appendChild(image);
-                                    resultsContainer.appendChild(listing);
-                                } else {
-                                    listing.innerHTML = `
-                                        <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                                    `;
-                                    resultsContainer.appendChild(image);
-                                    resultsContainer.appendChild(listing);
-                                }
-                            })
-                            .catch(error => {
-                                console.error("Error:", error);
-                            });
-                    } else {
-                        listing.innerHTML = `
-                            <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                        `;
-                        resultsContainer.appendChild(image);
-                        resultsContainer.appendChild(listing);
-                    }
+
+                	displayRestaurant(restaurant, resultsContainer);
                 });
             } else {
                 throw new Error('Failed to get restaurants');
             }
         }
+
+        // method for displaying an individual restaurant
+        async function displayRestaurant(restaurant, resultsContainer) {
+            const name = restaurant.restaurantName;
+                var formattedName = name.replace(/(?<!\\)'/g, "\\'");
+                
+                const address = restaurant.address;
+                const phoneNumber = restaurant.phoneNumber;
+                const cuisine = restaurant.cuisine;
+                const openingTime = restaurant.openingTime;
+                const closingTime = restaurant.closingTime;
+                
+                const image = new Image();
+                image.src = 'data:image/jpeg;base64,' + restaurant.photo;
+                image.width = "200"
+                image.height = "200"
+                
+                const listing = document.createElement('div');
+                listing.className = 'listing';
+                const token = localStorage.getItem("jwt");
+                if (token != null) {
+                    checkRoles(token)
+                        .then(data => {
+                            data.forEach(role => {
+                                console.log("Role:", role);
+                            });
+                            if (data.includes("CUSTOMER")) {
+                                listing.innerHTML = `
+                                    <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
+                                    <div>
+                                    <label for="reservation">Make a Reservation:</label>
+                                    <input type="time" id="reservation" name="reservation" required>
+                                    <label for="party">Party Size:</label>
+                                    <input type="number" id="party" name="party" min="1" max="10" required>
+                                    <button  id="reserve-button" class="reserve-buttons" onclick="makeReservation(document.getElementById('party').value, \
+                                                                                                document.getElementById('reservation').value,'${formattedName}')">Reserve</button>
+                                    </div>
+                                    <button class="menu-button">Menu</button>
+                                `;
+                                resultsContainer.appendChild(image);
+                                resultsContainer.appendChild(listing);
+                            } else {
+                                listing.innerHTML = `
+                                    <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
+                                `;
+                                resultsContainer.appendChild(image);
+                                resultsContainer.appendChild(listing);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                } else {
+                    listing.innerHTML = `
+                        <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
+                    `;
+                    resultsContainer.appendChild(image);
+                    resultsContainer.appendChild(listing);
+                }
+        }
+
         displayRestaurants();
     </script>
     <script src="/js/script.js"></script>

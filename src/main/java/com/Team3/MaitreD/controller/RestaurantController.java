@@ -91,4 +91,10 @@ public class RestaurantController {
     public List<Restaurant> getAllRestaurants () {
     	return restaurantService.getAllRestaurants();
     }
+
+	@GetMapping("/restaurant/filter/{searchInput}")
+	public List<Restaurant> filterRestaurantsByName(@PathVariable String searchInput) {
+		searchInput = searchInput.replace("\"", "");
+		return restaurantService.filterRestaurantsByName(searchInput);
+	}
 }
