@@ -40,7 +40,7 @@ public class TemplateController {
 	
 	@GetMapping("/customer/home")
 	public String customerView() {
-		return "CustomerHome";
+		return "customerhome";
 	}
 	
 	@GetMapping("/customer/profile")

@@ -49,39 +49,39 @@
             console.error("Error fetching data:", error);
         });
     loadPictures(username);
-
+    
     async function displayReservations() {
-            const response = await fetch(`http://localhost:8080/restaurant-reservations/${username}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt")),
-                    'Content-Type': 'application/json'
-                    
-                }
-            });
-            if (response.ok) {
-            	const reservationHeader = document.getElementById('reservationHeader');
-                const data = await response.json();
-                console.log(data)
+        const response = await fetch(`http://localhost:8080/restaurant-reservations/${username}`, {
+            method: 'GET',
+            headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt")),
+                'Content-Type': 'application/json'
                 
-                data.forEach(reservation => {
-                    const customerID = reservation.customerID;
-                    getCustomerByID(customerID+"")
-                        .then(responseData => {
-                            const customerFirstName = responseData.firstName;
-                            const customerLastName = responseData.lastName;
-                            const phone = responseData.phoneNumber;
-                            const partySize = reservation.partySize;
-                            const time = reservation.reservationTime;
-                            reservationHeader.insertAdjacentHTML('beforeend', `<p>Customer: ${customerFirstName} ${customerLastName}, Phone Number: ${phone}, Time: ${time}, Party: ${partySize}</p>`);
-                        })
-                    
-                });
-            } else {
-                throw new Error('Failed to get reservations');
             }
+        });
+        if (response.ok) {
+        	const reservationHeader = document.getElementById('reservationHeader');
+            const data = await response.json();
+            console.log(data)
+            
+            data.forEach(reservation => {
+                const customerID = reservation.customerID;
+                getCustomerByID(customerID+"")
+                    .then(responseData => {
+                        const customerFirstName = responseData.firstName;
+                        const customerLastName = responseData.lastName;
+                        const phone = responseData.phoneNumber;
+                        const partySize = reservation.partySize;
+                        const time = reservation.reservationTime;
+                        reservationHeader.insertAdjacentHTML('beforeend', `<p>Customer: ${customerFirstName} ${customerLastName}, Phone Number: ${phone}, Time: ${time}, Party: ${partySize}</p>`);
+                    })
+                
+            });
+        } else {
+            throw new Error('Failed to get reservations');
         }
-        displayReservations();
+    }
+    displayReservations();
     </script>
 </body>
 </html>

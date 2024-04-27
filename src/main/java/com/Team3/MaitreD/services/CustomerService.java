@@ -17,15 +17,6 @@ public class CustomerService {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
-	/* 
-	public void registerCustomer(String currentUsername, String firstName, String lastName, String phoneNumber) {
-		Customer currentCustomer = getCurrentCustomer(currentUsername);
-		
-		currentCustomer.setFirstName(firstName);
-		currentCustomer.setLastName(lastName);
-		currentCustomer.setPhoneNumber(phoneNumber);
-		customerRepository.save(currentCustomer);
-	} */
 	
 	public Customer updateCustomer(String username, String firstName, String lastName, String phoneNumber){
 		
@@ -46,11 +37,11 @@ public class CustomerService {
 		
 		return currentCustomer;
 	}
-
+	
 	public Customer getCustomerByID(Integer customerID) {
 		return customerRepository.findById(customerID).get();
 	}
-
+	
 	public boolean checkIfCustomerExistsByUsername(String username) {
 		//TODO check when customer object should be created - refactor this
 		Customer currentCustomer = getCurrentCustomer(username);
