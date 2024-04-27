@@ -63,14 +63,26 @@ public class RestaurantService {
 	}
 	
 	// adding pictures method, works but still testing
-		public void addPicture(String username, byte[] photo) {
-			Restaurant currentRestaurant = getCurrentRestaurant(username);
-			currentRestaurant.setPhoto(photo);
-			restaurantRepository.save(currentRestaurant);
-			
-		}
+	public void addPicture(String username, byte[] photo) {
+		Restaurant currentRestaurant = getCurrentRestaurant(username);
+		currentRestaurant.setPhoto(photo);
+		restaurantRepository.save(currentRestaurant);
 		
-		public List<Restaurant> getAllRestaurants() {
-			return restaurantRepository.findAll();
-		}
+	}
+	
+	public List<Restaurant> getAllRestaurants() {
+		return restaurantRepository.findAll();
+	}
+
+	public List<Restaurant> filterRestaurantsByName(String searchInput) {
+		return restaurantRepository.findAllByRestaurantNameContaining(searchInput);
+	}
+
+	public List<Restaurant> filterRestaurantsByCuisine(String cuisineSelection) {
+		return restaurantRepository.findAllByRestaurantCuisineContaining(cuisineSelection);
+	}
+
+	public List<Restaurant> filterRestaurantsByNameAndCuisine(String searchInput, String cuisineSelection) {
+		return restaurantRepository.findAllByRestaurantNameAndCuisineContaining(searchInput, cuisineSelection);
+	}
 }

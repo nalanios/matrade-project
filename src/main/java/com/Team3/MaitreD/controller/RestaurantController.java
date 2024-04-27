@@ -41,13 +41,13 @@ public class RestaurantController {
 		name = name.replace("\"", "");
 		return restaurantService.getRestaurantByName(name);
 	}
-
+	
 	@GetMapping("/restaurant/{restaurantID}/details")
 	public Restaurant getRestaurantByID(@PathVariable String restaurantID) {
 		restaurantID = restaurantID.replace("\"", "");
 		return restaurantService.getRestaurantByID(Integer.parseInt(restaurantID));
 	}
-
+	
 	@PostMapping("restaurant/update-information/{username}")
     public Restaurant updateInformation(@RequestBody RestaurantDTO body, @PathVariable String username) {
 		username = username.replace("\"", "");
@@ -91,4 +91,23 @@ public class RestaurantController {
     public List<Restaurant> getAllRestaurants () {
     	return restaurantService.getAllRestaurants();
     }
+
+	@GetMapping("/restaurant/filter/name/{searchInput}")
+	public List<Restaurant> filterRestaurantsByName(@PathVariable String searchInput) {
+		searchInput = searchInput.replace("\"", "");
+		return restaurantService.filterRestaurantsByName(searchInput);
+	}
+
+	@GetMapping("/restaurant/filter/cuisine/{cuisineSelection}")
+	public List<Restaurant> filterRestaurantsByCuisine(@PathVariable String cuisineSelection) {
+		cuisineSelection = cuisineSelection.replace("\"", "");
+		return restaurantService.filterRestaurantsByCuisine(cuisineSelection);
+	}
+
+	@GetMapping("/restaurant/filter/name-and-cuisine/{searchInput}/{cuisineSelection}")
+	public List<Restaurant> filterRestaurantsByNameAndCuisine(@PathVariable String searchInput, @PathVariable String cuisineSelection) {
+		searchInput = searchInput.replace("\"", "");
+		cuisineSelection = cuisineSelection.replace("\"", "");
+		return restaurantService.filterRestaurantsByNameAndCuisine(searchInput, cuisineSelection);
+	}
 }
