@@ -24,16 +24,6 @@
                 <label for="cuisine">Cuisine:</label>
                 <select id="cuisine" name="cuisine">
                     <option value="">Select Cuisine</option>
-                    <option value="american">American</option>
-                    <option value="chinese">Chinese</option>
-                    <option value="french">French</option>
-                    <option value="italian">Italian</option>
-                    <option value="japanese">Japanese</option>
-                    <option value="mexican">Mexican</option>
-                    <option value="thai">Thai</option>
-                    <option value="indian">Indian</option>
-                    <option value="korean">Korean</option>
-                    <option value="mediterranean">Mediterranean</option>
                 </select>
                 <label for="price">Price:</label>
                 <select id="price" name="price">
@@ -70,7 +60,7 @@
             if (response.ok) {
             	const resultsContainer = document.getElementById('searchResults');
                 resultsContainer.innerHTML = '';
- 
+                let cuisineOptions = [];
                 
                 const data = await response.json();
                 console.log(data)
@@ -83,6 +73,13 @@
                 	const cuisine = restaurant.cuisine;
                 	const openingTime = restaurant.openingTime;
                 	const closingTime = restaurant.closingTime;
+                    
+                    //TODO: add handling for uppercase/lowercase/irregular strings
+                    if (!cuisineOptions.includes(cuisine)) {
+                        document.getElementById("cuisine").insertAdjacentHTML("beforeend", `<option value="${cuisine}">${cuisine}</option>`);
+                        cuisineOptions.push(cuisine);
+                    }
+                    
                 	
                 	const image = new Image();
               		image.src = 'data:image/jpeg;base64,' + restaurant.photo;
