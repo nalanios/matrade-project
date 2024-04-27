@@ -264,9 +264,6 @@ async function performRedirect(route, token) {
 }
 
 async function makeReservation(partySize, reservationTime, restaurantName){
-	console.log(partySize);
-	console.log(reservationTime);
-	console.log("bro");
 	var customerID = await getCustomerInformation(localStorage.getItem("user"))
 	.then(function(responseData) {
                         return responseData.customerID;
