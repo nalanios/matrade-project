@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -7,8 +7,9 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    background-color: #f0f0f0;
+    background-color: #ffffff; 
 }
+
 
 .centered-container {
     display: flex;
@@ -27,21 +28,19 @@ body {
     padding: 20px;
     font-family: "Playfair Display";
     font-size: 20px;
-    overflow: hidden;
-    background-color: rgb(255, 255, 255);
-    box-sizing: border-box;
+    background-color: #e7e5e5; 
+    color: #ffffff; 
 }
 
-.header a{
-  color: #f2f2f2;
-  text-align: center;
-  padding: 16px 18px;
-  font-family: Georgia;
-  font-size: 20px;
+.header a {
+    color: #ffffff;
+    text-align: center;
+    padding: 16px 18px;
+    font-family: Georgia;
+    font-size: 20px;
 }
 
-/*INSERT FOOTER REFERENCE*/
-.footer-container{
+.footer-container {
     position: fixed;
     left: 0;
     bottom: 0;
@@ -49,8 +48,9 @@ body {
     font-family: "Playfair Display";
     font-size: 20px;
     text-align: center;
-    background-color: rgb(255, 255, 255);
+    background-color: #e7e5e5; 
     padding: 20px;
+    color: #ffffff; 
 }
 
 .brand, .sign-in, .user-profile, .search-for-restaurants {
@@ -109,10 +109,13 @@ label {
     padding: 5px;
 }
 
-input{
+input, select {
     font-size: 16px;
-    padding: 8px;
-    
+    padding: 10px;
+    margin: 5px;
+    border: 2px solid #e7e5e5; 
+    border-radius: 5px;
+    width: 100%; 
 }
 
 .create-account, .submit, .restaurant-user, .customer-user, .profile, .login {
@@ -170,9 +173,11 @@ input{
 
 .search-box {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
     margin-top: 20px;
+    width: 100%; 
 }
 
 /*ADD TUTORIALS POINT REFERENCE HERE*/
@@ -241,7 +246,7 @@ option {
 /* search results output*/
 .results-container {
     margin-top: 20px;
-    width: 100%;
+    width: 90%;
     text-align: center;
 }
 
@@ -255,11 +260,13 @@ button.result-button {
     padding: 5px 10px;
     font-size: 14px;
     cursor: pointer;
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    transition: background-color 0.2s;
+    background-color: #f0f0f0;  
+    border: 1px solid #ccc;     
+    transition: background-color 0.2s, color 0.2s; 
 }
 
 button.result-button:hover {
-    background-color: #e0e0e0;
+    background-color: #ff0000;  
+    color: #ffffff;             
 }
+

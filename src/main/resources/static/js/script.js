@@ -111,36 +111,23 @@ if (searchButton) {
     searchButton.addEventListener('click', function() {
         const restaurantName = document.getElementById('restaurant').value;
         const cuisine = document.getElementById('cuisine').value;
-        const price = document.getElementById('price').value;
-        const rating = document.getElementById('rating').value;
     
         console.log('Searching with filters:');
         console.log('Restaurant Name:', restaurantName);
         console.log('Cuisine:', cuisine);
-        console.log('Price:', price);
-        console.log('Rating:', rating);
     });
     
     /* display search results */
     document.getElementById('searchButton').addEventListener('click', function() {
         const restaurantName = document.getElementById('restaurant').value;
         const cuisine = document.getElementById('cuisine').value;
-        const price = document.getElementById('price').value;
-        const rating = document.getElementById('rating').value;
+
     
         // logs the search criteria to the console
         console.log('Searching with filters:');
         console.log('Restaurant Name:', restaurantName);
         console.log('Cuisine:', cuisine);
-        console.log('Price:', price);
-        console.log('Rating:', rating);
-    
-        // example data - replace this with actual data once back end is hooked up
-        const searchResults = [
-            { name: "Restaurant A", cuisine: "Italian", rating: "★★★★☆" },
-            { name: "Restaurant B", cuisine: "Mexican", rating: "★★★☆☆" }
-        ];
-    
+
         // clear previous results
         const resultsContainer = document.getElementById('searchResults');
         resultsContainer.innerHTML = '';
