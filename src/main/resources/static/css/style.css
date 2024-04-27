@@ -19,7 +19,14 @@ body {
     padding: 10px;
 }
 
-/*INSERT RESOURCE USED HERE FOR NAVIGATION BAR (.header and .header a)*/
+/*
+
+    Please note that Team 3 referenced the following source to help
+    with the .header and .header a development.
+
+    W3Schools. (2024). How TO - Top Navigation. 
+    W3Schools. https://www.w3schools.com/howto/howto_js_topnav.asp
+*/
 .header {
     width: 100%;
     display: flex;
@@ -40,7 +47,14 @@ body {
   font-size: 20px;
 }
 
-/*INSERT FOOTER REFERENCE*/
+/* 
+    Please note that Team 3 referenced the following source to help
+    with the .footer-container development.
+
+    W3Schools. (2024). Fixed/Sticky Footer Example 
+    [This is a demo of HTML/CSS to create a fixed footer.]. 
+    W3Schools. https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_fixed_footer
+*/
 .footer-container{
     position: fixed;
     left: 0;
@@ -175,7 +189,13 @@ input{
     margin-top: 20px;
 }
 
-/*ADD TUTORIALS POINT REFERENCE HERE*/
+/*
+    Please note that Team 3 referenced the following source to help
+    with the input development.
+
+    Prabhas. (2020, June 23). Add space inside a form’s text field with CSS. 
+    Tutorials Point. https://www.tutorialspoint.com/add-space-inside-a-form-s-text-field-with-css
+*/
 input[type="text"] {
     width: 250px;  
     box-sizing: border-box;

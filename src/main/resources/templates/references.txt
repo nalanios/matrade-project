@@ -1,0 +1,12 @@
+Please note that all of the following references were used to help with the HTML/CSS creation of the Maitre d Applcation
+
+
+                                                                           References
+Prabhas. (2020, June 23). Add space inside a form’s text field with CSS. Tutorials Point. https://www.tutorialspoint.com/add-space-inside-a-form-s-text-field-with-css
+W3Schools. (2024). CSS Web Safe Fonts. W3Schools. https://www.w3schools.com/cssref/css_websafe_fonts.php
+W3Schools. (2024). Fixed/Sticky Footer Example [This is a demo of HTML/CSS to create a fixed footer.]. W3Schools. https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_fixed_footer
+W3Schools. (2024). Gourmet Catering Template [This is the HTML/CSS template used for the Maitre d Application.]. W3Schools. https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_templates_gourmet_catering&stacked=h
+W3Schools. (2024). How TO - Top Navigation. W3Schools. https://www.w3schools.com/howto/howto_js_topnav.asp
+W3Schools. (2024). HTML Input Types. W3Schools. https://www.w3schools.com/html/html_form_input_types.asp
+W3Schools. (2024). W3.CSS Templates [This website helped us decide to use the Gourmet Catering Template for the Maitre d Application.]. In Gourmet Catering Template. W3Schools. https://www.w3schools.com/w3css/w3css_templates.asp
+Wennington, J. (2014, October 25). dish on white ceramic plate [This is a photograph by Jay Wennington that is used on the index page.]. In Gourmet meal and white wine. Unsplash. https://unsplash.com/photos/dish-on-white-ceramic-plate-N_Y88TWmGwA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash
