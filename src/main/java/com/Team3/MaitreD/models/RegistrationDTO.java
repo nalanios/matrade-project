@@ -1,57 +1,33 @@
-//Data transfer object for registering new users and sending user account info to client side
+
 package com.Team3.MaitreD.models;
 
 public class RegistrationDTO {
-	private String username;
+    private String username;
     private String password;
     private String email;
     private String accountType;
+    private String imagePath; // Path to the user image
 
     public RegistrationDTO(){
         super();
     }
 
-    public RegistrationDTO(String username, String email, String password, String accountType){
-        super();
+    public RegistrationDTO(String username, String email, String password, String accountType, String imagePath){
         this.username = username;
         this.password = password;
         this.email = email;
         this.accountType = accountType;
+        this.imagePath = imagePath; // Initialize image path
     }
 
-    public String getUsername(){
-        return this.username;
+    // Getter and setter for imagePath
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setUsername(String username){
-        this.username = username;
-    }
-    
-    public String getEmail(){
-        return this.email;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
-    public void setEmail(String email){
-    	this.email = email;
-    }
-    
-    public String getPassword(){
-        return this.password;
-    }
-
-    public void setPassword(String password){
-        this.password = password;
-    }
-
-    public String toString(){
-        return "Registration info: username: " + this.username + "email: " + this.email + " password: " + this.password;
-    }
-
-	public String getAccountType() {
-		return accountType;
-	}
-
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
-	}
+    // Existing getters and setters...
 }

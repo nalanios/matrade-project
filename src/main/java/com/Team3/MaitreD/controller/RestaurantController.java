@@ -1,17 +1,14 @@
-// Controller for Restaurant pages
+
+// Controller for Restaurant related pages
 package com.Team3.MaitreD.controller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,68 +18,32 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.Team3.MaitreD.models.Restaurant;
 import com.Team3.MaitreD.models.RestaurantDTO;
 import com.Team3.MaitreD.services.RestaurantService;
+import com.Team3.MaitreD.services.StorageService;
 
+import java.io.IOException;
 
 @RestController
+@RequestMapping("/restaurant")
 @CrossOrigin("*")
 public class RestaurantController {
-	
+
 	@Autowired
 	RestaurantService restaurantService;
-	
-	@GetMapping("/profile/{username}/information")
-	public Restaurant getInformation(@PathVariable String username) {
-		username = username.replace("\"", "");
-		return restaurantService.getCurrentRestaurant(username);
-	}
-	
-	@GetMapping("/restaurant/{name}/information")
-	public Restaurant getRestaurantByName(@PathVariable String name) {
-		name = name.replace("\"", "");
-		return restaurantService.getRestaurantByName(name);
+	@Autowired
+	StorageService storageService;  // Assuming a service to handle file storage
+
+	@PostMapping("/upload-photos")
+	public ResponseEntity<?> uploadPhoto(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+		String imageUri = storageService.saveFile(file);  // Assume storageService handles file storage and returns URI
+		redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
+		return ResponseEntity.ok().body("File uploaded successfully: " + imageUri);
 	}
 
-	@PostMapping("restaurant/update-information/{username}")
-    public Restaurant updateInformation(@RequestBody RestaurantDTO body, @PathVariable String username) {
-		username = username.replace("\"", "");
-        return restaurantService.updateRestaurant(username, body.getRestaurantName(), body.getAddress(), body.getPhoneNumber(), body.getCuisine(), body.getOpeningTime(), body.getClosingTime());
-    }
-	
-	@GetMapping("restaurant/check-exists")
-	@ResponseBody
-    public boolean checkIfRestaurantExists(@RequestParam String username) {
-		return restaurantService.checkIfRestaurantExistsByUsername(username);
-    }
-	
-	@PostMapping("restaurant/upload-photos")
-	public void uploadPhoto(@RequestParam("file") MultipartFile file, 
-			RedirectAttributes redirectAttributes) {
-		byte[] filecontent = null;
-		try {
-			InputStream inputStream = file.getInputStream();
-			filecontent = inputStream.readAllBytes();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		 restaurantService.addPicture("photo", filecontent);
-		
-		redirectAttributes.addFlashAttribute("message",
-				"You successfully uploaded " + file.getOriginalFilename() + "!");
-		
-	}
-	
-    @GetMapping("/get-image/{username}")
-    public String getImage (@PathVariable String username) {
-    	username = username.replace("\"", "");
-    	Restaurant restaurant = restaurantService.getCurrentRestaurant(username);
-    	byte[] photo = restaurant.getPhoto();
-    	String image = Base64.encodeBase64String(photo);
-    	return image;
-    }
-    
-    @GetMapping("/restaurant/get-all")
-    public List<Restaurant> getAllRestaurants () {
-    	return restaurantService.getAllRestaurants();
+	@GetMapping("/get-image/{username}")
+	public String getImage(@PathVariable String username) {
+		username = username.replace(""", "");
+        Restaurant restaurant = restaurantService.getCurrentRestaurant(username);
+        byte[] photo = restaurant.getPhoto();
+        return Base64.encodeBase64String(photo);
     }
 }

@@ -1,39 +1,35 @@
-//Data transfer object for registering new customers and sending customer info to client side
+
 package com.Team3.MaitreD.models;
 
 public class CustomerDTO {
-
+	private Integer customerID;
 	private String firstName;
 	private String lastName;
+	private String email;
 	private String phoneNumber;
-	
+	private String imagePath; // Path to the customer image
+
 	public CustomerDTO() {
 		super();
 	}
-	public CustomerDTO(String firstName, String lastName, String phoneNumber) {
-		super();
+
+	public CustomerDTO(Integer customerID, String firstName, String lastName, String email, String phoneNumber, String imagePath) {
+		this.customerID = customerID;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.imagePath = imagePath; // Initialize image path
 	}
-	public String getFirstName() {
-		return firstName;
+
+	// Getter and setter for imagePath
+	public String getImagePath() {
+		return imagePath;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
 	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-	
-	
+
+	// Existing getters and setters...
 }

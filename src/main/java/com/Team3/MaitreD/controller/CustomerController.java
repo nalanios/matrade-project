@@ -1,3 +1,4 @@
+
 // Controller for Customer related pages
 package com.Team3.MaitreD.controller;
 
@@ -17,40 +18,29 @@ import com.Team3.MaitreD.models.CustomerDTO;
 import com.Team3.MaitreD.services.CustomerService;
 
 
-
 @RestController
 @RequestMapping("/customer")
 @CrossOrigin("*")
 public class CustomerController {
-	
+
 	@Autowired
 	CustomerService customerService;
-	
-	/*@PostMapping("/registration/{username}")
-	public void registerRestaurant(@RequestBody CustomerDTO body, @PathVariable String username) {
-		
-		username = username.replace("\"", "");
-	
-		customerService.updateCustomer(username, body.getFirstName(), body.getLastName(), 
-				body.getPhoneNumber());
-		
-	}*/
-	
+
 	@GetMapping("/{username}/information")
 	public Customer getInformation(@PathVariable String username) {
-		username = username.replace("\"", "");
-		return customerService.getCurrentCustomer(username);
-	}
-
-	@PostMapping("/update-information/{username}")
-    public Customer updateInformation(@RequestBody CustomerDTO body, @PathVariable String username) {
-		username = username.replace("\"", "");
-        return customerService.updateCustomer(username, body.getFirstName(), body.getLastName(), body.getPhoneNumber());
+		username = username.replace(""", "");
+        return customerService.getCurrentCustomer(username);
     }
+
+    @PostMapping("/update-information/{username}")
+    public Customer updateInformation(@RequestBody CustomerDTO body, @PathVariable String username) {
+        username = username.replace(""", "");
+		return customerService.updateCustomer(username, body.getFirstName(), body.getLastName(), body.getPhoneNumber(), body.getImagePath());
+	}
 
 	@GetMapping("/check-exists")
 	@ResponseBody
-    public boolean checkIfCustomerExists(@RequestParam String username) {
+	public boolean checkIfCustomerExists(@RequestParam String username) {
 		return customerService.checkIfCustomerExistsByUsername(username);
-    }
+	}
 }
