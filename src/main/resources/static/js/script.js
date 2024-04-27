@@ -50,16 +50,20 @@ if (myProfileButton) {
                 });
                 if (data.includes("CUSTOMER")) {
                     getCustomerInformation(username)
-                    .then(responseData => {
-                        myProfileButton.textContent = responseData.firstName+"\'s Profile";
-                    })
-                    .catch(error => {
-                        console.error("Error fetching data:", error);
-                    });
+                        .then(responseData => {
+                            if (responseData.firstName != null) {
+                                myProfileButton.textContent = responseData.firstName+"\'s Profile";
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error fetching data:", error);
+                        });
                 } else if (data.includes("RESTAURANT")) {
                     getRestaurantInformation(username)
                         .then(responseData => {
-                            myProfileButton.textContent = responseData.restaurantName+"\'s Profile";
+                            if (responseData.restaurantName != null) {
+                                myProfileButton.textContent = responseData.restaurantName+"\'s Profile";
+                            }
                         })
                         .catch(error => {
                             console.error("Error fetching data:", error);
