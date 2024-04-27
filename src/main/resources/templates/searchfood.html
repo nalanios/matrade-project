@@ -19,12 +19,14 @@
         <div class="welcome-container">
             <h2>Let's Find Some Food</h2>
             <div class="search-box">
-                <label for="restaurant">Restaurant Search:</label>
-                <input type="text" id="restaurant" name="restaurant">
+                <h3>Filters:</h3>
+                <label for="restaurant">Restaurant Name:</label>
+                <input type="text" id="restaurant" name="restaurant"> <!-- @Madi: make box longer? -->
                 <label for="cuisine">Cuisine:</label>
                 <select id="cuisine" name="cuisine">
                     <option value="">Select Cuisine</option>
                 </select>
+            <!-- Commented out for test documentation purposes. Currently does not have functionality
                 <label for="price">Price:</label>
                 <select id="price" name="price">
                     <option value="">Select Price</option>
@@ -42,8 +44,11 @@
                     <option value="4">★★★★☆ - 4 Stars</option>
                     <option value="5">★★★★★ - 5 Stars</option>
                 </select>
+            -->
             </div>
+            <!-- Commented out for test documentation purposes. Currently does not have functionality
             <button id="searchButton" class="login">Search</button>
+            -->
             <!-- Results will be displayed below -->
             <div id="searchResults" class="results-container"></div>
         </div>        
@@ -199,8 +204,10 @@
                                     <button  id="reserve-button" class="reserve-buttons" onclick="makeReservation(document.getElementById('party${countingString}').value, \
                                                                                                 document.getElementById('reservation${countingString}').value,'${formattedName}')">Reserve</button>
                                     </div>
-                                    <button class="menu-button">Menu</button>
+                                    
                                 `;
+                                // REMOVED FROM END OF ABOVE STRING: <button class="menu-button">Menu</button>
+                                // removed for testing documentation screenshots since it does not have testable functionality
                                 resultsContainer.appendChild(image);
                                 resultsContainer.appendChild(listing);
                             } else {
