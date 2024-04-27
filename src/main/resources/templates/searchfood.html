@@ -50,38 +50,92 @@
     </div>
      <script>
         // listener for restaurant name search field
-        const inputField = document.getElementById("restaurant");
-        inputField.addEventListener("input", function() {
-            if (inputField.value == "") {
-                displayRestaurants();
-            } else {
-                filterRestaurants(inputField.value);
-            }
+        const restaurantSearch = document.getElementById("restaurant");
+        const cuisineSelector = document.getElementById("cuisine");
+        restaurantSearch.addEventListener("input", function() {
+            filterRestaurants();
+        });
+        cuisineSelector.addEventListener("change", function() {
+            filterRestaurants();
         });
 
-        // method to display restaurants based on the name search field
-        async function filterRestaurants(searchInput) {
-                const response = await fetch('http://localhost:8080/restaurant/filter/'+searchInput, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                if (response.ok) {
-                    const resultsContainer = document.getElementById('searchResults');
-                    resultsContainer.innerHTML = '';                    
-                    const data = await response.json();
-                    data.forEach(restaurant => {
-                        displayRestaurant(restaurant, resultsContainer);
-                    });
-                } else {
-                    throw new Error('Failed to get restaurants');
+        async function filterRestaurants() {
+            const restaurantInput = restaurantSearch.value;
+            const cuisineSelection = cuisineSelector.value;
+            if (restaurantInput != "" && cuisineSelection != "") {
+                filterRestaurantsByNameAndCuisine(restaurantInput, cuisineSelection);
+            } else if (restaurantInput != "" && cuisineSelection == "") {
+                filterRestaurantsByName(restaurantInput);
+            } else if (restaurantInput == "" && cuisineSelection != "") {
+                filterRestaurantsByCuisine(cuisineSelection);
+            } else {
+                displayAllRestaurants();
+            }
+        }
+
+        // method to display restaurants based on the cuisine selector
+        async function filterRestaurantsByCuisine(cuisineSelection) {
+            const response = await fetch(`http://localhost:8080/restaurant/filter/cuisine/${cuisineSelection}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
+            });
+            if (response.ok) {
+                const resultsContainer = document.getElementById('searchResults');
+                resultsContainer.innerHTML = '';                    
+                const data = await response.json();
+                data.forEach(restaurant => {
+                    displayRestaurant(restaurant, resultsContainer);
+                });
+            } else {
+                throw new Error('Failed to get restaurants');
+            }
+        } 
+
+        // method to display restaurants based on the name search field
+        async function filterRestaurantsByName(searchInput) {
+            const response = await fetch(`http://localhost:8080/restaurant/filter/name/${searchInput}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const resultsContainer = document.getElementById('searchResults');
+                resultsContainer.innerHTML = '';                    
+                const data = await response.json();
+                data.forEach(restaurant => {
+                    displayRestaurant(restaurant, resultsContainer);
+                });
+            } else {
+                throw new Error('Failed to get restaurants');
+            }
+        } 
+
+        // method to display restaurants based on the name search field and cuisine selector
+        async function filterRestaurantsByNameAndCuisine(searchInput, cuisineSelection) {
+            const response = await fetch(`http://localhost:8080/restaurant/filter/name-and-cuisine/${searchInput}/${cuisineSelection}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+                const resultsContainer = document.getElementById('searchResults');
+                resultsContainer.innerHTML = '';                    
+                const data = await response.json();
+                data.forEach(restaurant => {
+                    displayRestaurant(restaurant, resultsContainer);
+                });
+            } else {
+                throw new Error('Failed to get restaurants');
+            }
         } 
 
         // displays all restaurants and sets cuisine selector
         // called on initial visit, and when the restaurant name input field is blank
-        async function displayRestaurants() {
+        async function displayAllRestaurants() {
             const response = await fetch('http://localhost:8080/restaurant/get-all', {
                 method: 'GET',
                 headers: {
@@ -193,7 +247,7 @@
         }
 
         addCuisineOptions();
-        displayRestaurants();
+        displayAllRestaurants();
     </script>
     <script src="/js/script.js"></script>
 </body>

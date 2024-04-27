@@ -77,4 +77,12 @@ public class RestaurantService {
 	public List<Restaurant> filterRestaurantsByName(String searchInput) {
 		return restaurantRepository.findAllByRestaurantNameContaining(searchInput);
 	}
+
+	public List<Restaurant> filterRestaurantsByCuisine(String cuisineSelection) {
+		return restaurantRepository.findAllByRestaurantCuisineContaining(cuisineSelection);
+	}
+
+	public List<Restaurant> filterRestaurantsByNameAndCuisine(String searchInput, String cuisineSelection) {
+		return restaurantRepository.findAllByRestaurantNameAndCuisineContaining(searchInput, cuisineSelection);
+	}
 }

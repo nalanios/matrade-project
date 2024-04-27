@@ -92,9 +92,22 @@ public class RestaurantController {
     	return restaurantService.getAllRestaurants();
     }
 
-	@GetMapping("/restaurant/filter/{searchInput}")
+	@GetMapping("/restaurant/filter/name/{searchInput}")
 	public List<Restaurant> filterRestaurantsByName(@PathVariable String searchInput) {
 		searchInput = searchInput.replace("\"", "");
 		return restaurantService.filterRestaurantsByName(searchInput);
+	}
+
+	@GetMapping("/restaurant/filter/cuisine/{cuisineSelection}")
+	public List<Restaurant> filterRestaurantsByCuisine(@PathVariable String cuisineSelection) {
+		cuisineSelection = cuisineSelection.replace("\"", "");
+		return restaurantService.filterRestaurantsByCuisine(cuisineSelection);
+	}
+
+	@GetMapping("/restaurant/filter/name-and-cuisine/{searchInput}/{cuisineSelection}")
+	public List<Restaurant> filterRestaurantsByNameAndCuisine(@PathVariable String searchInput, @PathVariable String cuisineSelection) {
+		searchInput = searchInput.replace("\"", "");
+		cuisineSelection = cuisineSelection.replace("\"", "");
+		return restaurantService.filterRestaurantsByNameAndCuisine(searchInput, cuisineSelection);
 	}
 }

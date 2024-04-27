@@ -17,4 +17,8 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>
 	Optional<Restaurant> findByRestaurantName(String restaurantName);
 	@Query("SELECT i FROM Restaurant i WHERE LOWER(i.restaurantName) LIKE LOWER(CONCAT('%', :search, '%'))")
 	List<Restaurant> findAllByRestaurantNameContaining(@Param("search") String search);
+	@Query("SELECT i FROM Restaurant i WHERE LOWER(i.cuisine) LIKE LOWER(CONCAT('%', :cuisine, '%'))")
+	List<Restaurant> findAllByRestaurantCuisineContaining(@Param("cuisine") String cuisine);
+	@Query("SELECT i FROM Restaurant i WHERE LOWER(i.restaurantName) LIKE LOWER(CONCAT('%', :search, '%')) AND LOWER(i.cuisine) LIKE LOWER(CONCAT('%', :cuisine, '%'))")
+	List<Restaurant> findAllByRestaurantNameAndCuisineContaining(@Param("search") String search, @Param("cuisine") String cuisine);
 }
