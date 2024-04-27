@@ -192,6 +192,17 @@ async function checkRoles(token) {
     return responseData;
 }
 
+async function getCustomerByID(customerID) {
+    const response = await fetch('http://localhost:8080/customer/'+customerID+'/details', {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
 async function getCustomerInformation(username){
     const response = await fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information', {
         method: 'GET',

@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Team3.MaitreD.models.Customer;
 import com.Team3.MaitreD.models.Reservation;
 import com.Team3.MaitreD.models.ReservationDTO;
+import com.Team3.MaitreD.models.Restaurant;
 import com.Team3.MaitreD.services.CustomerService;
 import com.Team3.MaitreD.services.ReservationService;
+import com.Team3.MaitreD.services.RestaurantService;
 
 @RestController
 @CrossOrigin("*")
@@ -25,6 +27,9 @@ public class ReservationController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private RestaurantService restaurantService;
 
     @PostMapping("/reserve")
     public Reservation reserve(@RequestBody ReservationDTO body){
@@ -37,5 +42,13 @@ public class ReservationController {
         Customer customer = customerService.getCurrentCustomer(username);
         Integer customerID = customer.getCustomerID();
     	return reservationService.getAllUserReservations(customerID);
+    }
+
+    @GetMapping("/restaurant-reservations/{username}")
+    public List<Reservation> getAllReservations (@PathVariable String username) {
+        username = username.replace("\"", "");
+        Restaurant restaurant = restaurantService.getCurrentRestaurant(username);
+        Integer restaurantID = restaurant.getRestaurantID();
+    	return reservationService.getAllRestaurantReservations(restaurantID);
     }
 }

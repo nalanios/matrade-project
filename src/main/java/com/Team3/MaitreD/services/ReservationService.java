@@ -22,4 +22,8 @@ public class ReservationService {
     public List<Reservation> getAllUserReservations(Integer customerID) {
         return reservationRepository.findByCustomerID(customerID);
     }
+
+    public List<Reservation> getAllRestaurantReservations(Integer restaurantID) {
+        return reservationRepository.findByRestaurantID(restaurantID);
+    }
 }

@@ -12,4 +12,5 @@ import com.Team3.MaitreD.models.Reservation;
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>{
 	Optional<Reservation> findById(Integer id);
 	List<Reservation> findByCustomerID(Integer customerID);
+	List<Reservation> findByRestaurantID(Integer restaurantID);
 }
