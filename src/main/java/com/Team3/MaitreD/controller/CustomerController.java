@@ -26,28 +26,18 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 	
-	/*@PostMapping("/registration/{username}")
-	public void registerRestaurant(@RequestBody CustomerDTO body, @PathVariable String username) {
-		
-		username = username.replace("\"", "");
-	
-		customerService.updateCustomer(username, body.getFirstName(), body.getLastName(), 
-				body.getPhoneNumber());
-		
-	}*/
-	
 	@GetMapping("/{username}/information")
 	public Customer getInformation(@PathVariable String username) {
 		username = username.replace("\"", "");
 		return customerService.getCurrentCustomer(username);
 	}
-
+	
 	@GetMapping("/{customerID}/details")
 	public Customer getCustomerByID(@PathVariable String customerID) {
 		customerID = customerID.replace("\"", "");
 		return customerService.getCustomerByID(Integer.parseInt(customerID));
 	}
-
+	
 	@PostMapping("/update-information/{username}")
     public Customer updateInformation(@RequestBody CustomerDTO body, @PathVariable String username) {
 		username = username.replace("\"", "");

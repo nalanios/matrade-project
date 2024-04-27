@@ -33,11 +33,11 @@ public class RestaurantService {
 	public Restaurant getRestaurantByName(String restaurantName) {
 		return restaurantRepository.findByRestaurantName(restaurantName).get();
 	}
-
+	
 	public Restaurant getRestaurantByID(Integer restaurantID) {
 		return restaurantRepository.findById(restaurantID).get();
 	}
-
+	
 	//TODO: check restaurant/customer inital object creation logic, could refactor later
 	public Restaurant updateRestaurant(String currentUsername, String restaurantName, String address, String phoneNumber, String cuisine, 
 									String openingTime, String closingTime){
