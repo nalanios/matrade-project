@@ -192,6 +192,17 @@ async function checkRoles(token) {
     return responseData;
 }
 
+async function getCustomerByID(customerID) {
+    const response = await fetch('http://localhost:8080/customer/'+customerID+'/details', {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
 async function getCustomerInformation(username){
     const response = await fetch('http://localhost:8080/customer/'+JSON.parse(localStorage.getItem('user'))+'/information', {
         method: 'GET',
@@ -205,6 +216,17 @@ async function getCustomerInformation(username){
 
 async function getRestaurantInformation(username) {
     const response = await fetch('http://localhost:8080/profile/'+username+'/information', {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
+async function getRestaurantByID(restaurantID) {
+    const response = await fetch('http://localhost:8080/restaurant/'+restaurantID+'/details', {
         method: 'GET',
         headers: {
                 Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
@@ -271,4 +293,9 @@ async function makeReservation(partySize, reservationTime, restaurantName){
         }, 
         body: JSON.stringify({customerID, restaurantID, partySize, reservationTime})
     });
+    if (response.status == 200) {
+        window.location.href = "http://localhost:8080/customer/profile";
+    } else {
+        console.log("Failed to create reservation");
+    }
 }

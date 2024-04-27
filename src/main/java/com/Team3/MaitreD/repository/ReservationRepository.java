@@ -1,5 +1,6 @@
 package com.Team3.MaitreD.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,6 @@ import com.Team3.MaitreD.models.Reservation;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer>{
 	Optional<Reservation> findById(Integer id);
+	List<Reservation> findByCustomerID(Integer customerID);
+	List<Reservation> findByRestaurantID(Integer restaurantID);
 }

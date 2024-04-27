@@ -42,6 +42,12 @@ public class CustomerController {
 		return customerService.getCurrentCustomer(username);
 	}
 
+	@GetMapping("/{customerID}/details")
+	public Customer getCustomerByID(@PathVariable String customerID) {
+		customerID = customerID.replace("\"", "");
+		return customerService.getCustomerByID(Integer.parseInt(customerID));
+	}
+
 	@PostMapping("/update-information/{username}")
     public Customer updateInformation(@RequestBody CustomerDTO body, @PathVariable String username) {
 		username = username.replace("\"", "");

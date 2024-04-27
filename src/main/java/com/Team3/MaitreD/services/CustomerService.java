@@ -47,6 +47,10 @@ public class CustomerService {
 		return currentCustomer;
 	}
 
+	public Customer getCustomerByID(Integer customerID) {
+		return customerRepository.findById(customerID).get();
+	}
+
 	public boolean checkIfCustomerExistsByUsername(String username) {
 		//TODO check when customer object should be created - refactor this
 		Customer currentCustomer = getCurrentCustomer(username);

@@ -1,5 +1,7 @@
 package com.Team3.MaitreD.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +19,11 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
     
+    public List<Reservation> getAllUserReservations(Integer customerID) {
+        return reservationRepository.findByCustomerID(customerID);
+    }
+
+    public List<Reservation> getAllRestaurantReservations(Integer restaurantID) {
+        return reservationRepository.findByRestaurantID(restaurantID);
+    }
 }
