@@ -96,15 +96,6 @@
                 const data = await response.json();
                 console.log(data)
                 data.forEach(restaurant => {
-                    
-                    // adds cuisine to search filters
-                    //TODO: add handling for uppercase/lowercase/irregular strings
-                    const cuisine = restaurant.cuisine;
-                    if (!cuisineOptions.includes(cuisine)) {
-                        document.getElementById("cuisine").insertAdjacentHTML("beforeend", `<option value="${cuisine}">${cuisine}</option>`);
-                        cuisineOptions.push(cuisine);
-                    }
-
                 	displayRestaurant(restaurant, resultsContainer);
                 });
             } else {
@@ -172,6 +163,36 @@
                 }
         }
 
+        async function addCuisineOptions() {
+            const response = await fetch('http://localhost:8080/restaurant/get-all', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (response.ok) {
+            	const resultsContainer = document.getElementById('searchResults');
+                resultsContainer.innerHTML = '';
+                let cuisineOptions = [];
+                
+                const data = await response.json();
+                console.log(data)
+                data.forEach(restaurant => {
+                    
+                    // adds cuisine to search filters
+                    //TODO: add handling for uppercase/lowercase/irregular strings
+                    const cuisine = restaurant.cuisine;
+                    if (!cuisineOptions.includes(cuisine)) {
+                        document.getElementById("cuisine").insertAdjacentHTML("beforeend", `<option value="${cuisine}">${cuisine}</option>`);
+                        cuisineOptions.push(cuisine);
+                    }
+                });
+            } else {
+                throw new Error('Failed to get restaurants');
+            }
+        }
+
+        addCuisineOptions();
         displayRestaurants();
     </script>
     <script src="/js/script.js"></script>
