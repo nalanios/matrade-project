@@ -131,6 +131,7 @@
                 const data = await response.json();
                 var counter = 0;
                 data.forEach(restaurant => {
+                    counter++;
                     displayRestaurant(restaurant, resultsContainer, counter);
                 });
             } else {
@@ -156,6 +157,7 @@
                 console.log(data)
                 var counter = 0;
                 data.forEach(restaurant => {
+                    counter++;
                 	displayRestaurant(restaurant, resultsContainer, counter);
                 });
             } else {
