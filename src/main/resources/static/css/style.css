@@ -16,14 +16,41 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%; 
+    padding: 10px;
 }
 
+/*INSERT RESOURCE USED HERE FOR NAVIGATION BAR (.header and .header a)*/
 .header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    font-family: "Playfair Display";
+    font-size: 20px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
     box-sizing: border-box;
+}
+
+.header a{
+  color: #f2f2f2;
+  text-align: center;
+  padding: 16px 18px;
+  font-family: Georgia;
+  font-size: 20px;
+}
+
+/*INSERT FOOTER REFERENCE*/
+.footer-container{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    font-family: "Playfair Display";
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
 }
 
 .brand, .sign-in, .user-profile, .search-for-restaurants {
@@ -53,8 +80,14 @@ body {
     max-width: 600px;
 }
 
+p{
+    font-family: Times New Roman;
+    font-size: 20px;
+}
+
 h1 {
     color: rgb(110, 109, 109);
+    font-family: "Playfair Display";
 }
 
 h2 {
@@ -70,8 +103,10 @@ h3 {
 }
 
 label {
-    font-size: 16px;
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
     color: rgb(0, 0, 0);
+    padding: 5px;
 }
 
 input{
@@ -80,7 +115,7 @@ input{
     
 }
 
-.create-account, .restaurant-user, .customer-user, .profile, .login {
+.create-account, .submit, .restaurant-user, .customer-user, .profile, .login {
     padding: 10px 15px;
     border: 2px solid darkgray; 
     background-color: white;
@@ -99,6 +134,11 @@ input{
 }
 
 .create-account:hover {
+    background-color: rgb(110, 109, 109);
+    color: white;
+}
+
+.submit:hover {
     background-color: rgb(110, 109, 109);
     color: white;
 }
@@ -135,8 +175,40 @@ input{
     margin-top: 20px;
 }
 
+/*ADD TUTORIALS POINT REFERENCE HERE*/
 input[type="text"] {
-    width: 150px;  
+    width: 250px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0;
+}
+
+input[type="username"] {
+    width: 250px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0;
+}
+
+input[type="email"] {
+    width: 250px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0;
+}
+
+input[type="password"]{
+    width: 250px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0; 
+}
+
+.account-type{
+    width: 50px;  
+    box-sizing: border-box;
+    padding: 10px 15px;
+    margin: 5px 0;  
 }
 
 .sign-out {
