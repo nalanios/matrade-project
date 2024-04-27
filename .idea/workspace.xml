@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="37a164c0-cebd-419b-8c41-727ec6776cc1" name="Changes" comment="Title: Integrate Image Handling for Users and Restaurants&#10;&#10;Body:&#10;This update introduces several enhancements to the application, specifically adding support for image uploads for both users and restaurants. The key changes include:&#10;&#10;- Added `imagePath` fields to the ApplicationUser, Customer, and Restaurant models to store references to image files.&#10;- Updated DTOs (RestaurantDTO, RegistrationDTO, and CustomerDTO) to include `imageUri` or `imagePath` to facilitate image data transfer.&#10;- Modified CustomerController and RestaurantController to handle the new image path fields and implemented image upload functionality.&#10;- Created a new StorageService to manage file uploads, saving files to the server, and generating accessible URIs.&#10;- Prepared SQL statements to update the H2 database schema, adding columns to store image paths.&#10;- Addressed compatibility issues by removing text blocks for Java versions prior to 13.&#10;&#10;These changes are part of the ongoing feature implementation to allow image attachments for user profiles and restaurant listings. Further testing and validation are required to ensure robustness and security.&#10;&#10;Please note that this is a work-in-progress commit and further adjustments may be necessary to fully integrate these features into the main application flow." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+              </list>
+            </value>
+          </entry>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="REMOTE">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="origin/Mike-Branch" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2fewwkcBnYlpHliNJxvtzVH0y9A" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "MikesNew-Branch",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="matraDEproject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="matraDEproject" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MaitreDApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Maitre-D" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.Team3.MaitreD.MaitreDApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="37a164c0-cebd-419b-8c41-727ec6776cc1" name="Changes" comment="" />
+      <created>1714175091776</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1714175091776</updated>
+      <workItem from="1714175092903" duration="1260000" />
+    </task>
+    <task id="LOCAL-00001" summary="Title: Integrate Image Handling for Users and Restaurants&#10;&#10;Body:&#10;This update introduces several enhancements to the application, specifically adding support for image uploads for both users and restaurants. The key changes include:&#10;&#10;- Added `imagePath` fields to the ApplicationUser, Customer, and Restaurant models to store references to image files.&#10;- Updated DTOs (RestaurantDTO, RegistrationDTO, and CustomerDTO) to include `imageUri` or `imagePath` to facilitate image data transfer.&#10;- Modified CustomerController and RestaurantController to handle the new image path fields and implemented image upload functionality.&#10;- Created a new StorageService to manage file uploads, saving files to the server, and generating accessible URIs.&#10;- Prepared SQL statements to update the H2 database schema, adding columns to store image paths.&#10;- Addressed compatibility issues by removing text blocks for Java versions prior to 13.&#10;&#10;These changes are part of the ongoing feature implementation to allow image attachments for user profiles and restaurant listings. Further testing and validation are required to ensure robustness and security.&#10;&#10;Please note that this is a work-in-progress commit and further adjustments may be necessary to fully integrate these features into the main application flow.">
+      <option name="closed" value="true" />
+      <created>1714176267513</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714176267513</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Title: Integrate Image Handling for Users and Restaurants&#10;&#10;Body:&#10;This update introduces several enhancements to the application, specifically adding support for image uploads for both users and restaurants. The key changes include:&#10;&#10;- Added `imagePath` fields to the ApplicationUser, Customer, and Restaurant models to store references to image files.&#10;- Updated DTOs (RestaurantDTO, RegistrationDTO, and CustomerDTO) to include `imageUri` or `imagePath` to facilitate image data transfer.&#10;- Modified CustomerController and RestaurantController to handle the new image path fields and implemented image upload functionality.&#10;- Created a new StorageService to manage file uploads, saving files to the server, and generating accessible URIs.&#10;- Prepared SQL statements to update the H2 database schema, adding columns to store image paths.&#10;- Addressed compatibility issues by removing text blocks for Java versions prior to 13.&#10;&#10;These changes are part of the ongoing feature implementation to allow image attachments for user profiles and restaurant listings. Further testing and validation are required to ensure robustness and security.&#10;&#10;Please note that this is a work-in-progress commit and further adjustments may be necessary to fully integrate these features into the main application flow." />
+    <option name="LAST_COMMIT_MESSAGE" value="Title: Integrate Image Handling for Users and Restaurants&#10;&#10;Body:&#10;This update introduces several enhancements to the application, specifically adding support for image uploads for both users and restaurants. The key changes include:&#10;&#10;- Added `imagePath` fields to the ApplicationUser, Customer, and Restaurant models to store references to image files.&#10;- Updated DTOs (RestaurantDTO, RegistrationDTO, and CustomerDTO) to include `imageUri` or `imagePath` to facilitate image data transfer.&#10;- Modified CustomerController and RestaurantController to handle the new image path fields and implemented image upload functionality.&#10;- Created a new StorageService to manage file uploads, saving files to the server, and generating accessible URIs.&#10;- Prepared SQL statements to update the H2 database schema, adding columns to store image paths.&#10;- Addressed compatibility issues by removing text blocks for Java versions prior to 13.&#10;&#10;These changes are part of the ongoing feature implementation to allow image attachments for user profiles and restaurant listings. Further testing and validation are required to ensure robustness and security.&#10;&#10;Please note that this is a work-in-progress commit and further adjustments may be necessary to fully integrate these features into the main application flow." />
+  </component>
+</project>
