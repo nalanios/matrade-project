@@ -165,6 +165,14 @@ input[type="text"], input[type="username"], input[type="email"], input[type="pas
     font-size: 16px;
 }
 
+#passwordStrength p {
+    font-size: 14px; 
+}
+
+#passwordGuidelines p {
+    font-size: 14px; 
+}
+
 input[type="number"], input[type="time"] {
     width: 120px; 
     padding: 8px; 
@@ -289,4 +297,32 @@ button.result-button:hover {
 .reserve-buttons:hover {
     background-color: #ff0000; 
     color: #ffffff;
+}
+
+.account-creation {
+    width: 300px; 
+    text-align: center;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    position: relative; 
+}
+
+.input-label {
+    position: absolute; 
+    top: 50%; 
+    left: 10px; 
+    transform: translateY(-50%); 
+    color: #777; 
+    transition: all 0.3s ease;
+    pointer-events: none; 
+}
+
+input:focus + .input-label,
+input:not(:placeholder-shown) + .input-label {
+    top: 5px; 
+    left: 5px; 
+    font-size: 12px; 
+    color: #333; 
 }
