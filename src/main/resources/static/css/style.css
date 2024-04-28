@@ -197,28 +197,28 @@ input{
     Tutorials Point. https://www.tutorialspoint.com/add-space-inside-a-form-s-text-field-with-css
 */
 input[type="text"] {
-    width: 250px;  
+    width: 300px;  
     box-sizing: border-box;
     padding: 10px 15px;
     margin: 5px 0;
 }
 
 input[type="username"] {
-    width: 250px;  
+    width: 300px;  
     box-sizing: border-box;
     padding: 10px 15px;
     margin: 5px 0;
 }
 
 input[type="email"] {
-    width: 250px;  
+    width: 300px;  
     box-sizing: border-box;
     padding: 10px 15px;
     margin: 5px 0;
 }
 
 input[type="password"]{
-    width: 250px;  
+    width: 300px;  
     box-sizing: border-box;
     padding: 10px 15px;
     margin: 5px 0; 
