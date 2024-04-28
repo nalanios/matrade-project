@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,54 +7,103 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <div id="header-wrapper">
-        <header id="header" class="container">
-            <div id="logo">
-                <h1><a href="CustomerHome.html">Maitre-D</a></h1>
-                <span>by Team 3</span>
-            </div>
-            <nav id="nav">
-                <ul>
-                    <li><a href="CustomerHome.html">Welcome</a></li>
-                    <li><a href="@{/MyProfile}">Profile</a></li>
-                    <li><a href="@{/MyReservations}">Reservations</a></li>
-                </ul>
-            </nav>
-        </header>
-    </div>
-
-    <div class="centered-container">
-        <div class="welcome-container">
-            <h1>Restaurant A</h1> <!--  placeholder title here, will need to add logic to get restaurant name from whatever restaurant the customer chooses -->
-            <form id="reservationForm" class="reservation-form">
-                <label for="date">Preferred Date:</label>
-                <input type="date" id="date" name="date" required><br>
-
-                <label for="time">Preferred Time:</label>
-                <input type="time" id="time" name="time" required><br>
-
-                <label for="guests">Party Size:</label>
-                <input type="number" id="guests" name="guests" min="1" required><br>
-
-                <div class="available-tables">           
-                    <h2>Available Tables</h2>
-                    <div class="table">
-                        <span>Table 1 | Booth | Seats 6</span>
-                        <button class="reserve-button">Reserve</button>
-                    </div>
-                    <div class="table">
-                        <span>Table 2 | Indoor | Seats 2</span>
-                        <button class="reserve-button">Reserve</button>
-                    </div>
-                    <div class="table">
-                        <span>Table 3 | Outdoor | Seats 4</span>
-                        <button class="reserve-button">Reserve</button>
-                    </div>
-                </div>
-            </form>
-        </div>
+    <div class="header">
+        <span id="brand" class="brand">Maître d'</span>
+        <button id ="myProfile" button class = "user-profile">My Profile</button>
+        <button id ="signInSignOut" button class="sign-in">Sign In</button>
     </div>
     
-    <script src="/js/main.js"></script>
+    <div id="page-wrapper">
+        <!-- This container includes both the welcome message and the Create Account button -->
+        <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
+            <div class="welcome-container">
+                <h1 id="restaurantModify">Restaurant A</h1> <!--  placeholder title here, will need to add logic to get restaurant name from whatever restaurant the customer chooses -->
+                <form id="reservationForm" class="reservation-form" method="post" onsubmit="updateReservationInformation(event)">
+                    <!--<label for="date">Preferred Date:</label>
+                    <input type="date" id="date" name="date" required><br> -->
+    				<label for="date">New Date:</label>
+                    <input type="date" id="dateModify" name="date" required><br>
+                    
+                    <label for="time">Preferred Time:</label>
+                    <input type="time" id="timeModify" name="time" required><br>
+    
+                    <label for="guests">Party Size:</label>
+                    <input type="number" id="partyModify" name="guests" min="1" required><br>
+                    <button type="submit" button id="modifyReservation" class="profile">Continue</button><br>
+                    <!-- Commented out for test documentation purposes. Currently does not have functionality
+                    <div class="available-tables">           
+                        <h2>Available Tables</h2>
+                        <div class="table">
+                            <span>Table 1 | Booth | Seats 6</span>
+                            <button class="reserve-button">Reserve</button>
+                        </div>
+                        <div class="table">
+                            <span>Table 2 | Indoor | Seats 2</span>
+                            <button class="reserve-button">Reserve</button>
+                        </div>
+                        <div class="table">
+                            <span>Table 3 | Outdoor | Seats 4</span>
+                            <button class="reserve-button">Reserve</button>
+                        </div>
+                    </div>
+                    -->
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+        <!--Website Footer-->
+        <div id="footer-wrapper">
+            <div class="footer-container">
+                Maître d' Application created by Team 3 - Spring 2024
+            </div>
+        </div>
+    
+    <script src="/js/script.js"></script>
+    <script>
+        const reservationID = localStorage.getItem('reservation');
+        getReservationByID(reservationID)
+            .then(responseData => {
+            	document.getElementById("dateModify").value = responseData.reservationDate;
+                document.getElementById("partyModify").value = responseData.partySize;
+                document.getElementById('timeModify').value = responseData.reservationTime;
+                getRestaurantByID(responseData.restaurantID+"")
+                    .then(restaurantResponse => {
+                        document.getElementById('restaurantModify').textContent = restaurantResponse.restaurantName;
+                    })
+            });
+
+        function updateReservationInformation(event) {
+            event.preventDefault();
+            const reservationDate = document.getElementById("dateModify").value;
+			const partySize = document.getElementById('partyModify').value;
+			const reservationTime = document.getElementById('timeModify').value;			
+			sendData(reservationDate, partySize, reservationTime);
+        }
+        
+        async function sendData(reservationDate, partySize, reservationTime) {
+        	const username = localStorage.getItem('user');
+            try {
+                const response = await fetch(`http://localhost:8080/reservation/update-information/${reservationID}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({partySize, reservationTime, reservationDate}),
+                });
+				
+                if (response.ok) {
+                    console.log('Reservation update successful');
+                    window.location.href = 'http://localhost:8080/customer/profile';
+                } else {
+                    console.error('Reservation update failed');
+                    
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+    </script>
 </body>
 </html>

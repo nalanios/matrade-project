@@ -33,11 +33,11 @@ public class RestaurantService {
 	public Restaurant getRestaurantByName(String restaurantName) {
 		return restaurantRepository.findByRestaurantName(restaurantName).get();
 	}
-
+	
 	public Restaurant getRestaurantByID(Integer restaurantID) {
 		return restaurantRepository.findById(restaurantID).get();
 	}
-
+	
 	//TODO: check restaurant/customer inital object creation logic, could refactor later
 	public Restaurant updateRestaurant(String currentUsername, String restaurantName, String address, String phoneNumber, String cuisine, 
 									String openingTime, String closingTime){
@@ -63,26 +63,26 @@ public class RestaurantService {
 	}
 	
 	// adding pictures method, works but still testing
-	public void addPicture(String username, byte[] photo) {
-		Restaurant currentRestaurant = getCurrentRestaurant(username);
-		currentRestaurant.setPhoto(photo);
-		restaurantRepository.save(currentRestaurant);
+		public void addPicture(String username, byte[] photo) {
+			Restaurant currentRestaurant = getCurrentRestaurant(username);
+			currentRestaurant.setPhoto(photo);
+			restaurantRepository.save(currentRestaurant);
+			
+		}
 		
-	}
-	
-	public List<Restaurant> getAllRestaurants() {
-		return restaurantRepository.findAll();
-	}
+		public List<Restaurant> getAllRestaurants() {
+			return restaurantRepository.findAll();
+		}
+		
+		public List<Restaurant> filterRestaurantsByName(String searchInput) {
+			return restaurantRepository.findAllByRestaurantNameContaining(searchInput);
+		}
 
-	public List<Restaurant> filterRestaurantsByName(String searchInput) {
-		return restaurantRepository.findAllByRestaurantNameContaining(searchInput);
-	}
+		public List<Restaurant> filterRestaurantsByCuisine(String cuisineSelection) {
+			return restaurantRepository.findAllByRestaurantCuisineContaining(cuisineSelection);
+		}
 
-	public List<Restaurant> filterRestaurantsByCuisine(String cuisineSelection) {
-		return restaurantRepository.findAllByRestaurantCuisineContaining(cuisineSelection);
-	}
-
-	public List<Restaurant> filterRestaurantsByNameAndCuisine(String searchInput, String cuisineSelection) {
-		return restaurantRepository.findAllByRestaurantNameAndCuisineContaining(searchInput, cuisineSelection);
-	}
+		public List<Restaurant> filterRestaurantsByNameAndCuisine(String searchInput, String cuisineSelection) {
+			return restaurantRepository.findAllByRestaurantNameAndCuisineContaining(searchInput, cuisineSelection);
+		}
 }

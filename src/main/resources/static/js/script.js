@@ -236,6 +236,17 @@ async function getRestaurantByName(name) {
     return responseData;
 }
 
+async function getReservationByID(reservationID) {
+    const response = await fetch(`http://localhost:8080/reservation/${reservationID}/details`, {
+        method: 'GET',
+        headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+            }
+    });
+    const responseData = await response.json();
+    return responseData;
+}
+
 async function performRedirect(route, token) {
     const response = await fetch('http://localhost:8080'+route, {
         method: 'GET',
@@ -254,7 +265,7 @@ async function performRedirect(route, token) {
     }
 }
 
-async function makeReservation(partySize, reservationTime, restaurantName){
+async function makeReservation(reservationDate, partySize, reservationTime, restaurantName){
 	var customerID = await getCustomerInformation(localStorage.getItem("user"))
 	.then(function(responseData) {
                         return responseData.customerID;
@@ -279,10 +290,50 @@ async function makeReservation(partySize, reservationTime, restaurantName){
 		   'Content-Type': 'application/json',          
            Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
         }, 
-        body: JSON.stringify({customerID, restaurantID, partySize, reservationTime})
+        body: JSON.stringify({customerID, restaurantID, partySize, reservationTime, reservationDate})
     });
     if (response.status == 200) {
         window.location.href = "http://localhost:8080/customer/profile";
+    } else {
+        console.log("Failed to create reservation");
+    }
+}
+
+async function modifyReservation(reservationID) {
+    localStorage.setItem('reservation', reservationID+"");
+    performRedirect("/reservation/modify",localStorage.getItem("jwt"));
+}
+
+async function cancelReservation(reservationID) {
+    const response = await fetch(`http://localhost:8080/reservation/cancel/${reservationID}`, {
+        method: 'POST',
+        headers: {
+		   'Content-Type': 'application/json',          
+           Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
+        }
+    });
+    if (response.status == 200) {
+        const token = localStorage.getItem('jwt')
+        if (token != null) {
+            checkRoles(token)
+            .then(data => {
+                data.forEach(role => {
+                    console.log("Role:", role);
+                });
+                if (data.includes("CUSTOMER")) {
+                    window.location.href = "http://localhost:8080/customer/profile";
+                } else if (data.includes("RESTAURANT")) {
+                    window.location.href = "http://localhost:8080/restaurant/profile";
+                } else {
+                    window.location.href = "http://localhost:8080/login";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        } else {
+            window.location.href = "http://localhost:8080/search";
+        }
     } else {
         console.log("Failed to create reservation");
     }

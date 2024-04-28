@@ -28,19 +28,9 @@ public class TemplateController {
 		return "restaurantprofile";
 	}
 	
-	@GetMapping("/restaurant/upload-photos")
-	public String uploadPhotoView() {
-		return "uploadForm";
-	}
-	
 	@GetMapping("/restaurant/information")
 	public String registerRestaurant() {
 		return "restaurantinformation";
-	}
-	
-	@GetMapping("/customer/home")
-	public String customerView() {
-		return "customerhome";
 	}
 	
 	@GetMapping("/customer/profile")
@@ -56,5 +46,10 @@ public class TemplateController {
 	@GetMapping("/search")
 	public String searchFood() {
 		return "searchfood";
+	}
+	
+	@GetMapping("/reservation/modify")
+	public String modifyReservation() {
+		return "restaurantreservation";
 	}
 }

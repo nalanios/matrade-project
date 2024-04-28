@@ -17,8 +17,8 @@
         <div class="welcome-container">
             <h1 id="customerName">Customer's Profile</h1>
             <p><a href="/customer/information"><u>Edit Account Details</u></a></p>
-            <h2 id="reservationHeader">Reservations:</h2> <!-- changed from Upcoming Reservations to Reservations, since no dates are associated -->
-            <!-- Commented out for test documentation purposes. Currently does not have functionality
+            <h2 id="reservationHeader">Upcoming Reservations:</h2>
+        <!-- Commented out for test documentation purposes. Currently does not have functionality
             <h3>Modify</h3>
             <h3>Cancel Reservation</h3>
             <h2>Past Reservations:</h2>
@@ -37,7 +37,7 @@
             .catch(error => {
                 console.error("Error fetching data:", error);
             });
-
+        
         async function displayReservations() {
             const response = await fetch(`http://localhost:8080/reservation/${username}/get-all`, {
                 method: 'GET',
@@ -53,15 +53,19 @@
                 console.log(data)
                 
                 data.forEach(reservation => {
-                    var restaurantName = "";
+                	const reservationID = reservation.reservationID;
+                	var restaurantName = "";                   
                     const restaurantID = reservation.restaurantID;
-                    getRestaurantByID(restaurantID+"")
+                    getRestaurantByID(restaurantID)
                         .then(responseData => {
                             const restaurantName = responseData.restaurantName;
                             const address = responseData.address;
                             const partySize = reservation.partySize;
+                            const date = reservation.reservationDate;
                             const time = reservation.reservationTime;
-                            reservationHeader.insertAdjacentHTML('beforeend', `<p>${restaurantName}, ${address}, Time: ${time}, Party: ${partySize}</p>`);
+                            reservationHeader.insertAdjacentHTML('beforeend', `<p>${restaurantName}, ${address}, Date: ${date}, Time: ${time}, Party: ${partySize}</p>
+                            <button  id="modify-button" class="modify-buttons" onclick="modifyReservation(${reservationID})">Modify</button>
+                            <button  id="cancel-button" class="cancel-buttons" onclick="cancelReservation(${reservationID})">Cancel</button>`);
                         })
                     
                 });

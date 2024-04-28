@@ -34,7 +34,7 @@ public class ReservationController {
     
     @PostMapping("/reserve")
     public Reservation reserve(@RequestBody ReservationDTO body){
-    	return reservationService.createReservation(body.getCustomerID(), body.getRestaurantID(), body.getPartySize(), body.getReservationTime());
+    	return reservationService.createReservation(body.getCustomerID(), body.getRestaurantID(), body.getPartySize(), body.getReservationTime(), body.getReservationDate());
     }
     
     @GetMapping("/reservation/{username}/get-all")
@@ -51,5 +51,23 @@ public class ReservationController {
         Restaurant restaurant = restaurantService.getCurrentRestaurant(username);
         Integer restaurantID = restaurant.getRestaurantID();
     	return reservationService.getAllRestaurantReservations(restaurantID);
+    }
+    
+    @GetMapping("/reservation/{reservationID}/details")
+	public Reservation getReservationByID(@PathVariable String reservationID) {
+		reservationID = reservationID.replace("\"", "");
+		return reservationService.getReservationByID(Integer.parseInt(reservationID));
+	}
+
+    @PostMapping("/reservation/update-information/{reservationID}")
+    public Reservation updateReservation(@RequestBody ReservationDTO body, @PathVariable String reservationID) {
+		reservationID = reservationID.replace("\"", "");
+        return reservationService.updateReservation(Integer.parseInt(reservationID), body.getPartySize(), body.getReservationTime(), body.getReservationDate());
+    }
+
+    @PostMapping("/reservation/cancel/{reservationID}")
+    public void cancelReservation(@PathVariable String reservationID) {
+		reservationID = reservationID.replace("\"", "");
+        reservationService.cancelReservation(Integer.parseInt(reservationID));
     }
 }
