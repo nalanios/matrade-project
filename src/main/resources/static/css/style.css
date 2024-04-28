@@ -20,7 +20,6 @@ body {
     padding: 10px;
 }
 
-/*INSERT RESOURCE USED HERE FOR NAVIGATION BAR (.header and .header a)*/
 .header {
     width: 100%;
     display: flex;
@@ -85,6 +84,10 @@ p{
     font-size: 20px;
 }
 
+h1, h2, h3, label, button {
+    font-family: 'Roboto', sans-serif; 
+}
+
 h1 {
     color: rgb(110, 109, 109);
     font-family: "Playfair Display";
@@ -131,15 +134,17 @@ input, select {
     margin: 20px auto;
 }
 
-/* hover effect for all buttons */
-.brand:hover, .sign-in:hover, .user-profile:hover, .search-for-restaurants:hover, 
-.create-account:hover, .submit:hover, .restaurant-user:hover, .customer-user:hover, 
-.profile:hover, .login:hover {
-    background-color: #ff0000; 
-    color: #ffffff;
-    padding: 12px 22px;
+.brand:hover {
+    background-color: rgb(110, 109, 109);
+    color: white;
 }
 
+.brand:hover, .sign-in:hover, .user-profile:hover, .search-for-restaurants:hover, 
+.create-account:hover, .submit:hover, .restaurant-user:hover, .customer-user:hover, 
+.profile:hover, .login:hover, .reserve-buttons:hover {
+    background-color: #ff0000;
+    color: #ffffff;
+}
 
 .search-box {
     display: flex;
@@ -150,17 +155,21 @@ input, select {
     width: 100%; 
 }
 
-/* input styles */
-input[type="text"], input[type="username"], input[type="email"], input[type="password"], input, select {
-    width: 250px;  
-    padding: 10px;
-    margin: 5px 0;
+input[type="text"], input[type="username"], input[type="email"], input[type="password"], input, select, input[type="number"], input[type="time"] {
+    box-sizing: border-box;
     border: 2px solid #e7e5e5;
     border-radius: 5px;
-    font-size: 16px;
-    box-sizing: border-box; 
+    font-size: 16px; /* or 14px if you prefer smaller text */
 }
 
+input[type="number"], input[type="time"] {
+    width: 120px;  /* Adjust the width as needed */
+    padding: 8px;  /* Smaller padding for less height and a tidier look */
+    margin: 5px 0; /* Ensure consistent vertical spacing */
+    border: 2px solid #e7e5e5; 
+    border-radius: 5px;
+    font-size: 14px; /* Slightly smaller font size if needed */
+}
 
 .account-type{
     width: 50px;  
@@ -240,3 +249,39 @@ button.result-button:hover {
     transition: background-color 0.2s, color 0.2s, padding 0.2s; 
 }
 
+
+
+.listing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.info-container, .text-container, .reservation-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.reservation-form {
+    margin-left: 20px;  // Space between the info and the form
+}
+
+.reserve-buttons {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: rgb(110, 109, 109); /* Match other button text colors */
+    cursor: pointer;
+    padding: 10px 20px; /* Consistent padding with other buttons */
+    border-radius: 10px; /* Rounded corners */
+    transition: background-color 0.2s, color 0.2s; /* Smooth transition for background and text color */
+}
+
+.reserve-buttons:hover {
+    background-color: #ff0000; /* Red background on hover */
+    color: #ffffff; /* White text on hover */
+}
