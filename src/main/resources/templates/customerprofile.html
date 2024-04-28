@@ -53,6 +53,7 @@
                 console.log(data)
                 
                 data.forEach(reservation => {
+                    const reservationID = reservation.reservationID;
                     var restaurantName = "";
                     const restaurantID = reservation.restaurantID;
                     getRestaurantByID(restaurantID+"")
@@ -61,7 +62,9 @@
                             const address = responseData.address;
                             const partySize = reservation.partySize;
                             const time = reservation.reservationTime;
-                            reservationHeader.insertAdjacentHTML('beforeend', `<p>${restaurantName}, ${address}, Time: ${time}, Party: ${partySize}</p>`);
+                            reservationHeader.insertAdjacentHTML('beforeend', `<p>${restaurantName}, ${address}, Time: ${time}, Party: ${partySize}</p>
+                                <button  id="modify-button" class="modify-buttons" onclick="modifyReservation(${reservationID})">Modify</button>
+                                <button  id="cancel-button" class="cancel-buttons" onclick="cancelReservation(${reservationID})">Cancel</button>`);
                         })
                     
                 });

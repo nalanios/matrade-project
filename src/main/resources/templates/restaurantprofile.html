@@ -67,6 +67,7 @@
             console.log(data)
             
             data.forEach(reservation => {
+                const reservationID = reservation.reservationID;
                 const customerID = reservation.customerID;
                 getCustomerByID(customerID+"")
                     .then(responseData => {
@@ -75,7 +76,8 @@
                         const phone = responseData.phoneNumber;
                         const partySize = reservation.partySize;
                         const time = reservation.reservationTime;
-                        reservationHeader.insertAdjacentHTML('beforeend', `<p>Customer: ${customerFirstName} ${customerLastName}, Phone Number: ${phone}, Time: ${time}, Party: ${partySize}</p>`);
+                        reservationHeader.insertAdjacentHTML('beforeend', `<p>Customer: ${customerFirstName} ${customerLastName}, Phone Number: ${phone}, Time: ${time}, Party: ${partySize}</p>
+                            <button  id="cancel-button" class="cancel-buttons" onclick="cancelReservation(${reservationID})">Cancel</button>`);
                     })
                 
             });

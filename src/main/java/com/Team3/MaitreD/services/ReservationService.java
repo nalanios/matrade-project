@@ -26,5 +26,19 @@ public class ReservationService {
     public List<Reservation> getAllRestaurantReservations(Integer restaurantID) {
         return reservationRepository.findByRestaurantID(restaurantID);
     }
-    
+
+    public Reservation getReservationByID(Integer reservationID) {
+        return reservationRepository.findById(reservationID).get();
+    }
+
+    public Reservation updateReservation(Integer reservationID, Integer partySize, String reservationTime) {
+        Reservation reservation = getReservationByID(reservationID);
+        reservation.setPartySize(partySize);
+        reservation.setReservationTime(reservationTime);
+        return reservationRepository.save(reservation);
+    }
+
+    public void cancelReservation(Integer reservationID) {
+        reservationRepository.deleteById(reservationID);
+    }
 }

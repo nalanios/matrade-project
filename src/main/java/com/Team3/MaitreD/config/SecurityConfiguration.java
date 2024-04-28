@@ -59,7 +59,7 @@ public class SecurityConfiguration {
 				.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> {
 					auth.requestMatchers( "/", "/css/**", "/js/**", "/imgs/**", "/favicon.ico").permitAll();
-					auth.requestMatchers("/login", "/register", "/check-roles", "/search", "/customer/**", "/restaurant/**", "/h2-console/**", "/get-image/**").permitAll();
+					auth.requestMatchers("/login", "/register", "/check-roles", "/search", "/customer/**", "/restaurant/**", "/h2-console/**", "/get-image/**", "/reservation/cancel/{reservationID}", "/reservation/modify", "reservation/update-information/{reservationID}").permitAll();
 					auth.requestMatchers("/profile/{username}/information", "/restaurant-reservations/{username}").hasRole("RESTAURANT");
 					auth.requestMatchers("/customer/{username}/information", "/reserve", "/reservation/**").hasRole("CUSTOMER");
 					auth.anyRequest().authenticated();
