@@ -82,7 +82,8 @@
             console.log(data)
             
             data.forEach(reservation => {
-                const customerID = reservation.customerID;
+                const reservationID = reservation.reservationID;
+		const customerID = reservation.customerID;
                 getCustomerByID(customerID+"")
                     .then(responseData => {
                         const customerFirstName = responseData.firstName;
