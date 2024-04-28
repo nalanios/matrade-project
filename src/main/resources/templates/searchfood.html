@@ -193,18 +193,22 @@
                             const reservationForm = document.createElement('div');
                             reservationForm.className = 'reservation-form';
                             reservationForm.innerHTML = `
-                            <div style="display: flex; flex-direction: column;">
+                            <div>
                                 <div style="display: flex; align-items: center; margin-bottom: 10px;">
-                                    <label for="reservation${countingString}" style="width: 60px; margin-right: 5px;">Date</label>
-                                    <input type="time" id="reservation${countingString}" name="reservation" required>
+                                    <label for="reservationDate${countingString}" style="width: 60px; margin-right: 5px;">Date</label>
+                                    <input type="date" id="reservationDate${countingString}" name="reservationDate" required>
                                 </div>
-                                <div style="display: flex; align-items: center;">
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <label for="reservationTime${countingString}" style="width: 60px; margin-right: 5px;">Time</label>
+                                    <input type="time" id="reservationTime${countingString}" name="reservationTime" required>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
                                     <label for="party${countingString}" style="width: 60px; margin-right: 5px;">Guests</label>
-                                    <input type="number" id="party${countingString}" name="party" min="1" max="10" required style="flex-grow: 1;">
+                                    <input type="number" id="party${countingString}" name="party" min="1" max="10" required>
                                 </div>
                                 <button id="reserve-button${countingString}" class="reserve-buttons" style="margin-top: 10px;">Reserve</button>
                             </div>
-                        `;
+                            `
                         listing.appendChild(infoContainer); 
                         listing.appendChild(reservationForm); 
                     }
