@@ -19,20 +19,30 @@ public class Reservation {
     private Integer restaurantID; // foreign key for restaurant
 	private Integer partySize;
 	private String reservationTime;
-
+	private String reservationDate;
+	
     public Reservation() {
 		super();
 	}
 
-    public Reservation(Integer customerID, Integer restaurantID, Integer partySize, String reservationTime) {
+    public Reservation(Integer customerID, Integer restaurantID, Integer partySize, String reservationTime, String reservationDate) {
         super();
         this.customerID = customerID;
         this.restaurantID = restaurantID;
         this.partySize = partySize;
         this.reservationTime = reservationTime;
+        this.reservationDate = reservationDate;
     }
 
-    public Integer getReservationID() {
+    public String getReservationDate() {
+		return reservationDate;
+	}
+
+	public void setReservationDate(String reservationDate) {
+		this.reservationDate = reservationDate;
+	}
+
+	public Integer getReservationID() {
 		return reservationID;
 	}
 

@@ -278,7 +278,7 @@ async function performRedirect(route, token) {
     }
 }
 
-async function makeReservation(partySize, reservationTime, restaurantName){
+async function makeReservation(reservationDate, partySize, reservationTime, restaurantName){
 	var customerID = await getCustomerInformation(localStorage.getItem("user"))
 	.then(function(responseData) {
                         return responseData.customerID;
@@ -303,7 +303,7 @@ async function makeReservation(partySize, reservationTime, restaurantName){
 		   'Content-Type': 'application/json',          
            Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))
         }, 
-        body: JSON.stringify({customerID, restaurantID, partySize, reservationTime})
+        body: JSON.stringify({customerID, restaurantID, partySize, reservationTime, reservationDate})
     });
     if (response.status == 200) {
         window.location.href = "http://localhost:8080/customer/profile";

@@ -18,8 +18,11 @@
             <!--Need to pull data from DB the name of the restaurant-->
             <h1 id="restaurantName">Restaurant's Profile</h1>
             <p><a href="/restaurant/information"><u>Edit Account Details</u></a></p>
-            <a class="nav-link active" th:href="@{/restaurant/upload-photos}">Upload Photos</a>
-            <!-- Commented out for test documentation purposes. Currently does not have functionality
+            <table>
+				<tr><td>Upload a picture of your restaurant for customers to see:</td><td><input type="file" name="file" id="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" id="upload" onclick="uploadImage()"/></td></tr>
+			</table>
+			<!-- Commented out for test documentation purposes. Currently does not have functionality
             <h2>Tables:</h2>
             <h3>Edit Available Tables</h3><br>
             -->
@@ -52,6 +55,18 @@
         });
     loadPictures(username);
     
+    async function uploadImage() {
+    	const username = localStorage.getItem('user');
+        const input = document.getElementById('file').files[0];
+    	const response = await fetch(`http://localhost:8080/restaurant-image/upload/${username}`, {
+            method: 'POST',
+            headers: {
+                Authorization: "Bearer " +  JSON.parse(localStorage.getItem("jwt"))            
+            },
+    	body: input
+        });
+    }
+    
     async function displayReservations() {
         const response = await fetch(`http://localhost:8080/restaurant-reservations/${username}`, {
             method: 'GET',
@@ -67,7 +82,6 @@
             console.log(data)
             
             data.forEach(reservation => {
-                const reservationID = reservation.reservationID;
                 const customerID = reservation.customerID;
                 getCustomerByID(customerID+"")
                     .then(responseData => {
@@ -75,9 +89,11 @@
                         const customerLastName = responseData.lastName;
                         const phone = responseData.phoneNumber;
                         const partySize = reservation.partySize;
+                        const date = reservation.reservationDate;
                         const time = reservation.reservationTime;
-                        reservationHeader.insertAdjacentHTML('beforeend', `<p>Customer: ${customerFirstName} ${customerLastName}, Phone Number: ${phone}, Time: ${time}, Party: ${partySize}</p>
-                            <button  id="cancel-button" class="cancel-buttons" onclick="cancelReservation(${reservationID})">Cancel</button>`);
+                        reservationHeader.insertAdjacentHTML('beforeend', `<p>Customer: ${customerFirstName} ${customerLastName}, 
+                        		Phone Number: ${phone}, Date: ${date}, Time: ${time}, Party: ${partySize}</p>
+                        <button  id="cancel-button" class="cancel-buttons" onclick="cancelReservation(${reservationID})">Cancel</button>`);
                     })
                 
             });
