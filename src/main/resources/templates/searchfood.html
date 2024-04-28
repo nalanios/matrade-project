@@ -6,6 +6,7 @@
     <title>Search Food</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"> <!-- for star ratings -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="header">
@@ -18,41 +19,18 @@
     <div class="centered-container">
         <div class="welcome-container">
             <h2>Let's Find Some Food</h2>
-            <div class="search-box">
-                <label for="restaurant">Restaurant Search:</label>
-                <input type="text" id="restaurant" name="restaurant">
-                <label for="cuisine">Cuisine:</label>
-                <select id="cuisine" name="cuisine">
-                    <option value="">Select Cuisine</option>
-                </select>
-                <!-- Commented out for test documentation purposes. Currently does not have functionality
-                <label for="price">Price:</label>
-                <select id="price" name="price">
-                    <option value="">Select Price</option>
-                    <option value="$">$</option>
-                    <option value="$$">$$</option>
-                    <option value="$$$">$$$</option>
-                    <option value="$$$$">$$$$</option>
-                </select>
-                <label for="rating">Rating:</label>
-                <select id="rating" name="rating">
-                    <option value="">Select Rating</option>
-                    <option value="1">★☆☆☆☆ - 1 Star</option>
-                    <option value="2">★★☆☆☆ - 2 Stars</option>
-                    <option value="3">★★★☆☆ - 3 Stars</option>
-                    <option value="4">★★★★☆ - 4 Stars</option>
-                    <option value="5">★★★★★ - 5 Stars</option>
-                </select>
-            -->
+            <div class="search-box" style="display: flex; align-items: center;">
+                <input type="text" id="restaurant" name="restaurant" placeholder="Restaurant name" style="flex-grow: 1; max-width: 250px; margin-right: 10px;">
+                <div style="display: flex; align-items: center;">
+                    <select id="cuisine" name="cuisine">
+                        <option value="">Select Cuisine</option>
+                    </select>
+                </div>
             </div>
-            <!-- Commented out for test documentation purposes. Currently does not have functionality
-            <button id="searchButton" class="login">Search</button>
-            -->
             <!-- Results will be displayed below -->
             <div id="searchResults" class="results-container"></div>
         </div>        
     </div>
-  
      <script>
         // listener for restaurant name search field
         const restaurantSearch = document.getElementById("restaurant");
@@ -170,76 +148,89 @@
             }
         }
 
-     // method for displaying an individual restaurant
-     async function displayRestaurant(restaurant, resultsContainer, counter) {
-         	 const name = restaurant.restaurantName;
-             var formattedName = name.replace(/(?<!\\)'/g, "\\'");
-             
-             var countingString = counter.toString();
-             
-             const address = restaurant.address;
-             const phoneNumber = restaurant.phoneNumber;
-             const cuisine = restaurant.cuisine;
-             const openingTime = restaurant.openingTime;
-             const closingTime = restaurant.closingTime;
-             
-             const image = new Image();
-             image.src = 'data:image/jpeg;base64,' + restaurant.photo;
-             image.width = "200"
-             image.height = "200"
-             
-             var ddate = new Date();
-             var todaysDate = ddate.toLocaleDateString('en-CA');
-             var maxDate = new Date(ddate.setMonth(ddate.getMonth()+3)).toLocaleDateString('en-CA');
-      		
-             const listing = document.createElement('div');
-             listing.className = 'listing';
-             const token = localStorage.getItem("jwt");
-             if (token != null) {
-                 checkRoles(token)
-                     .then(data => {
-                         data.forEach(role => {
-                             console.log("Role:", role);
-                         });
-                         if (data.includes("CUSTOMER")) {
-                             listing.innerHTML = `
-                                 <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                                 <div>
-                                 <h3>Make a Reservation:</h3>
-                                 <label for="date">Date:</label>
-                                 <input type="date" id="date${countingString}" name="date" min="${todaysDate}" max="${maxDate}" required>
-                                 <label for="reservation">Time:</label>
-                                 <input type="time" id="reservation${countingString}" name="reservation" min="${openingTime}" max="${closingTime}" required>
-                                 <label for="party">Party Size:</label>
-                                 <input type="number" id="party${countingString}" name="party" min="1" max="10" required>
-                                 <button  id="reserve-button" class="reserve-buttons" onclick="makeReservation(document.getElementById('date${countingString}').value, \
-                                 															   document.getElementById('party${countingString}').value, \
-                                                                                               document.getElementById('reservation${countingString}').value,'${formattedName}')">Reserve</button>
-                                 </div>
-                             `;
-                              // REMOVED FROM END OF ABOVE STRING: <button class="menu-button">Menu</button>
-                              // removed for testing documentation screenshots since it does not have testable functionality
-                             resultsContainer.appendChild(image);
-                             resultsContainer.appendChild(listing);
-                         } else {
-                             listing.innerHTML = `
-                                 <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                             `;
-                             resultsContainer.appendChild(image);
-                             resultsContainer.appendChild(listing);
-                         }
-                     })
-                     .catch(error => {
-                         console.error("Error:", error);
-                     });
-             } else {
-                 listing.innerHTML = `
-                     <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                 `;
-                 resultsContainer.appendChild(image);
-                 resultsContainer.appendChild(listing);
-             }
-     }
+        // method for displaying an individual restaurant
+        async function displayRestaurant(restaurant, resultsContainer, counter) {
+            const name = restaurant.restaurantName;
+            var formattedName = name.replace(/(?<!\\)'/g, "\\'");
+            var countingString = counter.toString();
+            const address = restaurant.address;
+            const phoneNumber = restaurant.phoneNumber;
+            const cuisine = restaurant.cuisine;
+            const openingTime = restaurant.openingTime;
+            const closingTime = restaurant.closingTime;
+          
+            var ddate = new Date();
+            var todaysDate = ddate.toLocaleDateString('en-CA');
+            var maxDate = new Date(ddate.setMonth(ddate.getMonth()+3)).toLocaleDateString('en-CA');
+            
+            const listing = document.createElement('div');
+            listing.className = 'listing';
+            listing.style.display = 'flex';  // use flexbox to lay out elements side by side
+
+            const infoContainer = document.createElement('div');
+            infoContainer.className = 'info-container';
+            infoContainer.style.flex = '1';
+
+            const image = new Image();
+            image.src = 'data:image/jpeg;base64,' + restaurant.photo;
+            image.width = "400";
+            image.height = "300";
+            infoContainer.appendChild(image);
+
+            const textContainer = document.createElement('div');
+            textContainer.className = 'text-container';
+            textContainer.innerHTML = `
+                <h1 id="restaurantName">${name}</h1>
+                <p style="margin: 2px 0; font-size: 14px;">${cuisine} | ${openingTime} - ${closingTime}</p>
+                <p style="margin: 2px 0; font-size: 14px;">${address}</p>
+                <p style="margin: 2px 0; font-size: 14px;">${phoneNumber}</p>
+            `;
+            infoContainer.appendChild(textContainer);
+            
+            // if statement added to verify reserve functionality only appears after customer is logged in
+            const token = localStorage.getItem("jwt");
+            if (token != null) {
+                checkRoles(token)
+                    .then(data => {
+                        if (data.includes("CUSTOMER")) {
+                            const reservationForm = document.createElement('div');
+                            reservationForm.className = 'reservation-form';
+                            reservationForm.innerHTML = `
+                            <div>
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <label for="reservationDate" style="width: 60px; margin-right: 5px;">Date</label>
+                                    <input type="date" id="reservationDate${countingString}" name="reservationDate" min="${todaysDate}" max="${maxDate}" required>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <label for="reservationTime" style="width: 60px; margin-right: 5px;">Time</label>
+                                    <input type="time" id="reservationTime${countingString}" name="reservationTime" required>
+                                </div>
+                                <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                    <label for="party" style="width: 60px; margin-right: 5px;">Guests</label>
+                                    <input type="number" id="party${countingString}" name="party" min="1" max="10" required>
+                                </div>
+                                <button id="reserve-button" class="reserve-buttons" style="margin-top: 10px;" onclick="makeReservation(document.getElementById('reservationDate${countingString}').value, \
+                                 															                                 document.getElementById('party${countingString}').value, \
+                                                                                               document.getElementById('reservationTime${countingString}').value,'${formattedName}')">Reserve</button>
+                            </div>
+                            `;
+                        listing.appendChild(infoContainer); 
+                        listing.appendChild(reservationForm); 
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        } else {
+            listing.appendChild(infoContainer);
+        }
+
+        // append the listing to the results container
+        resultsContainer.appendChild(listing);
+    }
+
+
+
 
         async function addCuisineOptions() {
             const response = await fetch('http://localhost:8080/restaurant/get-all', {
