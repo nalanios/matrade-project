@@ -52,4 +52,22 @@ public class ReservationController {
         Integer restaurantID = restaurant.getRestaurantID();
     	return reservationService.getAllRestaurantReservations(restaurantID);
     }
+
+    @GetMapping("/reservation/{reservationID}/details")
+	public Reservation getReservationByID(@PathVariable String reservationID) {
+		reservationID = reservationID.replace("\"", "");
+		return reservationService.getReservationByID(Integer.parseInt(reservationID));
+	}
+
+    @PostMapping("/reservation/update-information/{reservationID}")
+    public Reservation updateReservation(@RequestBody ReservationDTO body, @PathVariable String reservationID) {
+		reservationID = reservationID.replace("\"", "");
+        return reservationService.updateReservation(Integer.parseInt(reservationID), body.getPartySize(), body.getReservationTime());
+    }
+
+    @PostMapping("/reservation/cancel/{reservationID}")
+    public void cancelReservation(@PathVariable String reservationID) {
+		reservationID = reservationID.replace("\"", "");
+        reservationService.cancelReservation(Integer.parseInt(reservationID));
+    }
 }

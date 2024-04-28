@@ -57,4 +57,9 @@ public class TemplateController {
 	public String searchFood() {
 		return "searchfood";
 	}
+
+	@GetMapping("/reservation/modify")
+	public String modifyReservation() {
+		return "restaurantreservation";
+	}
 }
