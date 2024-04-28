@@ -21,7 +21,9 @@
                 <form id="reservationForm" class="reservation-form" method="post" onsubmit="updateReservationInformation(event)">
                     <!--<label for="date">Preferred Date:</label>
                     <input type="date" id="date" name="date" required><br> -->
-    
+    				<label for="date">New Date:</label>
+                    <input type="date" id="dateModify" name="date" required><br>
+                    
                     <label for="time">Preferred Time:</label>
                     <input type="time" id="timeModify" name="time" required><br>
     
@@ -63,6 +65,7 @@
         const reservationID = localStorage.getItem('reservation');
         getReservationByID(reservationID)
             .then(responseData => {
+            	document.getElementById("dateModify").value = responseData.reservationDate;
                 document.getElementById("partyModify").value = responseData.partySize;
                 document.getElementById('timeModify').value = responseData.reservationTime;
                 getRestaurantByID(responseData.restaurantID+"")
@@ -73,12 +76,13 @@
 
         function updateReservationInformation(event) {
             event.preventDefault();
+            const reservationDate = document.getElementById("dateModify").value;
 			const partySize = document.getElementById('partyModify').value;
 			const reservationTime = document.getElementById('timeModify').value;			
-			sendData(partySize, reservationTime);
+			sendData(reservationDate, partySize, reservationTime);
         }
         
-        async function sendData(partySize, reservationTime) {
+        async function sendData(reservationDate, partySize, reservationTime) {
         	const username = localStorage.getItem('user');
             try {
                 const response = await fetch(`http://localhost:8080/reservation/update-information/${reservationID}`, {
@@ -86,7 +90,7 @@
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({partySize, reservationTime}),
+                    body: JSON.stringify({partySize, reservationTime, reservationDate}),
                 });
 				
                 if (response.ok) {

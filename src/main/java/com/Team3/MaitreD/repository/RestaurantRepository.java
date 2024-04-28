@@ -15,6 +15,7 @@ import com.Team3.MaitreD.models.Restaurant;
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer>{
 	Optional<Restaurant> findById(Integer id);
 	Optional<Restaurant> findByRestaurantName(String restaurantName);
+	
 	@Query("SELECT i FROM Restaurant i WHERE LOWER(i.restaurantName) LIKE LOWER(CONCAT('%', :search, '%'))")
 	List<Restaurant> findAllByRestaurantNameContaining(@Param("search") String search);
 	@Query("SELECT i FROM Restaurant i WHERE LOWER(i.cuisine) LIKE LOWER(CONCAT('%', :cuisine, '%'))")

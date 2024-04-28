@@ -19,14 +19,13 @@
         <div class="welcome-container">
             <h2>Let's Find Some Food</h2>
             <div class="search-box">
-                <h3>Filters:</h3>
-                <label for="restaurant">Restaurant Name:</label>
-                <input type="text" id="restaurant" name="restaurant"> <!-- @Madi: make box longer? -->
+                <label for="restaurant">Restaurant Search:</label>
+                <input type="text" id="restaurant" name="restaurant">
                 <label for="cuisine">Cuisine:</label>
                 <select id="cuisine" name="cuisine">
                     <option value="">Select Cuisine</option>
                 </select>
-            <!-- Commented out for test documentation purposes. Currently does not have functionality
+                <!-- Commented out for test documentation purposes. Currently does not have functionality
                 <label for="price">Price:</label>
                 <select id="price" name="price">
                     <option value="">Select Price</option>
@@ -53,6 +52,7 @@
             <div id="searchResults" class="results-container"></div>
         </div>        
     </div>
+  
      <script>
         // listener for restaurant name search field
         const restaurantSearch = document.getElementById("restaurant");
@@ -170,67 +170,76 @@
             }
         }
 
-        // method for displaying an individual restaurant
-        async function displayRestaurant(restaurant, resultsContainer, counter) {
-            const name = restaurant.restaurantName;
-                var formattedName = name.replace(/(?<!\\)'/g, "\\'");
-                var countingString = counter.toString();
-                const address = restaurant.address;
-                const phoneNumber = restaurant.phoneNumber;
-                const cuisine = restaurant.cuisine;
-                const openingTime = restaurant.openingTime;
-                const closingTime = restaurant.closingTime;
-                
-                const image = new Image();
-                image.src = 'data:image/jpeg;base64,' + restaurant.photo;
-                image.width = "200"
-                image.height = "200"
-                
-                const listing = document.createElement('div');
-                listing.className = 'listing';
-                const token = localStorage.getItem("jwt");
-                if (token != null) {
-                    checkRoles(token)
-                        .then(data => {
-                            data.forEach(role => {
-                                console.log("Role:", role);
-                            });
-                            if (data.includes("CUSTOMER")) {
-                                listing.innerHTML = `
-                                    <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                                    <div>
-                                    <label for="reservation">Make a Reservation:</label>
-                                    <input type="time" id="reservation${countingString}" name="reservation" required>
-                                    <label for="party">Party Size:</label>
-                                    <input type="number" id="party${countingString}" name="party" min="1" max="10" required>
-                                    <button  id="reserve-button" class="reserve-buttons" onclick="makeReservation(document.getElementById('party${countingString}').value, \
-                                                                                                document.getElementById('reservation${countingString}').value,'${formattedName}')">Reserve</button>
-                                    </div>
-                                    
-                                `;
-                                // REMOVED FROM END OF ABOVE STRING: <button class="menu-button">Menu</button>
-                                // removed for testing documentation screenshots since it does not have testable functionality
-                                resultsContainer.appendChild(image);
-                                resultsContainer.appendChild(listing);
-                            } else {
-                                listing.innerHTML = `
-                                    <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                                `;
-                                resultsContainer.appendChild(image);
-                                resultsContainer.appendChild(listing);
-                            }
-                        })
-                        .catch(error => {
-                            console.error("Error:", error);
-                        });
-                } else {
-                    listing.innerHTML = `
-                        <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
-                    `;
-                    resultsContainer.appendChild(image);
-                    resultsContainer.appendChild(listing);
-                }
-        }
+     // method for displaying an individual restaurant
+     async function displayRestaurant(restaurant, resultsContainer, counter) {
+         	 const name = restaurant.restaurantName;
+             var formattedName = name.replace(/(?<!\\)'/g, "\\'");
+             
+             var countingString = counter.toString();
+             
+             const address = restaurant.address;
+             const phoneNumber = restaurant.phoneNumber;
+             const cuisine = restaurant.cuisine;
+             const openingTime = restaurant.openingTime;
+             const closingTime = restaurant.closingTime;
+             
+             const image = new Image();
+             image.src = 'data:image/jpeg;base64,' + restaurant.photo;
+             image.width = "200"
+             image.height = "200"
+             
+             var ddate = new Date();
+             var todaysDate = ddate.toLocaleDateString('en-CA');
+             var maxDate = new Date(ddate.setMonth(ddate.getMonth()+3)).toLocaleDateString('en-CA');
+      		
+             const listing = document.createElement('div');
+             listing.className = 'listing';
+             const token = localStorage.getItem("jwt");
+             if (token != null) {
+                 checkRoles(token)
+                     .then(data => {
+                         data.forEach(role => {
+                             console.log("Role:", role);
+                         });
+                         if (data.includes("CUSTOMER")) {
+                             listing.innerHTML = `
+                                 <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
+                                 <div>
+                                 <h3>Make a Reservation:</h3>
+                                 <label for="date">Date:</label>
+                                 <input type="date" id="date${countingString}" name="date" min="${todaysDate}" max="${maxDate}" required>
+                                 <label for="reservation">Time:</label>
+                                 <input type="time" id="reservation${countingString}" name="reservation" min="${openingTime}" max="${closingTime}" required>
+                                 <label for="party">Party Size:</label>
+                                 <input type="number" id="party${countingString}" name="party" min="1" max="10" required>
+                                 <button  id="reserve-button" class="reserve-buttons" onclick="makeReservation(document.getElementById('date${countingString}').value, \
+                                 															   document.getElementById('party${countingString}').value, \
+                                                                                               document.getElementById('reservation${countingString}').value,'${formattedName}')">Reserve</button>
+                                 </div>
+                             `;
+                              // REMOVED FROM END OF ABOVE STRING: <button class="menu-button">Menu</button>
+                              // removed for testing documentation screenshots since it does not have testable functionality
+                             resultsContainer.appendChild(image);
+                             resultsContainer.appendChild(listing);
+                         } else {
+                             listing.innerHTML = `
+                                 <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
+                             `;
+                             resultsContainer.appendChild(image);
+                             resultsContainer.appendChild(listing);
+                         }
+                     })
+                     .catch(error => {
+                         console.error("Error:", error);
+                     });
+             } else {
+                 listing.innerHTML = `
+                     <h1 id="restaurantName">${name}</h1> ${cuisine} | ${openingTime} | ${closingTime} | ${phoneNumber} | ${address}
+                 `;
+                 resultsContainer.appendChild(image);
+                 resultsContainer.appendChild(listing);
+             }
+     }
 
         async function addCuisineOptions() {
             const response = await fetch('http://localhost:8080/restaurant/get-all', {

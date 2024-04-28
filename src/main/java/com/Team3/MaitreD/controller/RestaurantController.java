@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,21 +61,18 @@ public class RestaurantController {
 		return restaurantService.checkIfRestaurantExistsByUsername(username);
     }
 	
-	@PostMapping("restaurant/upload-photos")
-	public void uploadPhoto(@RequestParam("file") MultipartFile file, 
-			RedirectAttributes redirectAttributes) {
+	@PostMapping("restaurant-image/upload/{username}")
+	public void uploadPhoto(@RequestBody Resource resource,  @PathVariable String username) {
+		username = username.replace("\"", "");
 		byte[] filecontent = null;
 		try {
-			InputStream inputStream = file.getInputStream();
+			InputStream inputStream = resource.getInputStream();
 			filecontent = inputStream.readAllBytes();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 restaurantService.addPicture("photo", filecontent);
-		
-		redirectAttributes.addFlashAttribute("message",
-				"You successfully uploaded " + file.getOriginalFilename() + "!");
+		 restaurantService.addPicture(username, filecontent);
 		
 	}
 	
@@ -91,8 +89,8 @@ public class RestaurantController {
     public List<Restaurant> getAllRestaurants () {
     	return restaurantService.getAllRestaurants();
     }
-
-	@GetMapping("/restaurant/filter/name/{searchInput}")
+    
+    @GetMapping("/restaurant/filter/name/{searchInput}")
 	public List<Restaurant> filterRestaurantsByName(@PathVariable String searchInput) {
 		searchInput = searchInput.replace("\"", "");
 		return restaurantService.filterRestaurantsByName(searchInput);

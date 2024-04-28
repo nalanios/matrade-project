@@ -18,9 +18,7 @@
             <!-- Form to enter data -->
             <form id="dataForm">
                 <label for="username">Enter Username:</label>
-                <input type="text" id="username" name="username"><br>
-        <!--         <label for="email">Enter Email:</label> -->
-        <!--         <input type="text" id="email" name="email"> -->
+                <input type="text" id="username" name="username">
                 <label for="password">Enter Password:</label>
                 <input type="password" id="password" name="password"><br>
                 <button type="submit" class="submit" id="login">Submit</button>
@@ -106,23 +104,18 @@
             
             // Get user-entered data from the form
             const username = document.getElementById('username').value;
-          //  const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
             // Send data to the server
             sendData(username, password);
         });
     </script>
-
-
-    <!--Website Footer-->
+	<!--Website Footer-->
 			<div id="footer-wrapper">
 				<div class="footer-container">
 					Maître d' Application created by Team 3 - Spring 2024
 				</div>
 			</div>
-
-
     <!-- Scripts -->
     <script src="/js/script.js"></script>
 </body>
