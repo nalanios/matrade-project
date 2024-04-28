@@ -19,41 +19,19 @@
     <div class="centered-container">
         <div class="welcome-container">
             <h2>Let's Find Some Food</h2>
-            <div class="search-box">
-                <h3>Filters:</h3>
-                <label for="restaurant">Restaurant Name:</label>
-                <input type="text" id="restaurant" name="restaurant"> <!-- @Madi: make box longer? -->
-                <label for="cuisine">Cuisine:</label>
-                <select id="cuisine" name="cuisine">
-                    <option value="">Select Cuisine</option>
-                </select>
-            <!-- Commented out for test documentation purposes. Currently does not have functionality
-                <label for="price">Price:</label>
-                <select id="price" name="price">
-                    <option value="">Select Price</option>
-                    <option value="$">$</option>
-                    <option value="$$">$$</option>
-                    <option value="$$$">$$$</option>
-                    <option value="$$$$">$$$$</option>
-                </select>
-                <label for="rating">Rating:</label>
-                <select id="rating" name="rating">
-                    <option value="">Select Rating</option>
-                    <option value="1">★☆☆☆☆ - 1 Star</option>
-                    <option value="2">★★☆☆☆ - 2 Stars</option>
-                    <option value="3">★★★☆☆ - 3 Stars</option>
-                    <option value="4">★★★★☆ - 4 Stars</option>
-                    <option value="5">★★★★★ - 5 Stars</option>
-                </select>
-            -->
+            <div class="search-box" style="display: flex; align-items: center;">
+                <input type="text" id="restaurant" name="restaurant" placeholder="Restaurant name" style="flex-grow: 1; max-width: 250px; margin-right: 10px;">
+                <div style="display: flex; align-items: center;">
+                    <select id="cuisine" name="cuisine">
+                        <option value="">Select Cuisine</option>
+                    </select>
+                </div>
             </div>
-            <!-- Commented out for test documentation purposes. Currently does not have functionality
-            <button id="searchButton" class="login">Search</button>
-            -->
             <!-- Results will be displayed below -->
             <div id="searchResults" class="results-container"></div>
         </div>        
     </div>
+    
      <script>
         // listener for restaurant name search field
         const restaurantSearch = document.getElementById("restaurant");
@@ -196,15 +174,16 @@
             infoContainer.appendChild(image);
 
             const textContainer = document.createElement('div');
+            textContainer.className = 'text-container';
             textContainer.innerHTML = `
                 <h1 id="restaurantName">${name}</h1>
-                <p>${cuisine} | ${openingTime} - ${closingTime}</p>
-                <p>${address}</p>
-                <p>${phoneNumber}</p>
+                <p style="margin: 2px 0; font-size: 14px;">${cuisine} | ${openingTime} - ${closingTime}</p>
+                <p style="margin: 2px 0; font-size: 14px;">${address}</p>
+                <p style="margin: 2px 0; font-size: 14px;">${phoneNumber}</p>
             `;
-            textContainer.className = 'text-container';
             infoContainer.appendChild(textContainer);
-
+            
+            
             const reservationForm = document.createElement('div');
             reservationForm.className = 'reservation-form';
             reservationForm.innerHTML = `
