@@ -15,21 +15,13 @@
     <!-- This container includes both the welcome message and the Create Account button -->
     <div class="centered-container"> <!-- Additional wrapper for better clarity on styling -->
         <div class="welcome-container">
-            <!--Need to pull data from DB the name of the restaurant-->
             <h1 id="restaurantName">Restaurant's Profile</h1>
             <p><a href="/restaurant/information"><u>Edit Account Details</u></a></p>
             <table>
-				<tr><td>Upload a profile picture (1mb size limit):</td><td><input type="file" name="file" id="file" /></td></tr>
-				<tr><td></td><td><input type="submit" value="Upload" id="upload" onclick="uploadImage()"/></td></tr>
+				<tr><td>Upload a profile picture (1MB size limit):</td><td><input type="file" name="file" id="file" /></td></tr>
+				<tr><td></td><td><input type="submit" value="Upload" id="upload" class="imageUpload" onclick="uploadImage()"/></td></tr>
 			</table>
-			<!-- Commented out for test documentation purposes. Currently does not have functionality
-            <h2>Tables:</h2>
-            <h3>Edit Available Tables</h3><br>
-            -->
             <h2 id="reservationHeader">Upcoming Reservations</h2>
-            <!-- Commented out for test documentation purposes. Currently does not have functionality
-            <h3>Contact Customer</h3>
-            -->
         </div>
     </div>
     <script src="/js/script.js"></script>
@@ -65,6 +57,7 @@
             },
     	body: input
         });
+    	performRedirect("/restaurant/profile", localStorage.getItem("jwt"));
     }
     
     async function displayReservations() {

@@ -247,7 +247,7 @@ button.result-button:hover {
 /* hover effect for all buttons*/
 .brand:hover, .sign-in:hover, .user-profile:hover, .search-for-restaurants:hover, 
 .create-account:hover, .submit:hover, .restaurant-user:hover, .customer-user:hover, 
-.profile:hover, .login:hover {
+.profile:hover, .login:hover , .imageUpload:hover{
     background-color: #ff0000; 
     color: #ffffff;             
     transition: background-color 0.2s, color 0.2s;
@@ -280,7 +280,7 @@ button.result-button:hover {
 }
 
 .reservation-form {
-    margin-left: 20px;  // Space between the info and the form
+     margin-left: 20px;   /*Space between the info and the form */
 }
 
 .reserve-buttons {
