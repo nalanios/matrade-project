@@ -207,7 +207,7 @@
                                 </div>
                                 <div style="display: flex; align-items: center; margin-bottom: 10px;">
                                     <label for="reservationTime" style="width: 60px; margin-right: 5px;">Time</label>
-                                    <input type="time" id="reservationTime${countingString}" name="reservationTime" required>
+                                    <input type="time" id="reservationTime${countingString}" name="reservationTime" min=${openingTime} max=${closingTime} required>
                                 </div>
                                 <div style="display: flex; align-items: center; margin-bottom: 10px;">
                                     <label for="party" style="width: 60px; margin-right: 5px;">Guests</label>

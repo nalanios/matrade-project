@@ -71,6 +71,8 @@
                 getRestaurantByID(responseData.restaurantID+"")
                     .then(restaurantResponse => {
                         document.getElementById('restaurantModify').textContent = restaurantResponse.restaurantName;
+                        document.getElementById('timeModify').setAttribute('min', restaurantResponse.openingTime);
+                        document.getElementById('timeModify').setAttribute('max', restaurantResponse.closingTime);
                     })
             });
 
